@@ -1,0 +1,148 @@
+{
+  "bridge":{
+    "galley": "galley",
+    "description": "",
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  },
+
+  "galley":{
+    "bridge": "bridge",
+    "utility": "utility",
+    "description": "",
+    "containers": {
+      "floor":"carpet",
+      "wall":"pictures",
+      "hutch": "sword"
+    }
+  },
+
+  "utility":{
+    "galley": "galley",
+    "hallway": "hallway",
+    "description": "",
+    "containers": {
+      "corner":"mop",
+      "floor":"vacuum",
+      "tough box": "map"
+    }
+  },
+
+  "hallway":{
+    "utility": "utility",
+    "armory": "armory",
+    "supply": "supply",
+    "sickbay": "sickbay",
+    "head": "head",
+    "dorms": "dorms",
+    "description": "",
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  },
+
+  "armory":{
+    "hallway":"hallway",
+    "supply": "supply",
+    "description": "",
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  },
+
+  "supply":{
+    "hallway":"hallway",
+    "armory": "armory",
+    "description": "",
+    "paths": ["armory","hallway"],
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  },
+
+  {
+    "name": "sickbay",
+    "description": "",
+    "paths": ["quarantinebay","hallway"],
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  },
+
+  {
+    "name": "quarantinebay",
+    "description": "",
+    "paths": ["sickbay","hallway"],
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  },
+
+  {
+    "name": "dorms",
+    "description": "",
+    "paths": ["lab","hallway","playroom","enginebay"],
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  },
+
+  {
+    "name": "lab",
+    "description": "",
+    "paths": "dorms",
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  },
+
+  {
+    "name": "playroom",
+    "description": "",
+    "paths": ["dorms","pod"],
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  },
+
+  {
+    "name": "enginebay",
+    "description": "",
+    "paths": "dorms",
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  },
+
+  {
+    "name": "pod",
+    "description": "",
+    "paths": "playroom",
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  }
+}

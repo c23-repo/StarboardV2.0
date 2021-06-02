@@ -1,0 +1,11 @@
+{
+  "bridge": {
+    "galley": "galley",
+    "description": "",
+    "containers": {
+      "floor": "carpet",
+      "console": "key",
+      "secret box": "map"
+    }
+  }
+}
