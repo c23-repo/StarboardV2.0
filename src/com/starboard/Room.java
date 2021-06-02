@@ -2,19 +2,24 @@ package com.starboard;
 
 import java.util.HashMap;
 import java.util.Map;
-//import java.util.List;
+import java.util.List;
+import java.util.ArrayList;
 
 class Room {
     // Fields
 
+    private String name;
     private String description;
-    // private List<InteractableItem> contents  May use existing class or make class.
+    private final List<List<String>> containers = new ArrayList<>();
     private final Map<String, Room> paths = new HashMap<>();
-    // Possibly have containers in the room, each capable of holding more objects. examples: floor, table, drawer, box
 
     // Constructors
 
     public Room() {}
+
+    public Room(String name) {
+        this.name = name;
+    }
 
     // Accessors
 
@@ -24,6 +29,14 @@ class Room {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<List<String>> getContainers() {
+        return containers;
+    }
+
+    public void addContainer() {
+
     }
 
     public Map<String, Room> getPaths() {
