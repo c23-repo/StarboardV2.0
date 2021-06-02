@@ -61,7 +61,6 @@
     "hallway":"hallway",
     "armory": "armory",
     "description": "",
-    "paths": ["armory","hallway"],
     "containers": {
       "floor":"carpet",
       "console":"key",
@@ -69,10 +68,10 @@
     }
   },
 
-  {
-    "name": "sickbay",
+  "sickbay":{
+    "head": "head",
+    "hallway": "hallway",
     "description": "",
-    "paths": ["quarantinebay","hallway"],
     "containers": {
       "floor":"carpet",
       "console":"key",
@@ -80,10 +79,23 @@
     }
   },
 
-  {
-    "name": "quarantinebay",
+  "head":{
+    "sickbay": "sickbay",
+    "hallway": "hallway",
+    "description": "bathroom",
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  },
+
+  "dorms":{
+    "lab":"lab",
+    "playroom": "playroom",
+    "hallway": "hallway",
+    "enginebay": "enginebay",
     "description": "",
-    "paths": ["sickbay","hallway"],
     "containers": {
       "floor":"carpet",
       "console":"key",
@@ -91,10 +103,9 @@
     }
   },
 
-  {
-    "name": "dorms",
+  "lab":{
+    "dorms":"dorms" ,
     "description": "",
-    "paths": ["lab","hallway","playroom","enginebay"],
     "containers": {
       "floor":"carpet",
       "console":"key",
@@ -102,8 +113,19 @@
     }
   },
 
-  {
-    "name": "lab",
+  "playroom":{
+    "dorms":"dorms",
+    "pod": "pod",
+    "description": "",
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  },
+
+  "enginebay":{
+    "dorms":"dorms" ,
     "description": "",
     "paths": "dorms",
     "containers": {
@@ -113,30 +135,8 @@
     }
   },
 
-  {
-    "name": "playroom",
-    "description": "",
-    "paths": ["dorms","pod"],
-    "containers": {
-      "floor":"carpet",
-      "console":"key",
-      "secret box": "map"
-    }
-  },
-
-  {
-    "name": "enginebay",
-    "description": "",
-    "paths": "dorms",
-    "containers": {
-      "floor":"carpet",
-      "console":"key",
-      "secret box": "map"
-    }
-  },
-
-  {
-    "name": "pod",
+  "pod":{
+    "playroom":"playroom" ,
     "description": "",
     "paths": "playroom",
     "containers": {
