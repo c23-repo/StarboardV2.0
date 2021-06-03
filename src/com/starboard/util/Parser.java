@@ -22,14 +22,14 @@ class Parser {
                 command.add(word);
             }
         }
-
+        //create synonyms for go command
         List<String> moveCollection = Arrays.asList("go","move","walk","run","sprint","proceed","pass");
 
         if (moveCollection.contains(command.get(0))){
             setFirstCommand("go");
             setSecondCommand(command.get(1));
         }
-
+        //create synonyms for pick command
         List<String> pickItemsCollection = Arrays.asList("pick","pickup","grab","get","take","catch","capture","snag","occupy","steal","seize","grasp","snatch");
 
         if (pickItemsCollection.contains(command.get(0))){
