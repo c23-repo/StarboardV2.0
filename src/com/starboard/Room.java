@@ -7,14 +7,13 @@ import java.util.ArrayList;
 
 class Room {
     // Fields
-
     private String name;
     private String description;
-    private final List<List<String>> containers = new ArrayList<>();
+    private List<String> linkedRooms;
+    private Map<String, String> containers = new HashMap<>();
     private final Map<String, Room> paths = new HashMap<>();
 
     // Constructors
-
     public Room() {}
 
     public Room(String name) {
@@ -22,6 +21,29 @@ class Room {
     }
 
     // Accessors
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<String> getLinkedRooms() {
+        return linkedRooms;
+    }
+
+    public void setLinkedRooms(List<String> linkedRooms) {
+        this.linkedRooms = linkedRooms;
+    }
+
+    public Map<String, String> getContainers() {
+        return containers;
+    }
+
+    public void setContainers(Map<String, String> containers) {
+        this.containers = containers;
+    }
 
     public String getDescription() {
         return description;
@@ -31,14 +53,6 @@ class Room {
         this.description = description;
     }
 
-    public List<List<String>> getContainers() {
-        return containers;
-    }
-
-    public void addContainer() {
-
-    }
-
     public Map<String, Room> getPaths() {
         return paths;
     }
@@ -46,6 +60,4 @@ class Room {
     public void setPath(String key, Room value) {
         this.paths.put(key, value);
     }
-
-    // Business Methods
 }
