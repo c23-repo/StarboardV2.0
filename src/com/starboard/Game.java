@@ -23,7 +23,7 @@ class Game {
             Prompt.showStatus(currentRoom);
             String[] parsedInputs = InputHandler.input(currentRoom);
             // traverse rooms
-            if (parsedInputs[0].equals("go")) {
+            if (parsedInputs[0].equals("go") || parsedInputs[0].equals("exit")) {
                 if (currentRoom.getLinkedRooms().contains(parsedInputs[1])) {
                     currentRoom = currentRoom.getPaths().get(parsedInputs[1]);
                 } else {
