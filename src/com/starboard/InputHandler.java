@@ -11,9 +11,9 @@ class InputHandler {
         Parser parser = new Parser(room);
 
         do {
-            System.out.println("Please type in your command.\n>");
+            System.out.print("Please type in your command.\n> ");
             String input = sc.nextLine();
-            if (input == null) {
+            if (input.equals("")) {
                 Prompt.showCommands();
             } else {
                 parser.parse(input);
