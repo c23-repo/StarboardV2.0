@@ -12,7 +12,7 @@ class Parser {
 
 
     public void parse(String str){
-
+        //strip filler words from user input
         List<String> fillerWords = Arrays.asList("to","the","a","an","from","in","inside","out","outside","of");
         String[] splitWords = str.trim().split(" ");
         List<String> command = new ArrayList<>();
@@ -36,6 +36,24 @@ class Parser {
             setFirstCommand("pick");
             setSecondCommand(command.get(1));
         }
+
+        //create synonyms for drop command
+        List<String> dropItemsCollection = Arrays.asList("drop","leave");
+        if(dropItemsCollection.contains(command.get(0))){
+            setFirstCommand("drop");
+            setSecondCommand(command.get(1));
+        }
+
+        //create synonyms for use command
+        List<String> useItemsCollection = Arrays.asList("use","show","display","exhibit","display","shoot","apply","fire","throw","insert","turn","push","pull","eat","utilize");
+
+        if (useItemsCollection.contains(command.get(0))){
+            setFirstCommand("use");
+            setSecondCommand(command.get(1));
+        }
+
+
+
     }
 
     public String getFirstCommand() {
