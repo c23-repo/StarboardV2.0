@@ -1,6 +1,6 @@
 package com.starboard;
 
-import com.starboard.util.Parser;
+import com.starboard.util.*;
 
 import java.util.Scanner;
 
@@ -14,7 +14,7 @@ class InputHandler {
             System.out.println("Please type in your command.\n>");
             String input = sc.nextLine();
             if (input == null) {
-                //call helper doc
+                Prompt.showCommands();
             } else {
                 parser.parse(input);
             }
@@ -25,8 +25,5 @@ class InputHandler {
         command[1] = parser.getSecondCommand();
 
         return command;
-
-
-
     }
 }
