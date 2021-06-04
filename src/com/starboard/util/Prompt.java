@@ -2,6 +2,9 @@ package com.starboard.util;
 
 import com.starboard.Room;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -40,5 +43,17 @@ public class Prompt {
                 + "get [item name]\n"
                 + "Example: get key\n"
                 + "===============================================");
+    }
+
+    public static void showMap() {
+        String path = "resources/spaceship.txt";
+        String map = null;
+        try {
+            map = Files.readString(Paths.get(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(map);
     }
 }
