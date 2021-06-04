@@ -14,7 +14,8 @@ class Game {
         List<Room> roomsList = CreateRooms.create();
         // Initialize start room
         Room currentRoom = roomsList.get(0);
-        // prompt to show status
+        // prompt to show status and commands
         Prompt.showStatus(currentRoom);
+        Prompt.showCommands();
     }
 }

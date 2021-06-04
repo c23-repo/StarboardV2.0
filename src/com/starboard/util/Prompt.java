@@ -28,14 +28,17 @@ public class Prompt {
         } else {
             System.out.println("This room is not linked to any rooms!");
         }
-        // show the commands
-        System.out.println("\n================== Commands ==================\n"
-                           + "1. Move to linked room: \n"
-                           + "go/move/walk/run/sprint/proceed/pass [linked room name]\n"
-                           + "Example: go bridge, move bridge, etc\n\n"
-                           + "2. Get an item: \n"
-                           + "get/pick/pickup/grab/take/catch/capture/snag/occupy/steal/seize/grasp/snatch [item name]\n"
-                           + "Example: get key, grab key, etc");
         System.out.println("--------------------------------------------------------------------------------");
+    }
+
+    public static void showCommands() {
+        System.out.println("================== Commands ==================\n"
+                + "1. Move to linked room: \n"
+                + "go [linked room name]\n"
+                + "Example: go bridge\n\n"
+                + "2. Get an item: \n"
+                + "get [item name]\n"
+                + "Example: get key\n"
+                + "===============================================");
     }
 }
