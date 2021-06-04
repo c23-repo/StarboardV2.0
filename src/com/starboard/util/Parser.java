@@ -42,8 +42,14 @@ public class Parser {
             List<String> exitCollection = Arrays.asList("exit","leave");
             //if currentroom is bridge||lab||enginebay, can use exit and leave
             setFirstCommand("exit");
-            setParseStatus(singleEntryRoomNames.contains(room.getName()) && exitCollection.contains(command.get(0)));
-
+            Room nextRoom = room.getPaths().get(room.getLinkedRooms().get(0));
+            setSecondCommand(nextRoom.getName());
+            if(singleEntryRoomNames.contains(room.getName()) && exitCollection.contains(command.get(0))){
+                setParseStatus(true);
+            }else{
+                setParseStatus(false);
+                System.out.println("You cannot use exit on multi-door room, please use go command.");
+            }
         } else {
 
             //create synonyms for go command
