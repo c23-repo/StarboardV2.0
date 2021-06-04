@@ -1,7 +1,12 @@
 package com.starboard.util;
 
+import com.starboard.Player;
 import com.starboard.Room;
+import com.starboard.items.GameItem;
+import com.starboard.items.HealingItem;
+import com.starboard.items.Weapon;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -56,4 +61,19 @@ public class Prompt {
 
         System.out.println(map);
     }
+
+    public static void showInventory(Player player) {
+        System.out.println("\n------------------------------- Inventory -------------------------------------");
+        System.out.printf("%10s%15s%15s%30s%n","Item",    "healValue", "damageValue", "description");
+        for (GameItem item : player.getInventory().values()) {
+            // if the item is a healingItem, display its healValue
+            String healValue = item instanceof HealingItem ? String.valueOf(((HealingItem) item).getHealValue()) : "n/a";
+            // if the item is a weapon, display its damageValue
+            String damageValue = item instanceof Weapon ? String.valueOf(((Weapon) item).getDamage()) : "n/a";
+            System.out.printf("%10s%10s%15s%40s%n", item.getName(), healValue , damageValue , item.getDescription());
+        }
+        System.out.println("------------------------------- Inventory -------------------------------------");
+    }
+
+
 }
