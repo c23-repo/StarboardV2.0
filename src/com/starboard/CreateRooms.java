@@ -11,7 +11,7 @@ class CreateRooms {
         ObjectMapper mapper = new ObjectMapper();
         try {
             roomsList = mapper.readValue(
-                new File("resources/rooms/roomtest.json"),
+                new File("resources/rooms/rooms.json"),
                 new TypeReference<List<Room>>(){}
             );
         } catch (IOException e) {

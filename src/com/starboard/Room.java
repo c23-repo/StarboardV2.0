@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
-class Room {
+public class Room {
     // Fields
     private String name;
     private String description;

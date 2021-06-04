@@ -1,5 +1,7 @@
 package com.starboard;
 
+import com.starboard.util.Prompt;
+
 import java.util.List;
 
 class Game {
@@ -10,5 +12,9 @@ class Game {
     public static void start() {
         // Initialization: create a list of Room objects
         List<Room> roomsList = CreateRooms.create();
+        // Initialize start room
+        Room currentRoom = roomsList.get(0);
+        // prompt to show status
+        Prompt.showStatus(currentRoom);
     }
 }
