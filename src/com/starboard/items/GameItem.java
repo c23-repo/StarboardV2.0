@@ -5,9 +5,19 @@ public abstract class GameItem {
     String description;
     final boolean isPortable;
 
+    public GameItem(String name) {
+        this.name = name;
+        isPortable = false;
+    }
+
     public GameItem(String name, boolean isPortable) {
         this.name = name;
         this.isPortable = isPortable;
+    }
+
+    public GameItem(String name, String description) {
+        this(name);
+        this.description = description;
     }
 
     public GameItem(String name, boolean isPortable, String description) {

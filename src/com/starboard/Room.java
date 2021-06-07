@@ -1,16 +1,19 @@
 package com.starboard;
 
+import com.starboard.items.Container;
+import com.starboard.items.GameItem;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
-class Room {
+public class Room {
     // Fields
     private String name;
     private String description;
     private List<String> linkedRooms;
-    private Map<String, String> containers = new HashMap<>();
+    private Map<String, Container> containers = new HashMap<>();
     private final Map<String, Room> paths = new HashMap<>();
 
     // Constructors
@@ -19,6 +22,10 @@ class Room {
     public Room(String name) {
         this.name = name;
     }
+
+    // Business
+
+
 
     // Accessors
     public String getName() {
@@ -37,11 +44,30 @@ class Room {
         this.linkedRooms = linkedRooms;
     }
 
-    public Map<String, String> getContainers() {
+    public Map<String, Container> getContainers() {
         return containers;
     }
 
-    public void setContainers(Map<String, String> containers) {
+    public Container getContainer(String name) throws NullPointerException {
+        return containers.get(name);
+    }
+
+    // Search containers for a GameItem object with a name that matches the parameter.
+    public GameItem getItemFromContainers(String name) throws NullPointerException {
+        GameItem result = null;
+        for (Container container: containers.values()) {
+            try {
+                result = container.getContentItem(name);
+            } catch (NullPointerException ignored) {}
+        }
+        if (result != null) {
+            return result;
+        } else {
+            throw new NullPointerException();
+        }
+    }
+
+    public void setContainers(Map<String, Container> containers) {
         this.containers = containers;
     }
 

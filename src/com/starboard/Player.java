@@ -5,14 +5,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Player {
-    private int maxHp;
-    private int hp;
+    private int maxHp = 25;
+    private int hp = maxHp;
     private final Map<String, GameItem> inventory = new HashMap<>();
     private Weapon equippedWeapon = null;
 
-    public void use(Usable item) {
-        item.use(this);
+    public void use(GameItem item) {
+        try {
+            Usable useItem = (Usable) item;
+            useItem.use(this);
+        } catch (ClassCastException e) {
+            System.out.printf("Can't use %s", item.getName());
+        }
     }
+
+    // Accessors
 
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
@@ -67,5 +74,9 @@ public class Player {
             System.out.printf("You do not have %s", itemName);
             return null;
         }
+    }
+
+    public void setEquippedWeapon(Weapon weapon) {
+        equippedWeapon = weapon;
     }
 }

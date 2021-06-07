@@ -8,6 +8,7 @@ public class HealingItem extends GameItem implements Usable {
     @Override
     public void use(Player player) {
         player.changeHp(getHealValue());
+        System.out.printf("Healed %d HP.%n", healValue);
     }
 
     public HealingItem(String name, boolean isPortable, int healValue) {
