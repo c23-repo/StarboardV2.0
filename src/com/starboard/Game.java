@@ -22,10 +22,25 @@ class Game {
         //initialize player
 
         Player player = new Player();
+        Alien aliens = new Alien(5);
 
         while (!endGame) {
+            if (currentRoom.getContainers().containsValue("alien")){
+                currentRoom.getContainers().remove("air","alien");
+            }
+            aliens.setRoom(currentRoom);
+            aliens.setShowUpChance(aliens.getNumOfAliens());
+            aliens.showUp();
             Prompt.showStatus(currentRoom);
             Prompt.showInventory(player);
+
+            if (currentRoom.getContainers().containsValue("alien")){
+                //enter battle mode
+//                if win{
+//                    aliens.setNumOfAliens(aliens.getNumOfAliens() - 1);
+//                } else break;
+            }
+
             String[] parsedInputs = InputHandler.input(currentRoom);
             // traverse rooms
             if (parsedInputs[0].equals("go") || parsedInputs[0].equals("exit")) {
