@@ -64,7 +64,7 @@ public class Prompt {
 
     public static void showInventory(Player player) {
         System.out.println("\n------------------------------- Inventory -------------------------------------");
-        System.out.printf("%10s%15s%15s%30s%n","Item",    "healValue", "damageValue", "description");
+        System.out.printf("%10s%15s%15s%30s%n","Item", "healValue", "damageValue", "description");
         for (GameItem item : player.getInventory().values()) {
             // if the item is a healingItem, display its healValue
             String healValue = item instanceof HealingItem ? String.valueOf(((HealingItem) item).getHealValue()) : "n/a";

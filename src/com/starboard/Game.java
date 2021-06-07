@@ -25,6 +25,7 @@ class Game {
 
         while (!endGame) {
             Prompt.showStatus(currentRoom);
+            Prompt.showInventory(player);
             String[] parsedInputs = InputHandler.input(currentRoom);
             // traverse rooms
             if (parsedInputs[0].equals("go") || parsedInputs[0].equals("exit")) {
@@ -38,9 +39,11 @@ class Game {
             // show map
             if (parsedInputs[1].equals("map") && player.getInventory().containsKey("map")){
                 Prompt.showMap();
-            } else{
+            } else if(parsedInputs[1].equals("map") && !player.getInventory().containsKey("map")){
                 System.out.println("You don't have a map, please acquire one.");
             }
+
+
             // implement get items
 
             // end game
