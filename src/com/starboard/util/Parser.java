@@ -23,7 +23,7 @@ public class Parser {
 
     public void parse(String str) {
         //strip filler words from user input
-        List<String> fillerWords = Arrays.asList("to", "the", "a", "an", "from", "in", "inside", "out", "outside", "of");
+        List<String> fillerWords = Arrays.asList("to", "the", "a", "an", "from", "in", "inside", "out", "outside", "of","me");
         String[] splitWords = str.trim().split(" ");
         List<String> command = new ArrayList<>();
 
