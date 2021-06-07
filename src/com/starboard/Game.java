@@ -19,6 +19,10 @@ class Game {
         // show commands
         Prompt.showCommands();
 
+        //initialize player
+
+        Player player = new Player();
+
         while (!endGame) {
             Prompt.showStatus(currentRoom);
             String[] parsedInputs = InputHandler.input(currentRoom);
@@ -29,6 +33,13 @@ class Game {
                 } else {
                     System.out.println("Can't go that room!");
                 }
+            }
+
+            // show map
+            if (parsedInputs[1].equals("map") && player.getInventory().containsKey("map")){
+                Prompt.showMap();
+            } else{
+                System.out.println("You don't have a map, please acquire one.");
             }
             // implement get items
 
