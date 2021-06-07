@@ -46,9 +46,11 @@ public class Parser {
             setSecondCommand(nextRoom.getName());
             if(singleEntryRoomNames.contains(room.getName()) && exitCollection.contains(command.get(0))){
                 setParseStatus(true);
-            }else{
+            }else if (exitCollection.contains(command.get(0)) && !singleEntryRoomNames.contains(room.getName())){
                 setParseStatus(false);
                 System.out.println("You cannot use exit on multi-door room, please use go command.");
+            } else{
+                System.out.println("Unrecognized command");
             }
         } else {
 
@@ -64,7 +66,7 @@ public class Parser {
             List<String> pickItemsCollection = Arrays.asList("pick", "pickup", "grab", "get", "take", "catch", "capture", "snag", "occupy", "steal", "seize", "grasp", "snatch");
 
             if (pickItemsCollection.contains(command.get(0).toLowerCase())) {
-                setFirstCommand("pick");
+                setFirstCommand("get");
                 setSecondCommand(command.get(1).toLowerCase());
                 setParseStatus(true);
             }
