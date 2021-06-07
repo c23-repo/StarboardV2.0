@@ -1,18 +1,19 @@
-{
-  "bridge":{
-    "galley": "galley",
-    "description": "",
-    "containers": {
-      "floor":"carpet",
-      "console":"key",
-      "secret box": "map"
-    }
+[
+  {
+      "name": "bridge",
+      "linkedRooms": ["galley"],
+      "description": "The bridge is a room or platform of a ship from which the ship can be commanded.",
+      "containers": {
+        "floor": "carpet",
+        "console": "key",
+        "secret box": "map"
+      }
   },
 
-  "galley":{
-    "bridge": "bridge",
-    "utility": "utility",
-    "description": "",
+  {
+    "name": "galley",
+    "linkedRooms": ["bridge","utility"],
+    "description": "The galley is the compartment of a ship where food is cooked and prepared",
     "containers": {
       "floor":"carpet",
       "wall":"pictures",
@@ -20,10 +21,10 @@
     }
   },
 
-  "utility":{
-    "galley": "galley",
-    "hallway": "hallway",
-    "description": "",
+  {
+    "name": "utility",
+    "linkedRooms": ["galley","hallway"],
+    "description": "The utility room is where the generators, pumps and air system located.",
     "containers": {
       "corner":"mop",
       "floor":"vacuum",
@@ -31,13 +32,20 @@
     }
   },
 
-  "hallway":{
-    "utility": "utility",
-    "armory": "armory",
-    "supply": "supply",
-    "sickbay": "sickbay",
-    "head": "head",
-    "dorms": "dorms",
+  {
+    "name": "hallway",
+    "linkedRooms": ["utility","armory","supply","sickbay","head","dorms"],
+    "description": "The hallway is a corridor",
+    "containers": {
+      "floor":"carpet",
+      "console":"key",
+      "secret box": "map"
+    }
+  },
+
+  {
+    "name": "armory",
+    "linkedRooms": ["hallway","supply"],
     "description": "",
     "containers": {
       "floor":"carpet",
@@ -46,9 +54,9 @@
     }
   },
 
-  "armory":{
-    "hallway":"hallway",
-    "supply": "supply",
+  {
+    "name": "supply",
+    "linkedRooms": ["hallway","armory"],
     "description": "",
     "containers": {
       "floor":"carpet",
@@ -57,9 +65,9 @@
     }
   },
 
-  "supply":{
-    "hallway":"hallway",
-    "armory": "armory",
+  {
+    "name": "sickbay",
+    "linkedRooms": ["head","hallway"],
     "description": "",
     "containers": {
       "floor":"carpet",
@@ -68,20 +76,9 @@
     }
   },
 
-  "sickbay":{
-    "head": "head",
-    "hallway": "hallway",
-    "description": "",
-    "containers": {
-      "floor":"carpet",
-      "console":"key",
-      "secret box": "map"
-    }
-  },
-
-  "head":{
-    "sickbay": "sickbay",
-    "hallway": "hallway",
+  {
+    "name": "head",
+    "linkedRooms": ["sickbay","hallway"],
     "description": "bathroom",
     "containers": {
       "floor":"carpet",
@@ -90,11 +87,9 @@
     }
   },
 
-  "dorms":{
-    "lab":"lab",
-    "playroom": "playroom",
-    "hallway": "hallway",
-    "enginebay": "enginebay",
+  {
+    "name": "dorms",
+    "linkedRooms": ["lab","playroom","hallway","enginebay"],
     "description": "",
     "containers": {
       "floor":"carpet",
@@ -103,8 +98,9 @@
     }
   },
 
-  "lab":{
-    "dorms":"dorms" ,
+  {
+    "name": "lab",
+    "linkedRooms": ["dorms"],
     "description": "",
     "containers": {
       "floor":"carpet",
@@ -113,9 +109,9 @@
     }
   },
 
-  "playroom":{
-    "dorms":"dorms",
-    "pod": "pod",
+  {
+    "name": "playroom",
+    "linkedRooms": ["dorms","pod"],
     "description": "",
     "containers": {
       "floor":"carpet",
@@ -124,10 +120,10 @@
     }
   },
 
-  "enginebay":{
-    "dorms":"dorms" ,
+  {
+    "name": "enginebay",
+    "linkedRooms": ["dorms"],
     "description": "",
-    "paths": "dorms",
     "containers": {
       "floor":"carpet",
       "console":"key",
@@ -135,14 +131,14 @@
     }
   },
 
-  "pod":{
-    "playroom":"playroom" ,
-    "description": "",
-    "paths": "playroom",
+  {
+    "name": "pod",
+    "linkedRooms": ["playroom"],
+    "description": "Escape pod, for emergency use. It needs a key to open.",
     "containers": {
       "floor":"carpet",
       "console":"key",
       "secret box": "map"
     }
   }
-}
+]
