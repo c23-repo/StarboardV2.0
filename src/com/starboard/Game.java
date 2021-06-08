@@ -36,9 +36,9 @@ class Game {
 
             if (currentRoom.getContainers().containsValue("alien")){
                 //enter battle mode
-//                if win{
-//                    aliens.setNumOfAliens(aliens.getNumOfAliens() - 1);
-//                } else break;
+////                if win{
+////                    aliens.setNumOfAliens(aliens.getNumOfAliens() - 1);
+////                } else break;
             }
 
             String[] parsedInputs = InputHandler.input(currentRoom);
