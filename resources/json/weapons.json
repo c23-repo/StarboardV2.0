@@ -1,0 +1,16 @@
+[
+  {
+    "name": "gun",
+    "description": "This is a gun.",
+    "damage": 20,
+    "isPortable": true,
+    "quantity": 1
+  },
+  {
+    "name": "pistol",
+    "description": "This is a pistol.",
+    "damage": 10,
+    "isPortable": true,
+    "quantity": 1
+  }
+]
