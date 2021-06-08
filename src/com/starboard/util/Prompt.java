@@ -2,11 +2,11 @@ package com.starboard.util;
 
 import com.starboard.Player;
 import com.starboard.Room;
+import com.starboard.items.Container;
 import com.starboard.items.GameItem;
 import com.starboard.items.HealingItem;
 import com.starboard.items.Weapon;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -19,13 +19,14 @@ public class Prompt {
         System.out.println(String.format("Location: You are in the %s.", currentRoom.getName()));
         System.out.println(String.format("Description: %s", currentRoom.getDescription()));
         // show items in the current room
-        Map<String, String> container = currentRoom.getContainers();
-        if (container.size() > 0) {
-            for (String itemLocation : container.keySet()) {
-                System.out.println(String.format("Item: You see a/an %s in the %s.", container.get(itemLocation), itemLocation));
+        Map<String, Container> containers = currentRoom.getContainers();
+        if (containers.size() > 0) {
+            for (String itemLocation : containers.keySet()) {
+                System.out.println(containers.get(itemLocation).getContents());
+                for (String itemName : containers.get(itemLocation).getContents().keySet()) {
+                    System.out.printf("Item: You see a/an %s in the %s.", itemName, itemLocation);
+                }
             }
-        } else {
-            System.out.println("There is no items in this room!");
         }
         // show linked rooms
         List<String> linkedRooms = currentRoom.getLinkedRooms();
