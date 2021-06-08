@@ -1,18 +1,60 @@
 package com.starboard;
 
 import com.starboard.items.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Player {
-    private int maxHp;
-    private int hp;
+    private int maxHp = 25;
+    private int hp = maxHp;
     private final Map<String, GameItem> inventory = new HashMap<>();
     private Weapon equippedWeapon = null;
 
-    public void use(Usable item) {
-        item.use(this);
+
+    // Business
+
+    public void use(GameItem item) {
+        try {
+            Usable useItem = (Usable) item;
+            useItem.use(this);
+        } catch (ClassCastException e) {
+            System.out.printf("Can't use %s.%n", item.getName());
+        }
     }
+
+    public void takeItem(GameItem item) {
+        if (item.isPortable()) {
+            if (inventory.containsKey(item.getName())) {
+                inventory.get(item.getName()).changeQuantity(item.getQuantity());
+            } else {
+                inventory.put(item.getName(), item);
+            }
+        } else {
+            System.out.printf("Can't take %s.%n", item.getName());
+        }
+    }
+
+    /* Removes an item from inventory and returns it, so it can go into current room. May return null.
+     * If the item quantity is greater than 1, it will decrease quantity by 1 and return item with quantity of 1.
+     */
+    public GameItem dropItem(String itemName) throws NullPointerException {
+        if (inventory.get(itemName).getQuantity() == 1) {
+            return inventory.remove(itemName);
+        } else {
+            inventory.get(itemName).setQuantity(inventory.get(itemName).getQuantity() - 1);
+            GameItem droppedItem = inventory.get(itemName).cloneToType();
+            droppedItem.setQuantity(1);
+            return droppedItem;
+        }
+    }
+
+    public GameItem dropAll(String itemName) throws NullPointerException {
+        return inventory.remove(itemName);
+    }
+
+
+    // Accessors
 
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
@@ -25,11 +67,9 @@ public class Player {
     public void setHp(int hp) {
         if (hp <= maxHp && hp >= 0) {
             this.hp = hp;
-        }
-        else if (hp > maxHp) {
+        } else if (hp > maxHp) {
             this.hp = maxHp;
-        }
-        else {
+        } else {
             this.hp = 0;
         }
     }
@@ -38,11 +78,9 @@ public class Player {
     public void changeHp(int change) {
         if (hp + change <= maxHp && hp + change >= 0) {
             hp += change;
-        }
-        else if (hp + change > maxHp) {
+        } else if (hp + change > maxHp) {
             hp = maxHp;
-        }
-        else if (hp + change < 0) {
+        } else if (hp + change < 0) {
             hp = 0;
         }
     }
@@ -51,21 +89,7 @@ public class Player {
         return inventory;
     }
 
-    public void takeItem(GameItem item) {
-        if (item.isPortable()) {
-            inventory.put(item.getName(), item);
-        } else {
-            System.out.printf("Can't take %s", item.getName());
-        }
-    }
-
-    // Removes an item from inventory and returns it, so it can go into current room. May return null.
-    public GameItem dropItem(String itemName) {
-        try {
-            return inventory.remove(itemName);
-        } catch (NullPointerException e) {
-            System.out.printf("You do not have %s", itemName);
-            return null;
-        }
+    public void setEquippedWeapon(Weapon weapon) {
+        equippedWeapon = weapon;
     }
 }

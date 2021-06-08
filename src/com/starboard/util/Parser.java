@@ -55,7 +55,7 @@ public class Parser {
         } else {
 
             //create synonyms for go command
-            List<String> moveCollection = Arrays.asList("go", "move", "walk", "run", "sprint", "proceed", "pass");
+            List<String> moveCollection = Arrays.asList("go", "move", "walk", "run", "sprint", "proceed", "pass", "enter");
 
             if (moveCollection.contains(command.get(0).toLowerCase())) {
                 setFirstCommand("go");
