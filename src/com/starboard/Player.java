@@ -13,6 +13,13 @@ public class Player {
 
 
     // Business
+    public void attack(){
+
+    }
+
+    public boolean isKilled(){
+        return getHp() <= 0;
+    }
 
     public void use(GameItem item) {
         try {
