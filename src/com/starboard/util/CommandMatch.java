@@ -4,7 +4,7 @@ import com.starboard.Room;
 import com.starboard.Player;
 import com.starboard.items.GameItem;
 
-public class InputHandler {
+public class CommandMatch {
     /* Commands to handle:
      *  - take
      *  - go
