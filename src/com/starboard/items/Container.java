@@ -15,21 +15,24 @@ public class Container extends GameItem {
     public Container(String name) {
         super(name);
         contentsHidden = true;
+        isPortable = false;
     }
 
     public Container(String name, String description) {
-        super(name, description);
-        contentsHidden = false;
+        this(name);
+        setDescription(description);
     }
 
     public Container(String name, boolean contentsHidden) {
         super(name);
         this.contentsHidden = contentsHidden;
+        isPortable = false;
     }
 
     public Container(String name, String description, boolean contentsHidden) {
         super(name, description);
         this.contentsHidden = contentsHidden;
+        isPortable = false;
     }
 
     // Business
@@ -38,6 +41,14 @@ public class Container extends GameItem {
         GameItem item = getContentItem(name);
         contents.remove(name);
         return item;
+    }
+
+    public void addItem(GameItem item) {
+        try {
+            getContentItem(item.getName()).changeQuantity(item.getQuantity());
+        } catch (NullPointerException e) {
+            contents.put(item.getName(), item);
+        }
     }
 
     // Accessors

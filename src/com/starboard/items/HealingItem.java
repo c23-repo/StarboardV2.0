@@ -11,14 +11,26 @@ public class HealingItem extends GameItem implements Usable {
         System.out.printf("Healed %d HP.%n", healValue);
     }
 
+    // Constructors
+
     public HealingItem(String name, boolean isPortable, int healValue) {
         super(name, isPortable);
         this.healValue = healValue;
     }
 
-    public HealingItem(String name, boolean isPortable, String description, int healValue) {
-        super(name, isPortable, description);
-        this.healValue = healValue;
+    public HealingItem(String name, boolean isPortable, int healValue, String description) {
+        this(name, isPortable, healValue);
+        setDescription(description);
+    }
+
+    public HealingItem(String name, boolean isPortable, int healValue, int quantity) {
+        this(name, isPortable, healValue);
+        setQuantity(quantity);
+    }
+
+    public HealingItem(String name, boolean isPortable, int healValue, String description, int quantity) {
+        this(name, isPortable, healValue, description);
+        setQuantity(quantity);
     }
 
     public int getHealValue() {

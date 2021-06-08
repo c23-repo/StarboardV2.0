@@ -13,10 +13,13 @@ public class InputHandler {
      *  - ?
      */
 
-    private static void take(String name, Room currentRoom, Player player) {
-        GameItem item = currentRoom.getItemFromContainers(name);
-        player.takeItem(item);
-
-
+    public static void take(String name, Room currentRoom, Player player) {
+        try {
+            player.takeItem(currentRoom.giveItem(name));
+        } catch (NullPointerException e) {
+            System.out.println("There is no " + name + " to take.");
+        }
     }
+
+    // May need to read three word inputs for choosing which container to drop an item into.
 }

@@ -25,7 +25,15 @@ public class Room {
 
     // Business
 
-
+    public GameItem giveItem(String name) throws NullPointerException {
+        GameItem item = getItemFromContainers(name);
+        for (Container container : containers.values()) {
+            if (container.getContents().containsKey(name)) {
+                return container.giveItem(name);
+            }
+        }
+        throw new NullPointerException();
+    }
 
     // Accessors
     public String getName() {
@@ -69,6 +77,14 @@ public class Room {
 
     public void setContainers(Map<String, Container> containers) {
         this.containers = containers;
+    }
+
+    public void addContainer(Container container) {
+        containers.put(container.getName(), container);
+    }
+
+    public void addItemToContainer(GameItem item, Container container) {
+        container.addItem(item);
     }
 
     public String getDescription() {
