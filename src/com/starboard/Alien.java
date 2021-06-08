@@ -5,7 +5,7 @@ import com.starboard.items.Weapon;
 import java.util.Map;
 
 class Alien {
-    private Weapon equippedWeapon = new Weapon("Zorg ZF-1",true,20);
+    private Weapon equippedWeapon = new Weapon("Zorg ZF-1",2);
 
 
     private double showUpChance;
