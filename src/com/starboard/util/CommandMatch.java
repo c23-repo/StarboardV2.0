@@ -27,10 +27,10 @@ public class CommandMatch {
         String subject = command[1];
         switch (action) {
             case "get":
-                take(subject, player, Game.getCurrentRoom());
+                take(subject, player);
                 break;
             case "drop":
-                drop(subject, player, Game.getCurrentRoom());
+                drop(subject, player);
                 break;
             case "go":
                 goToRoom(subject);
@@ -46,9 +46,9 @@ public class CommandMatch {
      * it finds, even if multiple containers have copies of the same
      * object.
      */
-    public static void take(String name, Player player, Room currentRoom) {
+    public static void take(String name, Player player) {
         try {
-            player.takeItem(currentRoom.giveItem(name));
+            player.takeItem(Game.getCurrentRoom().giveItem(name));
         } catch (NullPointerException e) {
             System.out.println("There is no " + name + " to take.");
         }
@@ -60,12 +60,13 @@ public class CommandMatch {
      * quantity is reduced by 1, and a copy of the GameItem instance is created
      * with a quantity of 1 and added to the "floor" Container object.
      */
-    public static void drop(String name, Player player, Room currentRoom) {
+    public static void drop(String name, Player player) {
         try {
             // Requires every Room instance to have a Container with name "floor".
-            currentRoom.addItemToContainer(player.dropItem(name), currentRoom.getContainer("floor"));
+            Game.getCurrentRoom().addItemToContainer(player.dropItem(name), Game.getCurrentRoom().getContainer("floor"));
         } catch (NullPointerException e) {
-            System.out.println("You don't have " + name + ".");
+            String article = aOrAn(name);
+            System.out.printf("You don't have %s %s.%n", article, name);
         }
     }
 
@@ -73,9 +74,9 @@ public class CommandMatch {
      * <Room> currentRoom.paths, this method will assign that room to currentRoom.
      */
     public static void goToRoom(String name) {
-        try {
+        if (Game.getCurrentRoom().getPaths().get(name) != null) {
             Game.setCurrentRoom(Game.getCurrentRoom().getPaths().get(name));
-        } catch (NullPointerException e) {
+        } else {
             System.out.println("You can't access the " + name + " from here.");
         }
     }
@@ -88,13 +89,18 @@ public class CommandMatch {
         try {
             player.use(player.getInventory().get(itemName));
         } catch (NullPointerException e) {
-            String article;
-            if (Arrays.asList('a', 'e', 'i', 'o', 'u').contains(itemName.charAt(0))) {
-                article = "an";
-            } else {
-                article = "a";
-            }
+            String article = aOrAn(itemName);
             System.out.printf("You don't have %s %s.%n", article, itemName);
         }
+    }
+
+    private static String aOrAn(String itemName) {
+        String article;
+        if (Arrays.asList('a', 'e', 'i', 'o', 'u').contains(itemName.charAt(0))) {
+            article = "an";
+        } else {
+            article = "a";
+        }
+        return article;
     }
 }
