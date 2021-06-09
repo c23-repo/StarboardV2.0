@@ -15,7 +15,7 @@ public class Room {
     private List<String> linkedRooms;
     private Map<String, Container> containers = new HashMap<>();
     private final Map<String, Room> paths = new HashMap<>();
-    public final static int TOTALROOMS = 12;
+    public final static double TOTALROOMS = 12.0;
 
     // Constructors
     public Room() {}
