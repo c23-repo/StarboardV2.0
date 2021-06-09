@@ -7,6 +7,7 @@ import java.util.Scanner;
 class InputHandler {
 
     public static String[] input(Room room) {
+        //check scanner from file
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser(room);
 

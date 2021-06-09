@@ -29,6 +29,8 @@ class Battle {
                 System.out.println("You are killed by alien! Game Over!");
                 setWinning(false);
             }
+        }else{
+            setWinning(true);
         }
     }
 
