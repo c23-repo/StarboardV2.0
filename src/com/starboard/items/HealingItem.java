@@ -3,7 +3,7 @@ package com.starboard.items;
 import com.starboard.Player;
 
 public class HealingItem extends GameItem implements Usable {
-    private final int healValue;
+    private int healValue;
 
     @Override
     public void use(Player player) {
@@ -12,6 +12,7 @@ public class HealingItem extends GameItem implements Usable {
     }
 
     // Constructors
+    public HealingItem() {}
 
     public HealingItem(String name, boolean isPortable, int healValue) {
         super(name, isPortable);
