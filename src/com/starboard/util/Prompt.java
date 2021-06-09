@@ -22,9 +22,8 @@ public class Prompt {
         Map<String, Container> containers = currentRoom.getContainers();
         if (containers.size() > 0) {
             for (String itemLocation : containers.keySet()) {
-                System.out.println(containers.get(itemLocation).getContents());
                 for (String itemName : containers.get(itemLocation).getContents().keySet()) {
-                    System.out.printf("Item: You see a/an %s in the %s.", itemName, itemLocation);
+                    System.out.printf("Item: You see a/an %s in the %s.\n", itemName, itemLocation);
                 }
             }
         }

@@ -1,9 +1,14 @@
 package com.starboard;
 
+import com.starboard.items.Container;
+import com.starboard.items.GameItem;
+import com.starboard.items.HealingItem;
+import com.starboard.items.Weapon;
 import com.starboard.util.Prompt;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
 class Game {
     public static void main(String[] args) {
@@ -12,8 +17,31 @@ class Game {
 
     public static void start() {
         boolean endGame = false;
+        // create weapons list
+        List<Weapon> weaponsList = CreateItems.createWeapons();
+
+        // create healing items list
+        List<HealingItem> healingItemsList = CreateItems.createHealingItems();
+
+        // combine the lists to a map
+        Map<String, GameItem> items = new HashMap<>();
+        for (Weapon weapon : weaponsList) {
+            items.put(weapon.getName(), weapon);
+        }
+
+        for (HealingItem healingItem : healingItemsList) {
+            items.put(healingItem.getName(), healingItem);
+        }
+
         // Initialization: create a list of Room objects
         List<Room> roomsList = CreateRooms.create();
+        // add item to each container contents
+        for (Room room : roomsList) {
+            for (Container container : room.getContainers().values()) {
+                container.addItem(items.get(container.getName()));
+            }
+        }
+
         // Initialize start room
         Room currentRoom = roomsList.get(0);
         // show commands
