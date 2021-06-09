@@ -1,0 +1,20 @@
+[
+  {
+    "name": "small potion",
+    "healValue": 10,
+    "description": "This is a small potion.",
+    "quantity": 1
+  },
+  {
+    "name": "medium potion",
+    "healValue": 15,
+    "description": "This is a medium potion.",
+    "quantity": 1
+  },
+  {
+    "name": "large potion",
+    "healValue": 20,
+    "description": "This is a large potion.",
+    "quantity": 1
+  }
+]
