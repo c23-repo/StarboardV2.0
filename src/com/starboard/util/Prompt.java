@@ -22,7 +22,7 @@ public class Prompt {
         Map<String, Container> containers = currentRoom.getContainers();
         if (containers.size() > 0) {
             for (String itemLocation : containers.keySet()) {
-                //System.out.println(containers.get(itemLocation).getContents());
+                //System.out.println(containers.json.get(itemLocation).getContents());
                 for (String itemName : containers.get(itemLocation).getContents().keySet()) {
                     System.out.printf("Item: You see a/an %s in the %s.%n", itemName, itemLocation);
                 }
@@ -71,7 +71,7 @@ public class Prompt {
             String healValue = item instanceof HealingItem ? String.valueOf(((HealingItem) item).getHealValue()) : "n/a";
             // if the item is a weapon, display its damageValue
             String damageValue = item instanceof Weapon ? String.valueOf(((Weapon) item).getDamage()) : "n/a";
-            System.out.printf("%10s%10s%15s%40s%n", item.getName(), healValue , damageValue , item.getDescription());
+            System.out.printf("%10s X %d%10s%15s%40s%n", item.getName(), item.getQuantity(), healValue , damageValue , item.getDescription());
         }
         System.out.println("------------------------------- Inventory -------------------------------------");
     }

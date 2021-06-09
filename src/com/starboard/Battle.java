@@ -16,13 +16,20 @@ class Battle {
     public void fight() {
         if (!isEscaped()) {
             //keep fighting until one of alien and player is killed
-            while(!alien.isKilled() && !player.isKilled()){
-                player.attack();
-                alien.attack();
+            while(!player.isKilled()){
+                player.attack(alien);
+
+                if (alien.isKilled()) break;
+
+                alien.attack(player);
+                if (player.getHp()<=30){
+                    System.out.println("You are low in hp. use some healing items.");
+                }
             }
-            if (alien.isKilled()){
-                alien.dropWeapon(getRoom());
-                System.out.println("Congrats, you killed one of the aliens, keep moving.");
+            if (alien.isConfirmedKilled()){
+                alien.dropWeapon();
+                System.out.println("Congrats, you killed one of the aliens.");
+                System.out.println("There are " + alien.getNumOfAliens() + " aliens left.");
                 setWinning(true);
             }
             if (player.isKilled()){
@@ -38,7 +45,7 @@ class Battle {
         //set escape equals alien show up chance. if aliens show up chance is high,
         // then it is easier to get escaped. if only one alien existed, then it is hard to escape.
         // this feature is to balance the game difficulty.
-        setEscapeChance(alien.getShowUpChance());
+        setEscapeChance(0);
         if (Math.random() <= getEscapeChance()) {
             System.out.println("You are lucky, Escaped from the brutal alien!");
             return true;
