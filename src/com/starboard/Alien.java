@@ -25,6 +25,7 @@ class Alien {
 
     public void showUp() {
         if (Math.random() < getShowUpChance()) {
+            System.out.println("Alien appeared.");
             setExisted(true);
         }
     }
@@ -68,8 +69,8 @@ class Alien {
         isExisted = existed;
     }
 
-    public void setShowUpChance(double numOfAliens) {
-        this.showUpChance = numOfAliens / Room.TOTALROOMS;
+    public void setShowUpChance() {
+        this.showUpChance = this.numOfAliens / Room.TOTALROOMS;
     }
 
     public double getShowUpChance() {

@@ -1,5 +1,6 @@
 package com.starboard.util;
 
+import com.starboard.Game;
 import com.starboard.Room;
 import com.starboard.Player;
 
@@ -21,18 +22,18 @@ public class CommandMatch {
 
     /* Accepts a String array and matches player commands to actions.
      */
-    public static void matchCommand(String[] command, Player player, Room currentRoom) {
+    public static void matchCommand(String[] command, Player player) {
         String action = command[0];
         String subject = command[1];
         switch (action) {
             case "get":
-                take(subject, player, currentRoom);
+                take(subject, player, Game.getCurrentRoom());
                 break;
             case "drop":
-                drop(subject, player, currentRoom);
+                drop(subject, player, Game.getCurrentRoom());
                 break;
             case "go":
-                goToRoom(subject, currentRoom);
+                goToRoom(subject);
                 break;
             case "use":
                 use(subject, player);
@@ -71,9 +72,9 @@ public class CommandMatch {
     /* Given a String that corresponds to the name of a Room object in
      * <Room> currentRoom.paths, this method will assign that room to currentRoom.
      */
-    public static void goToRoom(String name, Room currentRoom) {
+    public static void goToRoom(String name) {
         try {
-            currentRoom = currentRoom.getPaths().get(name);
+            Game.setCurrentRoom(Game.getCurrentRoom().getPaths().get(name));
         } catch (NullPointerException e) {
             System.out.println("You can't access the " + name + " from here.");
         }

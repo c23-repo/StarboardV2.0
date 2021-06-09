@@ -1,11 +1,13 @@
 package com.starboard;
 
+import com.starboard.util.CommandMatch;
 import com.starboard.util.Prompt;
 
 import java.util.List;
 import java.util.Locale;
 
-class Game {
+public class Game {
+    private static Room currentRoom;
     public static void main(String[] args) {
         start();
     }
@@ -15,7 +17,7 @@ class Game {
         // Initialization: create a list of Room objects
         List<Room> roomsList = CreateRooms.create();
         // Initialize start room
-        Room currentRoom = roomsList.get(0);
+        currentRoom = roomsList.get(0);
         // show commands
         Prompt.showCommands();
 
@@ -26,10 +28,9 @@ class Game {
 
         while (!endGame) {
 
-
             aliens.setRoom(currentRoom);
             aliens.setExisted(false);
-            aliens.setShowUpChance(aliens.getNumOfAliens());
+            aliens.setShowUpChance();
             aliens.showUp();
             Prompt.showStatus(currentRoom);
             Prompt.showInventory(player);
@@ -42,25 +43,31 @@ class Game {
                 }else break;
             }
 
+
+
             String[] parsedInputs = InputHandler.input(currentRoom);
-            // traverse rooms
-            if (parsedInputs[0].equals("go") || parsedInputs[0].equals("exit")) {
-                if (currentRoom.getLinkedRooms().contains(parsedInputs[1])) {
-                    currentRoom = currentRoom.getPaths().get(parsedInputs[1]);
-                } else {
-                    System.out.println("Can't go that room!");
-                }
-            }
 
-            // show map
-            if (parsedInputs[1].equals("map") && player.getInventory().containsKey("map")){
-                Prompt.showMap();
-            } else if(parsedInputs[1].equals("map") && !player.getInventory().containsKey("map")){
-                System.out.println("You don't have a map, please acquire one.");
-            }
-
-
-            // implement get items
+            CommandMatch.matchCommand(parsedInputs,player);
+//            // traverse rooms
+//            if (parsedInputs[0].equals("go") || parsedInputs[0].equals("exit")) {
+//                if (currentRoom.getLinkedRooms().contains(parsedInputs[1])) {
+//                    currentRoom = currentRoom.getPaths().get(parsedInputs[1]);
+//                } else if(currentRoom.getName().equals(parsedInputs[1])){
+//                    System.out.println("You are already in this room.");
+//                }else{
+//                    System.out.println("Can't go that room!");
+//                }
+//            }
+//
+//            // show map
+//            if (parsedInputs[1].equals("map") && player.getInventory().containsKey("map")){
+//                Prompt.showMap();
+//            } else if(parsedInputs[1].equals("map") && !player.getInventory().containsKey("map")){
+//                System.out.println("You don't have a map, please acquire one.");
+//            }
+//
+//
+//            // implement get items
 
             // end game
             if (currentRoom.getName().equals("pod")) {
@@ -68,5 +75,13 @@ class Game {
                 endGame = true;
             }
         }
+    }
+
+    public static Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public static void setCurrentRoom(Room currentRoom) {
+        Game.currentRoom = currentRoom;
     }
 }
