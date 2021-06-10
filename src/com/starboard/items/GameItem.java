@@ -28,6 +28,8 @@ public abstract class GameItem implements Cloneable {
 
     // Constructors
 
+    public GameItem() {}
+
     public GameItem(String name) {
         this.name = name;
     }
