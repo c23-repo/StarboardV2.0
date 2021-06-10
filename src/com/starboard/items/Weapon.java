@@ -1,7 +1,21 @@
 package com.starboard.items;
 
-public class Weapon extends GameItem {
+import com.starboard.Player;
+
+public class Weapon extends GameItem implements Usable {
     private int damage;
+
+    @Override
+    public void use(Player player) {
+        if (player.getEquippedWeapon() == this) {
+            /*String cappedName = this.getName().replace(this.getName().charAt(0), this.getName().toUpperCase().charAt(0));
+            System.out.println(cappedName + " is already equipped.");*/
+
+        } else {
+            player.setEquippedWeapon(this);
+            System.out.println("You equipped " + this.getName() + ".");
+        }
+    }
 
     // Constructors
 
