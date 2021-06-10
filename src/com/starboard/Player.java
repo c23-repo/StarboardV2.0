@@ -1,23 +1,54 @@
 package com.starboard;
 
-import com.starboard.items.*;
+import com.starboard.items.GameItem;
+import com.starboard.items.HealingItem;
+import com.starboard.items.Usable;
+import com.starboard.items.Weapon;
+import com.starboard.util.CommandMatch;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Player {
-    private int maxHp = 25;
+    private int maxHp = 100;
     private int hp = maxHp;
     private final Map<String, GameItem> inventory = new HashMap<>();
     private Weapon equippedWeapon = null;
 
 
     // Business
-    public void attack(){
+    public void attack(Alien alien) {
 
+        System.out.println("Please use the weapon in your inventory, otherwise you will use your fist.");
+        String[] battleCommandInput = InputHandler.input(Game.getCurrentRoom());;
+        while (!battleCommandInput[0].equals("use")) {
+            //you can only use "use" command.
+            System.out.println("You cannot leave the room nor take or drop items at the moment.");
+            battleCommandInput = InputHandler.input(Game.getCurrentRoom());
+        }
+        CommandMatch.matchCommand(battleCommandInput,this);
+
+        if(getInventory().get(battleCommandInput[1]) instanceof Weapon){
+            //equip with weapon to attack
+            setEquippedWeapon((Weapon) getInventory().get(battleCommandInput[1]));
+            System.out.println("You are attacking the alien");
+            alien.setHp(alien.getHp() + getEquippedWeapon().getDamage());
+            System.out.println("Alien hp decreased by " + (-getEquippedWeapon().getDamage()));
+            System.out.println("Alien hp is " + alien.getHp());
+        }else if(getInventory().get(battleCommandInput[1]) instanceof HealingItem){
+            //use healing item to recover
+            changeHp(((HealingItem) getInventory().get(battleCommandInput[1])).getHealValue());
+        }else{
+            //you are default to use fist
+            System.out.println("You punched alien with your fist");
+            alien.setHp(alien.getHp() - 50);
+            System.out.println("Alien hp is " + alien.getHp());
+        }
     }
 
-    public boolean isKilled(){
+
+    public boolean isKilled() {
         return getHp() <= 0;
     }
 
@@ -63,6 +94,7 @@ public class Player {
 
     // Accessors
 
+
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
     }
@@ -94,6 +126,10 @@ public class Player {
 
     public Map<String, GameItem> getInventory() {
         return inventory;
+    }
+
+    public Weapon getEquippedWeapon() {
+        return equippedWeapon;
     }
 
     public void setEquippedWeapon(Weapon weapon) {

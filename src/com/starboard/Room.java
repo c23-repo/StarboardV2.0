@@ -4,9 +4,8 @@ import com.starboard.items.Container;
 import com.starboard.items.GameItem;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
 
 public class Room {
     // Fields
@@ -18,7 +17,8 @@ public class Room {
     public final static double TOTALROOMS = 12.0;
 
     // Constructors
-    public Room() {}
+    public Room() {
+    }
 
     public Room(String name) {
         this.name = name;
@@ -26,14 +26,27 @@ public class Room {
 
     // Business
 
+    //    public GameItem giveItem(String name) throws NullPointerException {
+//        GameItem item = getItemFromContainers(name);
+//        for (Container container : containers.values()) {
+//            if (container.getContents().containsKey(name)) {
+//                return container.giveItem(name);
+//            }
+//        }
+//        throw new NullPointerException();
+//    }
     public GameItem giveItem(String name) throws NullPointerException {
-        GameItem item = getItemFromContainers(name);
+        GameItem item = null;
         for (Container container : containers.values()) {
             if (container.getContents().containsKey(name)) {
-                return container.giveItem(name);
+                item = container.giveItem(name);
             }
         }
-        throw new NullPointerException();
+        if (item != null) {
+            return item;
+        } else {
+            throw new NullPointerException();
+        }
     }
 
     // Accessors
@@ -63,13 +76,14 @@ public class Room {
         return containers.get(name);
     }
 
-    // Search containers for a GameItem object with a name that matches the parameter.
+    // Search containers.json for a GameItem object with a name that matches the parameter.
     public GameItem getItemFromContainers(String name) throws NullPointerException {
         GameItem result = null;
-        for (Container container: containers.values()) {
+        for (Container container : containers.values()) {
             try {
                 result = container.getContentItem(name);
-            } catch (NullPointerException ignored) {}
+            } catch (NullPointerException ignored) {
+            }
         }
         if (result != null) {
             return result;
@@ -104,5 +118,14 @@ public class Room {
 
     public void setPath(String key, Room value) {
         this.paths.put(key, value);
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", linkedRooms=" + linkedRooms +
+                '}';
     }
 }

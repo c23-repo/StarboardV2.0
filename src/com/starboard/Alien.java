@@ -8,18 +8,24 @@ import java.util.Map;
 class Alien {
 
     private boolean isExisted;
-    private Weapon equippedWeapon = new Weapon("Zorg ZF-1", 2);
+    private Weapon equippedWeapon = new Weapon("stick", -20,"It is a powerful weapon used by alien.");
     private double showUpChance;
     private Room room;
     private int numOfAliens;
     private int hp;
+    private boolean confirmedKilled;
 
-    public Alien(int number) {
-        this.numOfAliens = number;
+
+    public Alien(int hp, int number) {
+        setNumOfAliens(number);
+        setHp(hp);
     }
 
-    public void attack(){
-
+    public void attack(Player player){
+        System.out.println("Alien is attacking");
+        player.changeHp(getEquippedWeapon().getDamage());
+        System.out.println("Your hp decreased " + getEquippedWeapon().getDamage());
+        System.out.println("You have " + player.getHp() + " hp left.");
     }
 
 
@@ -33,25 +39,30 @@ class Alien {
     public boolean isKilled(){
         if (getHp() <= 0){
             setNumOfAliens(getNumOfAliens() - 1);
+            setConfirmedKilled(true);
+            setHp(100);
             return true;
         }
         return false;
     }
 
 
-    public void dropWeapon(Room room) {
-        if (isKilled()) {
-            if (room.getContainers().containsKey("floor")) {
-                room.addItemToContainer(getEquippedWeapon(), room.getContainer("floor"));
-            }
+    public void dropWeapon() {
+        if (isConfirmedKilled()) {
+            Game.getCurrentRoom().addItemToContainer(getEquippedWeapon(), Game.getCurrentRoom().getContainer("floor"));
         }
     }
 
-    public void numberDecreasedByOne(){
-        setNumOfAliens(getNumOfAliens() - 1);
+    //getters and setters
+
+
+    public boolean isConfirmedKilled() {
+        return confirmedKilled;
     }
 
-    //getters and setters
+    public void setConfirmedKilled(boolean confirmedKilled) {
+        this.confirmedKilled = confirmedKilled;
+    }
 
     public int getHp() {
         return hp;
@@ -99,5 +110,15 @@ class Alien {
 
     public void setEquippedWeapon(Weapon equippedWeapon) {
         this.equippedWeapon = equippedWeapon;
+    }
+
+    @Override
+    public String toString() {
+        return "Alien{" +
+                "equippedWeapon=" + equippedWeapon +
+                ", showUpChance=" + showUpChance +
+                ", numOfAliens=" + numOfAliens +
+                ", hp=" + hp +
+                '}';
     }
 }

@@ -70,7 +70,7 @@ public class Prompt {
             String healValue = item instanceof HealingItem ? String.valueOf(((HealingItem) item).getHealValue()) : "n/a";
             // if the item is a weapon, display its damageValue
             String damageValue = item instanceof Weapon ? String.valueOf(((Weapon) item).getDamage()) : "n/a";
-            System.out.printf("%10s%10s%15s%40s%n", item.getName(), healValue , damageValue , item.getDescription());
+            System.out.printf("%10s X %d%10s%15s%40s%n", item.getName(), item.getQuantity(), healValue , damageValue , item.getDescription());
         }
         System.out.println("------------------------------- Inventory -------------------------------------");
     }

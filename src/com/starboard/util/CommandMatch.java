@@ -43,7 +43,7 @@ public class CommandMatch {
     /* Player takes a GameItem with a name that matches
      * the <String> name parameter from a Container in Room
      * if such a GameItem exists. It will take the first valid object
-     * it finds, even if multiple containers have copies of the same
+     * it finds, even if multiple containers.json have copies of the same
      * object.
      */
     public static void take(String name, Player player) {
