@@ -6,6 +6,7 @@ import com.starboard.items.Container;
 import com.starboard.items.GameItem;
 import com.starboard.items.HealingItem;
 import com.starboard.items.Weapon;
+import static com.starboard.util.Parser.aOrAn;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,8 +23,12 @@ public class Prompt {
         Map<String, Container> containers = currentRoom.getContainers();
         if (containers.size() > 0) {
             for (String itemLocation : containers.keySet()) {
-                for (String itemName : containers.get(itemLocation).getContents().keySet()) {
-                    System.out.printf("Item: You see a/an %s in the %s.\n", itemName, itemLocation);
+                if (!containers.get(itemLocation).areContentsHidden()) {
+                    for (String itemName : containers.get(itemLocation).getContents().keySet()) {
+                        System.out.printf("Item: You see %s %s in the %s.\n", aOrAn(itemName), itemName, itemLocation);
+                    }
+                } else {
+                    System.out.printf("You see %s %s.\n", aOrAn(itemLocation), itemLocation);
                 }
             }
         }

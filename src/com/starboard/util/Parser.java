@@ -5,6 +5,7 @@ import com.starboard.Room;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class Parser {
 
@@ -87,9 +88,29 @@ public class Parser {
                 setSecondCommand(command.get(1).toLowerCase());
                 setParseStatus(true);
             }
+
+            // create synonyms for open command
+
+            List<String> openContainersCollection = Arrays.asList("open", "look");
+
+            if (openContainersCollection.contains(command.get(0).toLowerCase())) {
+                setFirstCommand("open");
+                setSecondCommand(command.get(1).toLowerCase());
+                setParseStatus(true);
+            }
         }
 
 
+    }
+
+    public static String aOrAn(String itemName) {
+        String article;
+        if (Arrays.asList('a', 'e', 'i', 'o', 'u').contains(itemName.charAt(0))) {
+            article = "an";
+        } else {
+            article = "a";
+        }
+        return article;
     }
 
     public boolean getParseStatus() {
