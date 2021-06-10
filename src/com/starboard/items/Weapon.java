@@ -5,6 +5,8 @@ public class Weapon extends GameItem {
 
     // Constructors
 
+    public Weapon() {}
+
     public Weapon(String name, int damage) {
         super(name);
         this.damage = damage;
