@@ -1,18 +1,20 @@
- [{
-    "name": "bridge",
-    "description": "This is bridge",
-    "linkedRooms": ["Galley", "medical"],
-    "containers": {
-      "floor": "carpet",
-      "console": "key"
-    }
- },
- {
-   "name": "Galley",
-   "description": "This is galley",
-   "linkedRooms": ["bridge", "Bathroom"],
-   "containers": {
-     "floor": "monster",
-     "table": "apple"
+[
+   {
+      "name": "bridge",
+      "description": "This is bridge",
+      "linkedRooms": ["Galley", "medical"],
+      "containers": {
+        "floor": "m4",
+        "wall": "small potion"
+      }
+   },
+   {
+     "name": "galley",
+     "description": "This is galley",
+     "linkedRooms": ["Galley", "medical"],
+     "containers": {
+       "floor": "laser gun",
+       "wall": "large potion"
+     }
    }
- }]
+ ]

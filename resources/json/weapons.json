@@ -1,0 +1,32 @@
+[
+  {
+    "name": "knife",
+    "damage": -15,
+    "description": "This is a knife.",
+    "quantity": 1
+  },
+  {
+    "name": "hammer",
+    "damage": -30,
+    "description": "This is a hammer.",
+    "quantity": 1
+  },
+  {
+    "name": "m4",
+    "damage": -45,
+    "description": "This is a m4.",
+    "quantity": 1
+  },
+  {
+    "name": "axe",
+    "damage": -40,
+    "description": "This is a axe.",
+    "quantity": 1
+  },
+  {
+    "name": "shotgun",
+    "damage": -100,
+    "description": "This is a shotgun.",
+    "quantity": 1
+  }
+]

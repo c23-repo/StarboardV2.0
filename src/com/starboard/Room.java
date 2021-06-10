@@ -1,26 +1,57 @@
 package com.starboard;
 
+import com.starboard.items.Container;
+import com.starboard.items.GameItem;
+
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
 
 public class Room {
     // Fields
     private String name;
     private String description;
     private List<String> linkedRooms;
-    private Map<String, String> containers = new HashMap<>();
+    private Map<String, Container> containers = new HashMap<>();
     private final Map<String, Room> paths = new HashMap<>();
+    public final static double TOTALROOMS = 12.0;
 
     // Constructors
-    public Room() {}
+    public Room() {
+    }
 
     public Room(String name) {
         this.name = name;
     }
 
+    // Business
+
+    //    public GameItem giveItem(String name) throws NullPointerException {
+//        GameItem item = getItemFromContainers(name);
+//        for (Container container : containers.values()) {
+//            if (container.getContents().containsKey(name)) {
+//                return container.giveItem(name);
+//            }
+//        }
+//        throw new NullPointerException();
+//    }
+    public GameItem giveItem(String name) throws NullPointerException {
+        GameItem item = null;
+        for (Container container : containers.values()) {
+            if (container.getContents().containsKey(name)) {
+                item = container.giveItem(name);
+            }
+        }
+        if (item != null) {
+            return item;
+        } else {
+            throw new NullPointerException();
+        }
+    }
+
     // Accessors
+
+
     public String getName() {
         return name;
     }
@@ -37,12 +68,40 @@ public class Room {
         this.linkedRooms = linkedRooms;
     }
 
-    public Map<String, String> getContainers() {
+    public Map<String, Container> getContainers() {
         return containers;
     }
 
-    public void setContainers(Map<String, String> containers) {
+    public Container getContainer(String name) throws NullPointerException {
+        return containers.get(name);
+    }
+
+    // Search containers for a GameItem object with a name that matches the parameter.
+    public GameItem getItemFromContainers(String name) throws NullPointerException {
+        GameItem result = null;
+        for (Container container : containers.values()) {
+            try {
+                result = container.getContentItem(name);
+            } catch (NullPointerException ignored) {
+            }
+        }
+        if (result != null) {
+            return result;
+        } else {
+            throw new NullPointerException();
+        }
+    }
+
+    public void setContainers(Map<String, Container> containers) {
         this.containers = containers;
+    }
+
+    public void addContainer(Container container) {
+        containers.put(container.getName(), container);
+    }
+
+    public void addItemToContainer(GameItem item, Container container) {
+        container.addItem(item);
     }
 
     public String getDescription() {
@@ -59,5 +118,14 @@ public class Room {
 
     public void setPath(String key, Room value) {
         this.paths.put(key, value);
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", linkedRooms=" + linkedRooms +
+                '}';
     }
 }
