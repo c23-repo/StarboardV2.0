@@ -1,6 +1,6 @@
 [
   {
-    "name": "small potion",
+    "name": "potion",
     "healValue": 10,
     "description": "This is a small potion.",
     "quantity": 1

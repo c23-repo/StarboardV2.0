@@ -49,7 +49,7 @@ class Alien {
 
     public void dropWeapon() {
         if (isConfirmedKilled()) {
-            Game.getCurrentRoom().addItemToContainer(getEquippedWeapon(), Game.getCurrentRoom().getContainer("floor"));
+            Game.getCurrentRoom().addItemToContainer(getEquippedWeapon(), Game.getCurrentRoom().getContainer("console"));
         }
     }
 
