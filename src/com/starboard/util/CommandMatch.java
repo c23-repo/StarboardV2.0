@@ -87,11 +87,13 @@ public class CommandMatch {
      * the player's inventory.
      */
     public static void use(String itemName, Player player) {
-        try {
-            player.use(player.getInventory().get(itemName));
-        } catch (NullPointerException e) {
-            String article = aOrAn(itemName);
-            System.out.printf("You don't have %s %s.%n", article, itemName);
+        if (!itemName.equals("fist")) {
+            try {
+                player.use(player.getInventory().get(itemName));
+            } catch (NullPointerException e) {
+                String article = aOrAn(itemName);
+                System.out.printf("You don't have %s %s.%n", article, itemName);
+            }
         }
     }
 

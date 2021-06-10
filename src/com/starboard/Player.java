@@ -14,7 +14,7 @@ public class Player {
     private int maxHp = 100;
     private int hp = maxHp;
     private final Map<String, GameItem> inventory = new HashMap<>();
-    private Weapon equippedWeapon = null;
+    private Weapon equippedWeapon = new Weapon("fist", 50);
 
 
     // Business
