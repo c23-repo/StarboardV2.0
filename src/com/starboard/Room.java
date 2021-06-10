@@ -76,7 +76,7 @@ public class Room {
         return containers.get(name);
     }
 
-    // Search containers.json for a GameItem object with a name that matches the parameter.
+    // Search containers for a GameItem object with a name that matches the parameter.
     public GameItem getItemFromContainers(String name) throws NullPointerException {
         GameItem result = null;
         for (Container container : containers.values()) {

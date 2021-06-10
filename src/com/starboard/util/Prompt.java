@@ -25,10 +25,10 @@ public class Prompt {
             for (String itemLocation : containers.keySet()) {
                 if (!containers.get(itemLocation).areContentsHidden()) {
                     for (String itemName : containers.get(itemLocation).getContents().keySet()) {
-                        System.out.printf("Item: You see %S %s in the %s.\n", aOrAn(itemName), itemName, itemLocation);
+                        System.out.printf("Item: You see %s %s in the %s.\n", aOrAn(itemName), itemName, itemLocation);
                     }
                 } else {
-                    System.out.printf("You see %s %s", aOrAn(itemLocation), itemLocation);
+                    System.out.printf("You see %s %s.\n", aOrAn(itemLocation), itemLocation);
                 }
             }
         }
