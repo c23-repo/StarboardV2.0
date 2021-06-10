@@ -1,31 +1,31 @@
 [
   {
     "name": "knife",
-    "damage": 5,
+    "damage": -5,
     "description": "This is a knife.",
     "quantity": 1
   },
   {
     "name": "pistol",
-    "damage": 10,
+    "damage": -10,
     "description": "This is a pistol.",
     "quantity": 1
   },
   {
     "name": "m4",
-    "damage": 15,
+    "damage": -15,
     "description": "This is a m4.",
     "quantity": 1
   },
   {
     "name": "machine gun",
-    "damage": 20,
+    "damage": -20,
     "description": "This is a machine gun.",
     "quantity": 1
   },
   {
     "name": "laser gun",
-    "damage": 25,
+    "damage": -25,
     "description": "This is a laser gun.",
     "quantity": 1
   }

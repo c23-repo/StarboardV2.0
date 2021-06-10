@@ -64,7 +64,7 @@ public class CommandMatch {
     public static void drop(String name, Player player) {
         try {
             // Requires every Room instance to have a Container with name "floor".
-            Game.getCurrentRoom().addItemToContainer(player.dropItem(name), Game.getCurrentRoom().getContainer("floor"));
+            Game.getCurrentRoom().addItemToContainer(player.dropItem(name), Game.getCurrentRoom().getContainer("console"));
         } catch (NullPointerException e) {
             String article = aOrAn(name);
             System.out.printf("You don't have %s %s.%n", article, name);

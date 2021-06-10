@@ -19,12 +19,15 @@ public class Weapon extends GameItem implements Usable {
 
     // Constructors
 
-    public Weapon() {}
+    public Weapon() {
+        isPortable = true;
+    }
 
     public Weapon(String name, int damage) {
-        super(name);
+        this();
+        // super(name);
+        this.name = name;
         this.damage = damage;
-        isPortable = true;
     }
 
     public Weapon(String name, int damage, String description) {

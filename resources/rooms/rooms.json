@@ -5,7 +5,7 @@
       "description": "The bridge is a room or platform of a ship from which the ship can be commanded.",
       "containers": {
         "console": "knife",
-        "secret box": "small potion"
+        "secret box": "potion"
       }
   },
 
@@ -14,6 +14,7 @@
     "linkedRooms": ["bridge","utility"],
     "description": "The galley is the compartment of a ship where food is cooked and prepared",
     "containers": {
+      "console": "m4",
       "wall":"pistol",
       "hutch": "medium potion"
     }
@@ -24,6 +25,7 @@
     "linkedRooms": ["galley","hallway"],
     "description": "The utility room is where the generators, pumps and air system located.",
     "containers": {
+      "console": "pistol",
       "corner":"m4",
       "tough box": "large potion"
     }
@@ -35,7 +37,7 @@
     "description": "The hallway is a corridor connected to a lot of rooms",
     "containers": {
       "console": "machine gun",
-      "secret box": "small potion"
+      "secret box": "potion"
     }
   },
 
@@ -65,7 +67,7 @@
     "description": "medical room, where crew members get treated",
     "containers": {
       "console": "pistol",
-      "secret box": "small potion"
+      "secret box": "potion"
     }
   },
 
@@ -95,7 +97,7 @@
     "description": "The lab is a place for scientific experiments.",
     "containers": {
       "console": "laser gun",
-      "secret box": "small potion"
+      "secret box": "potion"
     }
   },
 

@@ -17,7 +17,9 @@ public class HealingItem extends GameItem implements Usable {
     }
 
     // Constructors
-    public HealingItem() {}
+    public HealingItem() {
+        isPortable = true;
+    }
 
     public HealingItem(String name, boolean isPortable, int healValue) {
         super(name, isPortable);
