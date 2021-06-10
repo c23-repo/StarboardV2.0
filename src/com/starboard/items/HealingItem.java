@@ -9,6 +9,11 @@ public class HealingItem extends GameItem implements Usable {
     public void use(Player player) {
         player.changeHp(getHealValue());
         System.out.printf("Healed %d HP.%n", healValue);
+        if (getQuantity() > 1) {
+            changeQuantity(-1);
+        } else if (getQuantity() == 1) {
+            player.getInventory().remove(getName());
+        }
     }
 
     // Constructors

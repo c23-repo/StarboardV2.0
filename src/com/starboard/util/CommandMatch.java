@@ -1,10 +1,8 @@
 package com.starboard.util;
 
 import com.starboard.Game;
-import com.starboard.Room;
 import com.starboard.Player;
-
-import java.util.Arrays;
+import static com.starboard.util.Parser.aOrAn;
 
 /* CommandMatch is an all static class that groups methods belonging
  * to different classes together within higher order methods to enable
@@ -37,6 +35,9 @@ public class CommandMatch {
                 break;
             case "use":
                 use(subject, player);
+                break;
+            case "open":
+                openContainer(subject);
         }
     }
 
@@ -94,13 +95,11 @@ public class CommandMatch {
         }
     }
 
-    private static String aOrAn(String itemName) {
-        String article;
-        if (Arrays.asList('a', 'e', 'i', 'o', 'u').contains(itemName.charAt(0))) {
-            article = "an";
-        } else {
-            article = "a";
+    public static void openContainer(String containerName) {
+        try {
+            Game.getCurrentRoom().getContainer(containerName).open();
+        } catch (NullPointerException e) {
+            System.out.println("You can't open that.");
         }
-        return article;
     }
 }

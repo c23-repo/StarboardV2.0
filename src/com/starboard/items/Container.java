@@ -2,12 +2,13 @@ package com.starboard.items;
 
 import java.util.Map;
 import java.util.HashMap;
+import static com.starboard.util.Parser.aOrAn;
 
 public class Container extends GameItem {
     //fields
 
     // Contents of the container are hidden by default if not specified in constructor.
-    private final boolean contentsHidden;
+    private boolean contentsHidden;
     private final Map<String, GameItem> contents = new HashMap<>();
 
     // Constructors
@@ -51,6 +52,22 @@ public class Container extends GameItem {
         }
     }
 
+    public void open() {
+        if (contentsHidden) {
+            contentsHidden = false;
+            System.out.println("You see:");
+            for (GameItem item : contents.values()) {
+                if (item.getQuantity() > 1) {
+                    System.out.printf("%d %ss%n", item.getQuantity(), item.getName());
+                } else {
+                    System.out.printf("%s %s%n", aOrAn(item.getName()), item.getName());
+                }
+            }
+        } else {
+            System.out.println("You can't open that.");
+        }
+    }
+
     // Accessors
 
     public Map<String, GameItem> getContents() {
@@ -59,5 +76,9 @@ public class Container extends GameItem {
 
     public GameItem getContentItem(String name) throws NullPointerException {
         return contents.get(name);
+    }
+
+    public boolean areContentsHidden() {
+        return contentsHidden;
     }
 }
