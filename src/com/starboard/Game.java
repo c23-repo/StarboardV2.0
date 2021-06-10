@@ -68,6 +68,7 @@ public class Game {
                 battle.fight();
                 if(battle.isWinning()){
                     System.out.println("Keep moving!");
+                    Prompt.showStatus(currentRoom);
                 }else break;
             }
 

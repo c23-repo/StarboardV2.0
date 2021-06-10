@@ -7,11 +7,7 @@ public class Weapon extends GameItem implements Usable {
 
     @Override
     public void use(Player player) {
-        if (player.getEquippedWeapon() == this) {
-            /*String cappedName = this.getName().replace(this.getName().charAt(0), this.getName().toUpperCase().charAt(0));
-            System.out.println(cappedName + " is already equipped.");*/
-
-        } else {
+        if (player.getEquippedWeapon() != this) {
             player.setEquippedWeapon(this);
             System.out.println("You equipped " + this.getName() + ".");
         }
