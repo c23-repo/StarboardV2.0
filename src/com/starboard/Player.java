@@ -5,6 +5,7 @@ import com.starboard.items.HealingItem;
 import com.starboard.items.Usable;
 import com.starboard.items.Weapon;
 import com.starboard.util.CommandMatch;
+import com.starboard.util.ConsoleColors;
 
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +62,8 @@ public class Player {
             Usable useItem = (Usable) item;
             useItem.use(this);
         } catch (ClassCastException e) {
-            System.out.printf("Can't use %s.%n", item.getName());
+            ConsoleColors.changeTo(ConsoleColors.RED_BACKGROUND_BRIGHT);
+            System.out.printf("Can't use %s.%n", item.getName()+ConsoleColors.RESET);
         }
     }
 

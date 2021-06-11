@@ -1,5 +1,9 @@
 package com.starboard;
 
+import com.starboard.util.ConsoleColors;
+
+import java.io.Console;
+
 class Battle {
     private final Room room;
     private final Alien alien;
@@ -23,16 +27,18 @@ class Battle {
 
                 alien.attack(player);
                 if (player.getHp()<=30){
-                    System.out.println("You are low in hp. use some healing items.");
+                    System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "You are low in hp. use some healing items." + ConsoleColors.RESET);
                 }
             }
             if (alien.isConfirmedKilled()){
+                ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
                 System.out.println("Congrats, you killed one of the aliens.");
                 System.out.println("There are " + alien.getNumOfAliens() + " aliens left.");
+                ConsoleColors.reset();
                 setWinning(true);
             }
             if (player.isKilled()){
-                System.out.println("You are killed by alien! Game Over!");
+                System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "You are killed by alien! Game Over!" + ConsoleColors.RESET);
                 setWinning(false);
             }
         }else{
@@ -46,10 +52,10 @@ class Battle {
         // this feature is to balance the game difficulty.
         setEscapeChance(alien.getShowUpChance());
         if (Math.random() <= getEscapeChance()) {
-            System.out.println("You are lucky, Escaped from the brutal alien!");
+            System.out.println(ConsoleColors.GREEN_BOLD + "You are lucky, Escaped from the brutal alien!" + ConsoleColors.RESET);
             return true;
         } else {
-            System.out.println("You failed to escape this time, be prepared to fight!");
+            System.out.println(ConsoleColors.RED_BOLD + "You failed to escape this time, be prepared to fight!" + ConsoleColors.RESET);
             return false;
         }
     }
