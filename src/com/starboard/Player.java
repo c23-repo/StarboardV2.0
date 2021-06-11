@@ -21,10 +21,14 @@ public class Player {
     public void attack(Alien alien) {
 
         System.out.println("Please use the weapon in your inventory, otherwise you will use your fist.");
-        String[] battleCommandInput = InputHandler.input(Game.getCurrentRoom());;
-        while (!battleCommandInput[0].equals("use")) {
+        String[] battleCommandInput = InputHandler.input(Game.getCurrentRoom());
+        while (!battleCommandInput[0].equals("use") || battleCommandInput[1].equals("map")) {
             //you can only use "use" command.
-            System.out.println("You cannot leave the room nor take or drop items at the moment.");
+            if (!battleCommandInput[0].equals("use")) {
+                System.out.println("You cannot leave the room nor take or drop items at the moment.");
+            } else {
+                System.out.println("You don't have time to look at your map now.");
+            }
             battleCommandInput = InputHandler.input(Game.getCurrentRoom());
         }
         CommandMatch.matchCommand(battleCommandInput,this);
