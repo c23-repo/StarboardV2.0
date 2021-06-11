@@ -1,6 +1,9 @@
 package com.starboard;
 
 import com.starboard.items.Weapon;
+import com.starboard.util.ConsoleColors;
+
+import java.io.Console;
 
 class Alien {
 
@@ -28,7 +31,7 @@ class Alien {
 
     public void showUp() {
         if (Math.random() < getShowUpChance()) {
-            System.out.println("Alien appeared.");
+            System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien appeared." + ConsoleColors.RESET);
             setExisted(true);
         }
     }
@@ -43,14 +46,7 @@ class Alien {
         return false;
     }
 
-
-    public void dropWeapon() {
-
-        Game.getCurrentRoom().addItemToContainer(getEquippedWeapon(), Game.getCurrentRoom().getContainer("console"));
-    }
-
     //getters and setters
-
 
     public boolean isConfirmedKilled() {
         return confirmedKilled;

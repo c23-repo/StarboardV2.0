@@ -2,6 +2,7 @@ package com.starboard;
 
 import com.starboard.items.*;
 import com.starboard.util.CommandMatch;
+import com.starboard.util.ConsoleColors;
 import com.starboard.util.Prompt;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,7 @@ public class Game {
         currentRoom = roomsList.get(0);
         // show commands
         Prompt.showCommands();
+        Prompt.showMap();
 
         //initialize player
         Player player = new Player();
@@ -74,7 +76,9 @@ public class Game {
             CommandMatch.matchCommand(parsedInputs,player);
 
             if (currentRoom.getName().equals("pod")) {
+                ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
                 System.out.println("Congratulations! You successfully escape from the ship!");
+                ConsoleColors.reset();
                 endGame = true;
             }
         }

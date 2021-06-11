@@ -34,7 +34,11 @@ public class CommandMatch {
                 goToRoom(subject);
                 break;
             case "use":
-                use(subject, player);
+                if (subject.equals("map")) {
+                    Prompt.showMap();
+                } else {
+                    use(subject, player);
+                }
                 break;
             case "open":
                 openContainer(subject);
