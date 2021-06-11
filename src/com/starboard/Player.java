@@ -5,9 +5,9 @@ import com.starboard.items.HealingItem;
 import com.starboard.items.Usable;
 import com.starboard.items.Weapon;
 import com.starboard.util.CommandMatch;
+import com.starboard.util.Sound;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Player {
@@ -65,8 +65,10 @@ public class Player {
         if (item.isPortable()) {
             if (inventory.containsKey(item.getName())) {
                 inventory.get(item.getName()).changeQuantity(item.getQuantity());
+                Sound.play(0); // index 0 is file path for get item sound file
             } else {
                 inventory.put(item.getName(), item);
+                Sound.play(0); // index 0 is file path for get item sound file
             }
         } else {
             System.out.printf("Can't take %s.%n", item.getName());
