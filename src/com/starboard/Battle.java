@@ -27,7 +27,6 @@ class Battle {
                 }
             }
             if (alien.isConfirmedKilled()){
-                alien.dropWeapon();
                 System.out.println("Congrats, you killed one of the aliens.");
                 System.out.println("There are " + alien.getNumOfAliens() + " aliens left.");
                 setWinning(true);
@@ -42,7 +41,7 @@ class Battle {
     }
 
     private boolean isEscaped() {
-        //set escape equals alien show up chance. if aliens show up chance is high,
+        // set escape equals alien show up chance. if aliens show up chance is high,
         // then it is easier to get escaped. if only one alien existed, then it is hard to escape.
         // this feature is to balance the game difficulty.
         setEscapeChance(alien.getShowUpChance());

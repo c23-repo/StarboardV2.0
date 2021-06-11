@@ -70,6 +70,7 @@ public class Game {
                 if(battle.isWinning()){
                     System.out.println("Keep moving!");
                     Prompt.showStatus(currentRoom);
+                    Prompt.showInventory(player);
                 }else break;
             }
 
