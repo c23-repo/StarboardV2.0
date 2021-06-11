@@ -1,14 +1,11 @@
 package com.starboard;
 
-import com.starboard.items.GameItem;
 import com.starboard.items.Weapon;
-
-import java.util.Map;
 
 class Alien {
 
     private boolean isExisted;
-    private Weapon equippedWeapon = new Weapon("stick", -20,"It is a powerful weapon used by alien.");
+    private Weapon equippedWeapon = new Weapon("stick", -20,"It is a powerful weapon used by alien.",1);
     private double showUpChance;
     private Room room;
     private int numOfAliens;
@@ -48,9 +45,8 @@ class Alien {
 
 
     public void dropWeapon() {
-        if (isConfirmedKilled()) {
-            Game.getCurrentRoom().addItemToContainer(getEquippedWeapon(), Game.getCurrentRoom().getContainer("console"));
-        }
+
+        Game.getCurrentRoom().addItemToContainer(getEquippedWeapon(), Game.getCurrentRoom().getContainer("console"));
     }
 
     //getters and setters

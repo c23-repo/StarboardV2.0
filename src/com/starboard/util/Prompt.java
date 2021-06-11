@@ -17,8 +17,8 @@ import java.util.Map;
 public class Prompt {
     public static void showStatus(Room currentRoom) {
         System.out.println("------------------------------- status ----------------------------------------");
-        System.out.println(String.format("Location: You are in the %s.", currentRoom.getName()));
-        System.out.println(String.format("Description: %s", currentRoom.getDescription()));
+        System.out.printf("Location: You are in the %s.%n", currentRoom.getName());
+        System.out.printf("Description: %s%n", currentRoom.getDescription());
         // show items in the current room
         Map<String, Container> containers = currentRoom.getContainers();
         if (containers.size() > 0) {
@@ -36,7 +36,7 @@ public class Prompt {
         List<String> linkedRooms = currentRoom.getLinkedRooms();
         if (linkedRooms.size() > 0) {
             for (String roomName : linkedRooms) {
-                System.out.println(String.format("Linked room: You can go to %s.", roomName));
+                System.out.printf("Linked room: You can go to %s.%n", roomName);
             }
         } else {
             System.out.println("This room is not linked to any rooms!");
@@ -68,7 +68,7 @@ public class Prompt {
     }
 
     public static void showInventory(Player player) {
-        System.out.println("\n------------------------------- Inventory -------------------------------------");
+        System.out.printf("\n------------------------------- Inventory (HP:%d)----------------------------%n",player.getHp());
         System.out.printf("%10s%15s%15s%30s%n","Item", "healValue", "damageValue", "description");
         for (GameItem item : player.getInventory().values()) {
             // if the item is a healingItem, display its healValue
