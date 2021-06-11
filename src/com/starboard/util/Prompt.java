@@ -106,14 +106,15 @@ public class Prompt {
         System.out.printf("\n------------------------------- Inventory (HP:%s)----------------------------%n",
                 (ConsoleColors.GREEN + String.valueOf(player.getHp()) + ConsoleColors.YELLOW));
         ConsoleColors.reset();
-        System.out.printf("%10s%15s%15s%30s%n","Item", "healValue", "damageValue", "description");
-
+        ConsoleColors.changeTo(ConsoleColors.WHITE_BOLD_BRIGHT);
+        System.out.printf("%10s%15s%15s%35s%n","Item", "healValue", "damageValue", "description");
+        ConsoleColors.reset();
         for (GameItem item : player.getInventory().values()) {
             // if the item is a healingItem, display its healValue
             String healValue = item instanceof HealingItem ? (ConsoleColors.GREEN + String.valueOf(((HealingItem) item).getHealValue()) + ConsoleColors.RESET) : "n/a";
             // if the item is a weapon, display its damageValue
             String damageValue = item instanceof Weapon ? (ConsoleColors.RED + String.valueOf(((Weapon) item).getDamage()) + ConsoleColors.RESET) : "n/a";
-            System.out.printf("%10s X %d%10s%s%s%s%40s%n", item.getName(), item.getQuantity(), "",healValue , "", damageValue , item.getDescription());
+            System.out.printf("%10s X %d%10s%s%10s%s%40s%n", item.getName(), item.getQuantity(), "",healValue , "", damageValue , item.getDescription());
         }
         ConsoleColors.changeTo(ConsoleColors.YELLOW);
         System.out.println("------------------------------- Inventory -------------------------------------");

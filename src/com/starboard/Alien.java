@@ -31,9 +31,7 @@ class Alien {
 
     public void showUp() {
         if (Math.random() < getShowUpChance()) {
-            ConsoleColors.changeTo(ConsoleColors.RED_BACKGROUND_BRIGHT);
-            System.out.println("Alien appeared.");
-            ConsoleColors.reset();
+            System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien appeared." + ConsoleColors.RESET);
             setExisted(true);
         }
     }
@@ -46,12 +44,6 @@ class Alien {
             return true;
         }
         return false;
-    }
-
-
-    public void dropWeapon() {
-
-        Game.getCurrentRoom().addItemToContainer(getEquippedWeapon(), Game.getCurrentRoom().getContainer("console"));
     }
 
     //getters and setters
