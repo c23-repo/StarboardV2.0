@@ -51,7 +51,6 @@ class Alien {
 
     //getters and setters
 
-
     public boolean isConfirmedKilled() {
         return confirmedKilled;
     }

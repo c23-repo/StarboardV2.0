@@ -90,7 +90,9 @@ public class Prompt {
         }
 
         try {
+            ConsoleColors.changeTo(ConsoleColors.RED);
             System.out.println(banner);
+            ConsoleColors.reset();
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
