@@ -69,7 +69,8 @@ class Alien {
     }
 
     public void setHp(int hp) {
-        this.hp = hp;
+
+        this.hp = Math.max(hp, 0);
     }
 
     public boolean isExisted() {
