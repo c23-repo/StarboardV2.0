@@ -10,6 +10,7 @@ import com.starboard.util.Prompt;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Game {
     private static Room currentRoom;
@@ -105,6 +106,8 @@ public class Game {
                 System.out.println("Congratulations! You successfully escape from the ship!");
                 endGame = true;
             }
+
+
         }
     }
 
