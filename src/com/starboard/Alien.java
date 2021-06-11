@@ -1,6 +1,9 @@
 package com.starboard;
 
 import com.starboard.items.Weapon;
+import com.starboard.util.ConsoleColors;
+
+import java.io.Console;
 
 class Alien {
 
@@ -28,7 +31,9 @@ class Alien {
 
     public void showUp() {
         if (Math.random() < getShowUpChance()) {
+            ConsoleColors.changeTo(ConsoleColors.RED_BACKGROUND_BRIGHT);
             System.out.println("Alien appeared.");
+            ConsoleColors.reset();
             setExisted(true);
         }
     }
