@@ -80,5 +80,22 @@ public class Prompt {
         System.out.println("------------------------------- Inventory -------------------------------------");
     }
 
+    public static void showWelcome(){
+        String path = "resources/welcome/welcome.txt";
+        String banner = null;
+        try {
+            banner = Files.readString(Paths.get(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            System.out.println(banner);
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
