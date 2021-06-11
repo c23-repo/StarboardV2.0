@@ -1,5 +1,6 @@
 package com.starboard.util;
 
+import com.starboard.Game;
 import com.starboard.Player;
 import com.starboard.Room;
 import com.starboard.items.Container;
@@ -8,8 +9,7 @@ import com.starboard.items.HealingItem;
 import com.starboard.items.Weapon;
 import static com.starboard.util.Parser.aOrAn;
 
-import java.io.Console;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -73,15 +73,32 @@ public class Prompt {
     }
 
     public static void showMap() {
-        String path = "resources/spaceship.txt";
-        String map = null;
+        File file = new File("resources/spaceship.txt");
         try {
-            map = Files.readString(Paths.get(path));
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuilder map = new StringBuilder();
+            String line;
+            String[] roomName = Game.getCurrentRoom().getName().toUpperCase().split(" ", 2);
+            while ((line = br.readLine()) != null) {
+                if (line.contains(roomName[0])) {
+                    line = line.replace(roomName[0], ConsoleColors.CYAN + roomName[0] + ConsoleColors.RESET);
+                    if (roomName.length == 2) {
+                        if (line.contains(roomName[1])) {
+                            line = line.replace(roomName[1], ConsoleColors.CYAN + roomName[1] + ConsoleColors.RESET);
+                        }
+                    }
+                }
+                if (line.contains("POD")) {
+                    line = line.replace("POD", ConsoleColors.GREEN + "POD" + ConsoleColors.RESET);
+                }
+                map.append(line).append("\n");
+            }
+            System.out.println(map.toString());
+        } catch (FileNotFoundException e) {
+            System.err.println("ERROR: map file not found.");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("ERROR: could not read map file.");
         }
-
-        System.out.println(map);
     }
 
     public static void showInventory(Player player) {
