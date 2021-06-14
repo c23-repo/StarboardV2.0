@@ -5,6 +5,7 @@ import com.starboard.items.HealingItem;
 import com.starboard.items.Usable;
 import com.starboard.items.Weapon;
 import com.starboard.util.CommandMatch;
+import com.starboard.util.Prompt;
 import com.starboard.util.Sound;
 import com.starboard.util.ConsoleColors;
 
@@ -37,18 +38,38 @@ public class Player {
         if(getInventory().get(battleCommandInput[1]) instanceof Weapon){
             //equip with weapon to attack
             setEquippedWeapon((Weapon) getInventory().get(battleCommandInput[1]));
-            System.out.println("You are attacking the alien");
+            System.out.println("You are attacking the alien with " + getEquippedWeapon().getName() + ".");
             alien.setHp(alien.getHp() + getEquippedWeapon().getDamage());
-            System.out.println("Alien hp decreased by " + (-getEquippedWeapon().getDamage()));
-            System.out.println("Alien hp is " + alien.getHp());
+            //mimic attacking
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+//            System.out.println("Alien hp decreased by " + (-getEquippedWeapon().getDamage()));
+//            System.out.println("Alien hp is " + alien.getHp());
+            Prompt.showBattleStatus(alien, this);
         }else if(getInventory().get(battleCommandInput[1]) instanceof HealingItem){
             //use healing item to recover
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             System.out.println("Your hp is recovered to: " + getHp());
+            Prompt.showBattleStatus(alien, this);
+
         }else{
             //you are default to use fist
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             System.out.println("You punched alien with your fist");
             alien.setHp(alien.getHp() - 30);
-            System.out.println("Alien hp is " + alien.getHp());
+            Prompt.showBattleStatus(alien, this);
         }
     }
 

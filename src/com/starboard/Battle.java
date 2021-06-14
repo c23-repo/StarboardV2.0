@@ -2,8 +2,6 @@ package com.starboard;
 
 import com.starboard.util.ConsoleColors;
 
-import java.io.Console;
-
 class Battle {
     private final Room room;
     private final Alien alien;

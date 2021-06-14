@@ -1,5 +1,6 @@
 package com.starboard.util;
 
+import com.starboard.Alien;
 import com.starboard.Game;
 import com.starboard.Player;
 import com.starboard.Room;
@@ -185,5 +186,14 @@ public class Prompt {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void showBattleStatus(Alien alien, Player player){
+        ConsoleColors.changeTo(ConsoleColors.CYAN);
+        System.out.println("╔════════HP═════════╗");
+        System.out.printf("║%7s%10s  ║%n","Alien",alien.getHp());
+        System.out.printf("║%7s%10s  ║%n","You",player.getHp());
+        System.out.println("╚═══════════════════╝");
+        ConsoleColors.reset();
     }
 }
