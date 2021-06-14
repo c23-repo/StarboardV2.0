@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class Game {
     private static Room currentRoom;
+    private static Music backgroundMusic = new Music("resources/audios/background.wav");
 
     public static void main(String[] args) {
         Prompt.showWelcome();
@@ -63,13 +64,16 @@ public class Game {
         //initialize player
         Player player = new Player();
         Alien aliens = new Alien(100, alienNumber);
+
+        // initialize background music
+        // Music backgroundMusic = new Music("resources/audios/background.wav");
         //reset room and items
         Game.init();
 
         boolean endGame = false;
 
         while (!endGame) {
-
+            backgroundMusic.loop();
             aliens.setRoom(currentRoom);
             aliens.setExisted(false);
             aliens.setShowUpChance();
@@ -93,6 +97,7 @@ public class Game {
             CommandMatch.matchCommand(parsedInputs, player);
             //winning condition
             if (currentRoom.getName().equals("pod")) {
+                backgroundMusic.close();
                 ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
                 System.out.println("Congratulations! You successfully escape from the ship!");
                 ConsoleColors.reset();
@@ -111,7 +116,7 @@ public class Game {
         boolean endGame = false;
 
         while (!endGame) {
-
+            backgroundMusic.loop();
             Prompt.showStatus(currentRoom);
             Prompt.showInventory(player);
 
@@ -121,6 +126,7 @@ public class Game {
             CommandMatch.matchCommand(parsedInputs, player);
 
             if (currentRoom.getName().equals("pod")) {
+                backgroundMusic.close();
                 ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
                 System.out.println("Congratulations! You successfully escape from the ship!");
                 ConsoleColors.reset();
