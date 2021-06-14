@@ -24,17 +24,6 @@ public class Room {
         this.name = name;
     }
 
-    // Business
-
-    //    public GameItem giveItem(String name) throws NullPointerException {
-//        GameItem item = getItemFromContainers(name);
-//        for (Container container : containers.values()) {
-//            if (container.getContents().containsKey(name)) {
-//                return container.giveItem(name);
-//            }
-//        }
-//        throw new NullPointerException();
-//    }
     public GameItem giveItem(String name) throws NullPointerException {
         GameItem item = null;
         for (Container container : containers.values()) {
@@ -50,8 +39,6 @@ public class Room {
     }
 
     // Accessors
-
-
     public String getName() {
         return name;
     }

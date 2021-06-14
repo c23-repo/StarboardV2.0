@@ -5,7 +5,6 @@ import com.starboard.Room;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class Parser {
 
@@ -24,7 +23,7 @@ public class Parser {
 
     public void parse(String str) {
         //strip filler words from user input
-        List<String> fillerWords = Arrays.asList("to", "the", "a", "an", "from", "in", "inside", "out", "outside", "of","me");
+        List<String> fillerWords = Arrays.asList("to", "the", "a", "an", "from", "in", "inside", "out", "outside", "of","me","at");
         String[] splitWords = str.trim().split(" ");
         List<String> command = new ArrayList<>();
 
@@ -91,7 +90,7 @@ public class Parser {
 
             // create synonyms for open command
 
-            List<String> openContainersCollection = Arrays.asList("open", "look");
+            List<String> openContainersCollection = Arrays.asList("open", "look","see","discover","watch");
 
             if (openContainersCollection.contains(command.get(0).toLowerCase())) {
                 setFirstCommand("open");

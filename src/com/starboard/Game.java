@@ -1,22 +1,24 @@
 package com.starboard;
 
 import com.starboard.items.*;
-import com.starboard.util.CommandMatch;
-import com.starboard.util.ConsoleColors;
-import com.starboard.util.Prompt;
+import com.starboard.util.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Game {
     private static Room currentRoom;
+
     public static void main(String[] args) {
+        Prompt.showWelcome();
+        init();
         start();
     }
 
-    public static void start() {
-        Prompt.showWelcome();
-        boolean endGame = false;
+    public static void init() {
+
         // create weapons list
         List<Weapon> weaponsList = CreateItems.createWeapons();
 
@@ -44,13 +46,27 @@ public class Game {
 
         // Initialize start room
         currentRoom = roomsList.get(0);
-        // show commands
-        Prompt.showCommands();
-        Prompt.showMap();
+    }
+
+    public static void start() {
+
+        int alienNumber = chooseLevel();
+
+        //Training mode
+        while (alienNumber == 0) {
+
+            training();
+            alienNumber = chooseLevel();
+        }
+        Prompt.showIntroduction();
 
         //initialize player
         Player player = new Player();
-        Alien aliens = new Alien(100,5);
+        Alien aliens = new Alien(100, alienNumber);
+        //reset room and items
+        Game.init();
+
+        boolean endGame = false;
 
         while (!endGame) {
 
@@ -61,19 +77,48 @@ public class Game {
             Prompt.showStatus(currentRoom);
             Prompt.showInventory(player);
 
-            if (aliens.isExisted()){
+            //battle mode
+            if (aliens.isExisted()) {
                 Battle battle = new Battle(aliens, player, currentRoom);
                 battle.fight();
-                if(battle.isWinning()){
+                if (battle.isWinning()) {
                     System.out.println("Keep moving!");
                     Prompt.showStatus(currentRoom);
                     Prompt.showInventory(player);
-                }else break;
+                } else break;
             }
 
             String[] parsedInputs = InputHandler.input(currentRoom);
 
-            CommandMatch.matchCommand(parsedInputs,player);
+            CommandMatch.matchCommand(parsedInputs, player);
+            //winning condition
+            if (currentRoom.getName().equals("pod")) {
+                ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
+                System.out.println("Congratulations! You successfully escape from the ship!");
+                ConsoleColors.reset();
+                endGame = true;
+            }
+        }
+    }
+
+    private static void training() {
+        System.out.println("Entering training mode");
+        System.out.println("You need to go to POD to finish training. Try pick up and drop off items in different rooms.");
+        Prompt.showMap();
+        // show commands
+        Prompt.showCommands();
+        Player player = new Player();
+        boolean endGame = false;
+
+        while (!endGame) {
+
+            Prompt.showStatus(currentRoom);
+            Prompt.showInventory(player);
+
+
+            String[] parsedInputs = InputHandler.input(currentRoom);
+
+            CommandMatch.matchCommand(parsedInputs, player);
 
             if (currentRoom.getName().equals("pod")) {
                 ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
@@ -82,6 +127,32 @@ public class Game {
                 endGame = true;
             }
         }
+    }
+
+    public static int chooseLevel() {
+        Prompt.showLevelChooser();
+        System.out.print("Enter the number\n>");
+        Scanner sc = new Scanner(System.in);
+        int updateValue = 0;
+        boolean invalidInput = true;
+
+        while (invalidInput) {
+            if (sc.hasNextInt()) {
+                // get the update value
+                updateValue = sc.nextInt();
+
+                // check to see if it was within range
+                if (updateValue >= 0 && updateValue <= 4) {
+                    invalidInput = false;
+                } else {
+                    System.out.println("You have not entered a number between 0 and 4. Try again.");
+                }
+            } else {
+                System.out.println("You have entered an invalid input. Try again.");
+                sc.next();
+            }
+        }
+        return updateValue * 2;
     }
 
     public static Room getCurrentRoom() {
