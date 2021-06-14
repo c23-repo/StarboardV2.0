@@ -158,11 +158,13 @@ public class Prompt {
     }
 
     public static void showIntroduction(){
-
+        Music keyboard = new Music("resources/audios/keyboard.wav");
         String intro = "You are at the bridge and were notified there are a few aliens boarding the ship.\n" +
-                "You need to successfully escape to the POD and kill any alien that you meet to win!\n" +
+                "You need to successfully escape to the POD and kill any alien on your way to win!\n" +
                 "Good Luck!";
+        keyboard.play();
         printOneAtATime(intro);
+        keyboard.stop();
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -179,7 +181,7 @@ public class Prompt {
                 e.printStackTrace();
             }
         }
-        System.out.println("");
+        System.out.println();
     }
 
     public static void showLevelChooser(){
