@@ -158,14 +158,28 @@ public class Prompt {
     }
 
     public static void showIntroduction(){
-        System.out.println("You are at the bridge and were notified there are a few aliens boarding the ship.\n" +
-                "You need to successfully escape to the POD and kill any alien that you meet to win! \n" +
-                "Good Luck! ");
+
+        String intro = "You are at the bridge and were notified there are a few aliens boarding the ship.\n" +
+                "You need to successfully escape to the POD and kill any alien that you meet to win!\n" +
+                "Good Luck!";
+        printOneAtATime(intro);
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void printOneAtATime(String str){
+        for (char chr: str.toCharArray()) {
+            System.out.print(chr);
+            try {
+                Thread.sleep(80);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("");
     }
 
     public static void showLevelChooser(){
