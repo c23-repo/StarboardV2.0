@@ -70,6 +70,11 @@ public class Prompt {
                 + "Example: get key\n"
                 + "===============================================");
         ConsoleColors.reset();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void showMap() {
@@ -94,10 +99,13 @@ public class Prompt {
                 map.append(line).append("\n");
             }
             System.out.println(map.toString());
+            Thread.sleep(2000);
         } catch (FileNotFoundException e) {
             System.err.println("ERROR: map file not found.");
         } catch (IOException e) {
             System.err.println("ERROR: could not read map file.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -145,6 +153,37 @@ public class Prompt {
     public static void clearScreen() {
         for(int i = 0; i<30;i++){
             System.out.println(" ");
+        }
+    }
+
+    public static void showIntroduction(){
+        System.out.println("You are at the bridge and were notified there are a few aliens boarding the ship.\n" +
+                "You need to successfully escape to the POD and kill any alien that you meet to win! \n" +
+                "Good Luck! ");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showLevelChooser(){
+        String path = "resources/welcome/ChooseLevel.txt";
+        String chooser = null;
+        try {
+            chooser = Files.readString(Paths.get(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            ConsoleColors.changeTo(ConsoleColors.GREEN);
+            System.out.println(chooser);
+            ConsoleColors.reset();
+            Thread.sleep(1000);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

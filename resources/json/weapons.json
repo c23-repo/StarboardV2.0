@@ -25,7 +25,7 @@
   },
   {
     "name": "shotgun",
-    "damage": -100,
+    "damage": -60,
     "description": "This is a shotgun.",
     "quantity": 1
   }

@@ -43,11 +43,11 @@ public class Player {
             System.out.println("Alien hp is " + alien.getHp());
         }else if(getInventory().get(battleCommandInput[1]) instanceof HealingItem){
             //use healing item to recover
-            System.out.println("You hp is recovered to: " + getHp());
+            System.out.println("Your hp is recovered to: " + getHp());
         }else{
             //you are default to use fist
             System.out.println("You punched alien with your fist");
-            alien.setHp(alien.getHp() - 50);
+            alien.setHp(alien.getHp() - 30);
             System.out.println("Alien hp is " + alien.getHp());
         }
     }

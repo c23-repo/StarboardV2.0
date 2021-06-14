@@ -24,7 +24,7 @@ class Alien {
     public void attack(Player player){
         System.out.println("Alien is attacking");
         player.changeHp(getEquippedWeapon().getDamage());
-        System.out.println("Your hp decreased " + getEquippedWeapon().getDamage());
+        System.out.println("Your hp decreased " + (-getEquippedWeapon().getDamage()));
         System.out.println("You have " + player.getHp() + " hp left.");
     }
 
