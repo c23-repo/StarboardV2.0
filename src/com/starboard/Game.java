@@ -1,12 +1,7 @@
 package com.starboard;
 
-import com.starboard.items.Container;
-import com.starboard.items.GameItem;
-import com.starboard.items.HealingItem;
-import com.starboard.items.Weapon;
-import com.starboard.util.CommandMatch;
-import com.starboard.util.ConsoleColors;
-import com.starboard.util.Prompt;
+import com.starboard.items.*;
+import com.starboard.util.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -141,32 +136,23 @@ public class Game {
         int updateValue = 0;
         boolean invalidInput = true;
 
-        while (invalidInput)
-        {
-            if (sc.hasNextInt())
-            {
+        while (invalidInput) {
+            if (sc.hasNextInt()) {
                 // get the update value
                 updateValue = sc.nextInt();
 
                 // check to see if it was within range
-                if (updateValue >= 0 && updateValue <= 4)
-                {
+                if (updateValue >= 0 && updateValue <= 4) {
                     invalidInput = false;
-                }
-                else
-                {
+                } else {
                     System.out.println("You have not entered a number between 0 and 4. Try again.");
                 }
-            } else
-            {
+            } else {
                 System.out.println("You have entered an invalid input. Try again.");
                 sc.next();
             }
         }
-
         return updateValue * 2;
-
-
     }
 
     public static Room getCurrentRoom() {

@@ -2,10 +2,11 @@ package com.starboard;
 
 import com.starboard.items.Weapon;
 import com.starboard.util.ConsoleColors;
+import com.starboard.util.Prompt;
 
 import java.io.Console;
 
-class Alien {
+public class Alien {
 
     private boolean isExisted;
     private Weapon equippedWeapon = new Weapon("stick", -20,"It is a powerful weapon used by alien.",1);
@@ -24,8 +25,17 @@ class Alien {
     public void attack(Player player){
         System.out.println("Alien is attacking");
         player.changeHp(getEquippedWeapon().getDamage());
-        System.out.println("Your hp decreased " + (-getEquippedWeapon().getDamage()));
-        System.out.println("You have " + player.getHp() + " hp left.");
+        //mimic attacking
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Alien finished attacking.");
+//        System.out.println("Your hp decreased " + (-getEquippedWeapon().getDamage()));
+//        System.out.println("You have " + player.getHp() + " hp left.");
+        Prompt.showBattleStatus(this, player);
+
     }
 
 
