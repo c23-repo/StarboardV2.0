@@ -6,7 +6,7 @@ import javax.sound.sampled.*;
 
 public class Sound {
     public static void play(int index) {
-        String[] soundFilesPaths = {"resources/audios/get.wav", "resources/audios/drop.wav"};
+        String[] soundFilesPaths = {"resources/audios/background.wav", "resources/audios/get.wav", "resources/audios/drop.wav", "resources/audios/attack.wav", "resources/audios/m4.wav", "resources/audios/shotgun.wav", "resources/audios/healing.wav"};
         try {
             File file = new File(soundFilesPaths[index]);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);

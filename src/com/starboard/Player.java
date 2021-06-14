@@ -34,14 +34,22 @@ public class Player {
         }
         CommandMatch.matchCommand(battleCommandInput,this);
 
-        if(getInventory().get(battleCommandInput[1]) instanceof Weapon){
+        GameItem item = getInventory().get(battleCommandInput[1]);
+        if(item instanceof Weapon){
             //equip with weapon to attack
-            setEquippedWeapon((Weapon) getInventory().get(battleCommandInput[1]));
+            setEquippedWeapon((Weapon) item);
+            if (item.getName().equals("m4")) {
+                Sound.play(4); // index 4 is file path for m4 sound file
+            } else if (item.getName().equals("shotgun")) {
+                Sound.play(5); // index 5 is file path for shotgun sound file
+            } else {
+                Sound.play(3); // index 3 is file path for attack sound file
+            }
             System.out.println("You are attacking the alien");
             alien.setHp(alien.getHp() + getEquippedWeapon().getDamage());
             System.out.println("Alien hp decreased by " + (-getEquippedWeapon().getDamage()));
             System.out.println("Alien hp is " + alien.getHp());
-        }else if(getInventory().get(battleCommandInput[1]) instanceof HealingItem){
+        }else if(item instanceof HealingItem){
             //use healing item to recover
             System.out.println("You hp is recovered to: " + getHp());
         }else{
@@ -49,6 +57,7 @@ public class Player {
             System.out.println("You punched alien with your fist");
             alien.setHp(alien.getHp() - 50);
             System.out.println("Alien hp is " + alien.getHp());
+            Sound.play(3); // index 3 is file path for attack sound file
         }
     }
 
@@ -71,10 +80,10 @@ public class Player {
         if (item.isPortable()) {
             if (inventory.containsKey(item.getName())) {
                 inventory.get(item.getName()).changeQuantity(item.getQuantity());
-                Sound.play(0); // index 0 is file path for get item sound file
+                Sound.play(1); // index 1 is file path for get item sound file
             } else {
                 inventory.put(item.getName(), item);
-                Sound.play(0); // index 0 is file path for get item sound file
+                Sound.play(1); // index 1 is file path for get item sound file
             }
         } else {
             System.out.printf("Can't take %s.%n", item.getName());
@@ -86,11 +95,13 @@ public class Player {
      */
     public GameItem dropItem(String itemName) throws NullPointerException {
         if (inventory.get(itemName).getQuantity() == 1) {
+            Sound.play(2); // index 2 is file path for drop item sound file
             return inventory.remove(itemName);
         } else {
             inventory.get(itemName).setQuantity(inventory.get(itemName).getQuantity() - 1);
             GameItem droppedItem = inventory.get(itemName).cloneToType();
             droppedItem.setQuantity(1);
+            Sound.play(2); // index 2 is file path for drop item sound file
             return droppedItem;
         }
     }
