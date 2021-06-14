@@ -50,7 +50,7 @@ class Battle {
         // set escape equals alien show up chance. if aliens show up chance is high,
         // then it is easier to get escaped. if only one alien existed, then it is hard to escape.
         // this feature is to balance the game difficulty.
-        setEscapeChance(alien.getShowUpChance());
+        setEscapeChance(1.0 - alien.getShowUpChance());
         if (Math.random() <= getEscapeChance()) {
             System.out.println(ConsoleColors.GREEN_BOLD + "You are lucky, Escaped from the brutal alien!" + ConsoleColors.RESET);
             return true;

@@ -166,4 +166,24 @@ public class Prompt {
             e.printStackTrace();
         }
     }
+
+    public static void showLevelChooser(){
+        String path = "resources/welcome/ChooseLevel.txt";
+        String chooser = null;
+        try {
+            chooser = Files.readString(Paths.get(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            ConsoleColors.changeTo(ConsoleColors.GREEN);
+            System.out.println(chooser);
+            ConsoleColors.reset();
+            Thread.sleep(1000);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
