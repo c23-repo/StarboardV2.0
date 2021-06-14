@@ -30,7 +30,7 @@ class Battle {
                     System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "You are low in hp. use some healing items." + ConsoleColors.RESET);
                 }
             }
-            if (alien.isConfirmedKilled()){
+            if (alien.isConfirmedKilled()&& !player.isKilled()){
                 ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
                 System.out.println("Congrats, you killed one of the aliens.");
                 System.out.println("There are " + alien.getNumOfAliens() + " aliens left.");
@@ -50,7 +50,7 @@ class Battle {
         // set escape equals alien show up chance. if aliens show up chance is high,
         // then it is easier to get escaped. if only one alien existed, then it is hard to escape.
         // this feature is to balance the game difficulty.
-        setEscapeChance(1.0 - alien.getShowUpChance());
+        setEscapeChance(alien.getShowUpChance()/2.0);
         if (Math.random() <= getEscapeChance()) {
             System.out.println(ConsoleColors.GREEN_BOLD + "You are lucky, Escaped from the brutal alien!" + ConsoleColors.RESET);
             return true;

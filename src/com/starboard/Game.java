@@ -138,9 +138,33 @@ public class Game {
         Prompt.showLevelChooser();
         System.out.print("Enter the number\n>");
         Scanner sc = new Scanner(System.in);
+        int updateValue = 0;
+        boolean invalidInput = true;
 
-        int choice = sc.nextInt();
-        return choice * 2;
+        while (invalidInput)
+        {
+            if (sc.hasNextInt())
+            {
+                // get the update value
+                updateValue = sc.nextInt();
+
+                // check to see if it was within range
+                if (updateValue >= 0 && updateValue <= 4)
+                {
+                    invalidInput = false;
+                }
+                else
+                {
+                    System.out.println("You have not entered a number between 0 and 4. Try again.");
+                }
+            } else
+            {
+                System.out.println("You have entered an invalid input. Try again.");
+                sc.next();
+            }
+        }
+
+        return updateValue * 2;
 
 
     }
