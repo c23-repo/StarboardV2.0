@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Game {
     private static Room currentRoom;
-    private static Music backgroundMusic = new Music("resources/audios/background.wav");
+    private static final Music backgroundMusic = new Music("resources/audios/background.wav");
     private static Music battleMusic = new Music("resources/audios/battle.wav");
 
     public static void main(String[] args) {
@@ -128,9 +128,9 @@ public class Game {
             CommandMatch.matchCommand(parsedInputs, player);
 
             if (currentRoom.getName().equals("pod")) {
-                backgroundMusic.close();
+                //backgroundMusic.close();
                 ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
-                System.out.println("Congratulations! You successfully escape from the ship!");
+                System.out.println("Congratulations! You successfully finished the training!");
                 ConsoleColors.reset();
                 endGame = true;
             }
