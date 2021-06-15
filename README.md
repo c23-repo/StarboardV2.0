@@ -30,7 +30,7 @@ A player starts from the bridge in the starship and needs to find a way to the p
 3. players can drop items to the containers in the room
 4. user inputs validation v2 - supports more commands
 
-## V1.1.0 features - 06/15/2021  
+## V1.0.2 features - 06/15/2021  
 1. Add more colors to the ouput
 2. Add sound effects and background music
 3. Training mode
