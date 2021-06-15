@@ -2,6 +2,7 @@ package com.starboard;
 
 import com.starboard.util.*;
 
+import java.io.Console;
 import java.util.Scanner;
 
 class InputHandler {
@@ -12,7 +13,9 @@ class InputHandler {
         Parser parser = new Parser(room);
 
         do {
-            System.out.print("Please type in your command.\n> ");
+            ConsoleColors.changeTo(ConsoleColors.BLACK_BOLD);
+            System.out.print(ConsoleColors.WHITE_BACKGROUND  + "Please type in your command.\n> "+ ConsoleColors.RESET);
+            ConsoleColors.reset();
             String input = sc.nextLine();
             if (input.equals("")) {
                 Prompt.showCommands();

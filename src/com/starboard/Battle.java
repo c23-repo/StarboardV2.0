@@ -1,5 +1,7 @@
 package com.starboard;
 
+import com.starboard.util.ConsoleColors;
+
 class Battle {
     private final Room room;
     private final Alien alien;
@@ -23,17 +25,18 @@ class Battle {
 
                 alien.attack(player);
                 if (player.getHp()<=30){
-                    System.out.println("You are low in hp. use some healing items.");
+                    System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "You are low in hp. use some healing items." + ConsoleColors.RESET);
                 }
             }
-            if (alien.isConfirmedKilled()){
-                alien.dropWeapon();
+            if (alien.isConfirmedKilled()&& !player.isKilled()){
+                ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
                 System.out.println("Congrats, you killed one of the aliens.");
                 System.out.println("There are " + alien.getNumOfAliens() + " aliens left.");
+                ConsoleColors.reset();
                 setWinning(true);
             }
             if (player.isKilled()){
-                System.out.println("You are killed by alien! Game Over!");
+                System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "You are killed by alien! Game Over!" + ConsoleColors.RESET);
                 setWinning(false);
             }
         }else{
@@ -42,15 +45,15 @@ class Battle {
     }
 
     private boolean isEscaped() {
-        //set escape equals alien show up chance. if aliens show up chance is high,
+        // set escape equals alien show up chance. if aliens show up chance is high,
         // then it is easier to get escaped. if only one alien existed, then it is hard to escape.
         // this feature is to balance the game difficulty.
-        setEscapeChance(alien.getShowUpChance());
+        setEscapeChance(alien.getShowUpChance()/2.0);
         if (Math.random() <= getEscapeChance()) {
-            System.out.println("You are lucky, Escaped from the brutal alien!");
+            System.out.println(ConsoleColors.GREEN_BOLD + "You are lucky, Escaped from the brutal alien!" + ConsoleColors.RESET);
             return true;
         } else {
-            System.out.println("You failed to escape this time, be prepared to fight!");
+            System.out.println(ConsoleColors.RED_BOLD + "You failed to escape this time, be prepared to fight!" + ConsoleColors.RESET);
             return false;
         }
     }

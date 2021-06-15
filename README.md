@@ -1,5 +1,6 @@
 # Starboard
-A text-based console game written in JAVA. A player starts from the bridge in the starship and needs to find a way to the pod to escape from the alien chase.   
+A text-based console game written in JAVA. 
+A player starts from the bridge in the starship and needs to find a way to the pod to escape from the alien chase.   
 
 **Authors**: Wenhao, Yichun, Julian
 
@@ -15,7 +16,7 @@ A text-based console game written in JAVA. A player starts from the bridge in th
 1. show status - show a player where he/she is, what items in the room, what items he/she has, and where he/she can go
 2. show commands - show a player commands he/she can use
 3. show inventory - show a player items he/she has
-4. traver rooms - a player can traverse rooms to find their destination
+4. traverse rooms - a player can traverse rooms to find their destination
 5. user inputs validation - commands are case-insensitive and handle invalid user inputs
 6. support synonyms words for action verbs
 
@@ -29,3 +30,8 @@ A text-based console game written in JAVA. A player starts from the bridge in th
 3. players can drop items to the containers in the room
 4. user inputs validation v2 - supports more commands
 
+## V1.0.2 features - 06/15/2021  
+1. Add more colors to the ouput
+2. Add sound effects and background music
+3. Training mode
+4. Beautiful welcome screen and map

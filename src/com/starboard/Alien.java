@@ -1,14 +1,16 @@
 package com.starboard;
 
-import com.starboard.items.GameItem;
 import com.starboard.items.Weapon;
+import com.starboard.util.ConsoleColors;
+import com.starboard.util.Prompt;
+import com.starboard.util.Sound;
 
-import java.util.Map;
+import java.io.Console;
 
-class Alien {
+public class Alien {
 
     private boolean isExisted;
-    private Weapon equippedWeapon = new Weapon("stick", -20,"It is a powerful weapon used by alien.");
+    private Weapon equippedWeapon = new Weapon("stick", -20,"It is a powerful weapon used by alien.",1);
     private double showUpChance;
     private Room room;
     private int numOfAliens;
@@ -23,15 +25,25 @@ class Alien {
 
     public void attack(Player player){
         System.out.println("Alien is attacking");
+        Sound.play(8); // index 8 is file path for alien attack sound file
         player.changeHp(getEquippedWeapon().getDamage());
-        System.out.println("Your hp decreased " + getEquippedWeapon().getDamage());
-        System.out.println("You have " + player.getHp() + " hp left.");
+        //mimic attacking
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Alien finished attacking.");
+//        System.out.println("Your hp decreased " + (-getEquippedWeapon().getDamage()));
+//        System.out.println("You have " + player.getHp() + " hp left.");
+        Prompt.showBattleStatus(this, player);
+
     }
 
 
     public void showUp() {
         if (Math.random() < getShowUpChance()) {
-            System.out.println("Alien appeared.");
+            System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien appeared." + ConsoleColors.RESET);
             setExisted(true);
         }
     }
@@ -46,15 +58,7 @@ class Alien {
         return false;
     }
 
-
-    public void dropWeapon() {
-        if (isConfirmedKilled()) {
-            Game.getCurrentRoom().addItemToContainer(getEquippedWeapon(), Game.getCurrentRoom().getContainer("console"));
-        }
-    }
-
     //getters and setters
-
 
     public boolean isConfirmedKilled() {
         return confirmedKilled;
@@ -69,7 +73,8 @@ class Alien {
     }
 
     public void setHp(int hp) {
-        this.hp = hp;
+
+        this.hp = Math.max(hp, 0);
     }
 
     public boolean isExisted() {
