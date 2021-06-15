@@ -39,14 +39,17 @@ public class Player {
         if(item instanceof Weapon){
             //equip with weapon to attack
             setEquippedWeapon((Weapon) item);
+            System.out.println("You are attacking the alien with " + getEquippedWeapon().getName() + ".");
             if (item.getName().equals("m4")) {
                 Sound.play(4); // index 4 is file path for m4 sound file
+                Sound.play(7); // index 7 is file path for alien scream sound file
             } else if (item.getName().equals("shotgun")) {
                 Sound.play(5); // index 5 is file path for shotgun sound file
+                Sound.play(7); // index 7 is file path for alien scream sound file
             } else {
-                Sound.play(3); // index 3 is file path for attack sound file
+                Sound.play(3); // index 3 is file path for player attack sound file
+                Sound.play(7); // index 7 is file path for alien scream sound file
             }
-            System.out.println("You are attacking the alien with " + getEquippedWeapon().getName() + ".");
             alien.setHp(alien.getHp() + getEquippedWeapon().getDamage());
             //mimic attacking
             try {
@@ -73,8 +76,9 @@ public class Player {
             }
             System.out.println("You punched alien with your fist");
             alien.setHp(alien.getHp() - 30);
+            Sound.play(3); // index 3 is file path for player attack sound file
+            Sound.play(7); // index 7 is file path for alien scream sound file
             Prompt.showBattleStatus(alien, this);
-            Sound.play(3); // index 3 is file path for attack sound file
         }
     }
 
