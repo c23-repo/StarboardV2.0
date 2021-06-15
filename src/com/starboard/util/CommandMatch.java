@@ -81,6 +81,7 @@ public class CommandMatch {
     public static void goToRoom(String name) {
         if (Game.getCurrentRoom().getPaths().get(name) != null) {
             Game.setCurrentRoom(Game.getCurrentRoom().getPaths().get(name));
+            Sound.play(9); // index 9 is file path for move sound file
         } else {
             System.out.println("You can't access the " + name + " from here.");
         }
@@ -104,6 +105,7 @@ public class CommandMatch {
     public static void openContainer(String containerName) {
         try {
             Game.getCurrentRoom().getContainer(containerName).open();
+            Sound.play(10); // index 10 is file path for move sound fileƒ
         } catch (NullPointerException e) {
             System.out.println("You can't open that.");
         }

@@ -23,6 +23,7 @@ public class Music {
     }
 
     public void loop() {
+        clip.setFramePosition(0);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 

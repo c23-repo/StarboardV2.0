@@ -11,8 +11,10 @@ import java.util.Scanner;
 public class Game {
     private static Room currentRoom;
     private static Music backgroundMusic = new Music("resources/audios/background.wav");
+    private static Music battleMusic = new Music("resources/audios/battle.wav");
 
     public static void main(String[] args) {
+        backgroundMusic.loop();
         Prompt.showWelcome();
         init();
         start();
@@ -65,15 +67,12 @@ public class Game {
         Player player = new Player();
         Alien aliens = new Alien(100, alienNumber);
 
-        // initialize background music
-        // Music backgroundMusic = new Music("resources/audios/background.wav");
         //reset room and items
         Game.init();
 
         boolean endGame = false;
 
         while (!endGame) {
-            backgroundMusic.loop();
             aliens.setRoom(currentRoom);
             aliens.setExisted(false);
             aliens.setShowUpChance();
@@ -84,11 +83,15 @@ public class Game {
             //battle mode
             if (aliens.isExisted()) {
                 Battle battle = new Battle(aliens, player, currentRoom);
+                backgroundMusic.stop();
+                battleMusic.loop();
                 battle.fight();
                 if (battle.isWinning()) {
                     System.out.println("Keep moving!");
                     Prompt.showStatus(currentRoom);
                     Prompt.showInventory(player);
+                    battleMusic.stop();
+                    backgroundMusic.loop();
                 } else break;
             }
 
@@ -116,7 +119,6 @@ public class Game {
         boolean endGame = false;
 
         while (!endGame) {
-            backgroundMusic.loop();
             Prompt.showStatus(currentRoom);
             Prompt.showInventory(player);
 

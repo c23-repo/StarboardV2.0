@@ -3,6 +3,7 @@ package com.starboard;
 import com.starboard.items.Weapon;
 import com.starboard.util.ConsoleColors;
 import com.starboard.util.Prompt;
+import com.starboard.util.Sound;
 
 import java.io.Console;
 
@@ -24,6 +25,7 @@ public class Alien {
 
     public void attack(Player player){
         System.out.println("Alien is attacking");
+        Sound.play(8); // index 8 is file path for alien attack sound file
         player.changeHp(getEquippedWeapon().getDamage());
         //mimic attacking
         try {

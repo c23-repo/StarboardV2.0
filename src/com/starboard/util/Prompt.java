@@ -164,7 +164,7 @@ public class Prompt {
                 "Good Luck!";
         keyboard.play();
         printOneAtATime(intro);
-        keyboard.stop();
+        keyboard.close();
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
