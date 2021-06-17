@@ -2,6 +2,7 @@ package com.starboard;
 
 import com.starboard.items.Weapon;
 import com.starboard.util.ConsoleColors;
+import com.starboard.util.Music;
 import com.starboard.util.Prompt;
 import com.starboard.util.Sound;
 
@@ -16,6 +17,7 @@ public class Alien {
     private int numOfAliens;
     private int hp;
     private boolean confirmedKilled;
+
 
 
     public Alien(int hp, int number) {
@@ -41,11 +43,11 @@ public class Alien {
     }
 
 
-    public void showUp() {
+    public boolean showUp() {
         if (Math.random() < getShowUpChance()) {
-            System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien appeared." + ConsoleColors.RESET);
-            setExisted(true);
+            return true;
         }
+        return false;
     }
 
     public boolean isKilled(){

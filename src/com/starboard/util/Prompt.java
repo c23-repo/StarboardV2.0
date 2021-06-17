@@ -176,7 +176,8 @@ public class Prompt {
                 "You need to successfully escape to the POD and kill any alien on your way to win!\n" +
                 "Good Luck!";
         keyboard.play();
-        printOneAtATime(intro);
+        printOneAtATime(intro,0);
+        System.out.println();
         keyboard.close();
         try {
             Thread.sleep(5000);
@@ -185,16 +186,16 @@ public class Prompt {
         }
     }
 
-    private static void printOneAtATime(String str){
+    public static void printOneAtATime(String str, int sleepTime){
         for (char chr: str.toCharArray()) {
             System.out.print(chr);
             try {
-                Thread.sleep(80);
+                //Thread.sleep(0);
+                Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println();
     }
 
     public static void showLevelChooser(){

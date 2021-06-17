@@ -17,6 +17,7 @@ class Battle {
 
     public void fight() {
         if (!isEscaped()) {
+            System.out.println("\n" + ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien Present" + ConsoleColors.RESET + ConsoleColors.RED_BOLD + " and you failed to escape this time, be prepared to fight!" + ConsoleColors.RESET);
             //keep fighting until one of alien and player is killed
             while(!player.isKilled()){
                 player.attack(alien);

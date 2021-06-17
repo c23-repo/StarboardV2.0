@@ -12,11 +12,12 @@ public class Game {
     private static Room currentRoom;
     private static final Music backgroundMusic = new Music("resources/audios/background.wav");
     private static Music battleMusic = new Music("resources/audios/battle.wav");
+    private static Music alienEntry = new Music("resources/audios/alien-Entry.wav");
+    private static Music electric = new Music("resources/audios/electric.wav");
 
     public static void main(String[] args) {
         backgroundMusic.loop();
         Prompt.showWelcome();
-        System.out.println("I was here");
         Prompt.showInstructions();
         init();
         start();
@@ -59,7 +60,6 @@ public class Game {
 
         //Training mode
         while (alienNumber == 0) {
-
             training();
             alienNumber = chooseLevel();
         }
@@ -77,10 +77,7 @@ public class Game {
         while (!endGame) {
             Prompt.showStatus(currentRoom);
             Prompt.showInventory(player);
-            aliens.setRoom(currentRoom);
-            aliens.setShowUpChance();
-            aliens.showUp();
-
+            aliensSetupInCurrentRoom(aliens);
             //battle mode
             if (aliens.isExisted()) {
                 Battle battle = new Battle(aliens, player, currentRoom);
@@ -163,6 +160,27 @@ public class Game {
             }
         }
         return updateValue * 2;
+    }
+
+    static void aliensSetupInCurrentRoom(Alien aliens){
+        aliens.setRoom(currentRoom);
+        aliens.setShowUpChance();
+        if(aliens.showUp()){
+            System.out.print(ConsoleColors.RED_BOLD_BRIGHT + ".  " + ConsoleColors.RESET);
+            backgroundMusic.stop();
+            electric.play();
+            Prompt.printOneAtATime(ConsoleColors.RED_BOLD_BRIGHT + ".  .  .  .  .  .  .  .  .  .  " +ConsoleColors.RESET,200);
+            alienEntry.play();
+            electric.stop();
+            System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "ALIEN APPEARED" + ConsoleColors.RESET + ConsoleColors.RED + " in the " + Game.getCurrentRoom().getName() + ConsoleColors.RESET);
+            aliens.setExisted(true);
+            try {
+                Thread.sleep(2000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
     }
 
     public static Room getCurrentRoom() {
