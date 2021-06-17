@@ -5,7 +5,7 @@ import com.starboard.util.*;
 import java.io.Console;
 import java.util.Scanner;
 
-class InputHandler {
+public class InputHandler {
 
     public static String[] input(Room room) {
         //check scanner from file
@@ -29,5 +29,11 @@ class InputHandler {
         command[1] = parser.getSecondCommand();
 
         return command;
+    }
+
+    public static String getUserInput(String displayMessage) {
+        System.out.printf(displayMessage + "\n>");
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine();
     }
 }

@@ -16,6 +16,7 @@ public class Game {
     public static void main(String[] args) {
         backgroundMusic.loop();
         Prompt.showWelcome();
+        Prompt.showInstructions();
         init();
         start();
     }
