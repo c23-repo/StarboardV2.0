@@ -21,12 +21,19 @@ public class Player {
 
     // Business
     public void attack(Alien alien) {
-
+        System.out.println("\n" + ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien Present" + ConsoleColors.RESET + ConsoleColors.RED_BOLD + " and you failed to escape this time, be prepared to fight!" + ConsoleColors.RESET);
         System.out.println("Please use the weapon in your inventory, otherwise you will use your fist.");
+        Prompt.showBattleStatus(alien, this);
         String[] battleCommandInput = InputHandler.input(Game.getCurrentRoom());
         while (!battleCommandInput[0].equals("use") || battleCommandInput[1].equals("map")) {
-            //you can only use "use" command.
-            if (!battleCommandInput[0].equals("use")) {
+            //you can only use "use" or "help" or "quit" command.
+            if (battleCommandInput[0].equals("help")){
+                Prompt.showInstructions();
+                Prompt.showStatus(Game.getCurrentRoom());
+                Prompt.showInventory(this);
+                attack(alien);
+            }
+            else if (!battleCommandInput[0].equals("use")) {
                 System.out.println("You cannot leave the room nor take or drop items at the moment.");
             } else {
                 System.out.println("You don't have time to look at your map now.");

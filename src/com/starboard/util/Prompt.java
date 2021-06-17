@@ -148,6 +148,7 @@ public class Prompt {
     }
 
     public static void showInstructions() {
+        clearScreen();
         System.out.println("\nGame Instructions:");
         System.out.printf(ConsoleColors.GREEN+"%2s %8s %47s %n", "", "Action   ", "       Command to Type" + ConsoleColors.RESET);
         System.out.printf("%2s %8s %45s %n", "", "----------------------------", "         --------------------------------------------------");

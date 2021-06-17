@@ -16,6 +16,7 @@ public class Game {
     public static void main(String[] args) {
         backgroundMusic.loop();
         Prompt.showWelcome();
+        System.out.println("I was here");
         Prompt.showInstructions();
         init();
         start();
@@ -74,12 +75,11 @@ public class Game {
         boolean endGame = false;
 
         while (!endGame) {
-            aliens.setRoom(currentRoom);
-            aliens.setExisted(false);
-            aliens.setShowUpChance();
-            aliens.showUp();
             Prompt.showStatus(currentRoom);
             Prompt.showInventory(player);
+            aliens.setRoom(currentRoom);
+            aliens.setShowUpChance();
+            aliens.showUp();
 
             //battle mode
             if (aliens.isExisted()) {
@@ -107,6 +107,7 @@ public class Game {
                 ConsoleColors.reset();
                 endGame = true;
             }
+            System.out.println("Here");
         }
     }
 

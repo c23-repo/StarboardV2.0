@@ -9,7 +9,7 @@ import java.io.Console;
 
 public class Alien {
 
-    private boolean isExisted;
+    private boolean isExisted =false;
     private Weapon equippedWeapon = new Weapon("stick", -20,"It is a powerful weapon used by alien.",1);
     private double showUpChance;
     private Room room;

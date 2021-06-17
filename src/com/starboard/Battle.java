@@ -53,7 +53,6 @@ class Battle {
             System.out.println(ConsoleColors.GREEN_BOLD + "You are lucky, Escaped from the brutal alien!" + ConsoleColors.RESET);
             return true;
         } else {
-            System.out.println(ConsoleColors.RED_BOLD + "You failed to escape this time, be prepared to fight!" + ConsoleColors.RESET);
             return false;
         }
     }
