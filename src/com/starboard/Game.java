@@ -16,6 +16,7 @@ public class Game {
     public static void main(String[] args) {
         backgroundMusic.loop();
         Prompt.showWelcome();
+        Prompt.showInstructions();
         init();
         start();
     }
@@ -52,12 +53,11 @@ public class Game {
     }
 
     public static void start() {
-
         int alienNumber = chooseLevel();
 
         //Training mode
         while (alienNumber == 0) {
-
+            Prompt.clearScreen();
             training();
             alienNumber = chooseLevel();
         }
@@ -73,6 +73,7 @@ public class Game {
         boolean endGame = false;
 
         while (!endGame) {
+            Prompt.clearScreen();
             aliens.setRoom(currentRoom);
             aliens.setExisted(false);
             aliens.setShowUpChance();
@@ -102,7 +103,7 @@ public class Game {
             if (currentRoom.getName().equals("pod")) {
                 backgroundMusic.close();
                 ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
-                System.out.println("Congratulations! You successfully escape from the ship!");
+                System.out.println("Congratulations! You successfully escaped from the ship!");
                 ConsoleColors.reset();
                 endGame = true;
             }

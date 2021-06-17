@@ -1,9 +1,6 @@
 package com.starboard.util;
 
-import com.starboard.Alien;
-import com.starboard.Game;
-import com.starboard.Player;
-import com.starboard.Room;
+import com.starboard.*;
 import com.starboard.items.Container;
 import com.starboard.items.GameItem;
 import com.starboard.items.HealingItem;
@@ -18,6 +15,7 @@ import java.util.Map;
 
 public class Prompt {
     public static void showStatus(Room currentRoom) {
+        clearScreen();
         ConsoleColors.changeTo(ConsoleColors.YELLOW);
         System.out.println("------------------------------- status ----------------------------------------");
 
@@ -148,7 +146,23 @@ public class Prompt {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        clearScreen();
+
+    }
+
+    public static void showInstructions() {
+        System.out.println("\nGame Instructions:");
+        System.out.printf(ConsoleColors.GREEN+"%2s %8s %47s %n", "", "Action   ", "       Command to Type" + ConsoleColors.RESET);
+        System.out.printf("%2s %8s %45s %n", "", "----------------------------", "         --------------------------------------------------");
+        System.out.printf("%2s %-30s %1s %-10s %n", " 1.", "Go somewhere","|    ", "\"go\" and one of the available locations displayed");
+        System.out.printf("%2s %-30s %1s %-10s %n", " 2.", "open a container","|    ", "\"open\" and \"container name\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 3.", "pick-up or drop an item","|    ", "\"pick\", \"drop\" and \"item name\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 4.", "fight an alien","|    ", "\"use\" and \"weapon name\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 5.", "display map","|    ", "\"show map\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 6.", "display instructions","|    ", "\"help\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 7.", "quit the game","|    ", "\"quit\"");
+
+        InputHandler.getUserInput("\nPress enter to continue...");
+        Prompt.clearScreen();
     }
 
     public static void clearScreen() {
@@ -166,7 +180,7 @@ public class Prompt {
         printOneAtATime(intro);
         keyboard.close();
         try {
-            Thread.sleep(5000);
+            Thread.sleep(5);//Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -176,7 +190,7 @@ public class Prompt {
         for (char chr: str.toCharArray()) {
             System.out.print(chr);
             try {
-                Thread.sleep(80);
+                Thread.sleep(0);//Thread.sleep(80);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
