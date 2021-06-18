@@ -10,16 +10,19 @@ import java.util.Scanner;
 
 public class Game {
     private static Room currentRoom;
+    private static Music gameMusic;
     private static final Music backgroundMusic = new Music("resources/audios/background.wav");
     private static Music battleMusic = new Music("resources/audios/battle.wav");
     private static Music alienEntry = new Music("resources/audios/alien-Entry.wav");
     private static Music electric = new Music("resources/audios/electric.wav");
     public static boolean endGame;
     private static int alienNumber;
+    private static boolean soundOn = true;
 
     public static void main(String[] args) {
-        backgroundMusic.loop();
+        setGameMusic(backgroundMusic);
         Prompt.showWelcome();
+        soundControl();
         Prompt.showInstructions();
         init();
         start();
@@ -82,15 +85,13 @@ public class Game {
             //battle mode
             if (aliens.isExisted()) {
                 Battle battle = new Battle(aliens, player, currentRoom);
-                backgroundMusic.stop();
-                battleMusic.loop();
+                setGameMusic(battleMusic);
                 battle.fight();
                 if (battle.isWinning() & !endGame) { //endGame check to allow quit while fighting
                     System.out.println("Keep moving!");
                     Prompt.showStatus(currentRoom);
                     Prompt.showInventory(player);
-                    battleMusic.stop();
-                    backgroundMusic.loop();
+                    setGameMusic(backgroundMusic);
                 } else break;
             }
 
@@ -99,7 +100,7 @@ public class Game {
             CommandMatch.matchCommand(parsedInputs, player);
             //winning condition
             if (currentRoom.getName().equals("pod")) {
-                backgroundMusic.close();
+                getGameMusic().close();
                 ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
                 System.out.println("Congratulations! You successfully escape from the ship!");
                 ConsoleColors.reset();
@@ -172,7 +173,7 @@ public class Game {
         aliens.setShowUpChance();
         if(aliens.showUp()){
             System.out.print(ConsoleColors.RED_BOLD_BRIGHT + ".  " + ConsoleColors.RESET);
-            backgroundMusic.stop();
+            Game.getGameMusic().stop();
             electric.play();
             Prompt.printOneAtATime(ConsoleColors.RED_BOLD_BRIGHT + ".  .  .  .  .  .  .  .  .  .  " +ConsoleColors.RESET,200);
             alienEntry.play();
@@ -187,6 +188,45 @@ public class Game {
             }
             alienEntry.stop();
         };
+    }
+
+    public static void soundControl(){
+        String soundChoice;
+        if(isSoundOn())
+            soundChoice= InputHandler.getUserInput("\nEnter " + ConsoleColors.RED + "\"OFF\"" + ConsoleColors.RESET +
+                    " to play without the sound or Press " + ConsoleColors.GREEN + "\"Enter\" " + ConsoleColors.RESET + "to continue:" );
+        else
+            soundChoice= InputHandler.getUserInput("\nEnter " + ConsoleColors.GREEN + "\"ON\"" + ConsoleColors.RESET +
+                    " to play with the sound or Press " + ConsoleColors.GREEN + "\"Enter\" " + ConsoleColors.RESET + "to continue:" );
+
+        if(soundChoice.equalsIgnoreCase("off")){
+            soundOn =false;
+            Game.getGameMusic().stop();
+            System.out.print("No sound mode activated");
+            Prompt.printOneAtATime("....",400);
+            System.out.println();
+        }
+        else if(soundChoice.equalsIgnoreCase("on")){
+            soundOn = true;
+            Game.getGameMusic().loop();
+        }
+
+    }
+
+    public static boolean isSoundOn() {
+        return soundOn;
+    }
+
+    public static Music getGameMusic() {
+        return gameMusic;
+    }
+
+    //stop old music if it's palying, set new music and loop
+    public static void setGameMusic(Music gameMusic) {
+        if(getGameMusic() != null)
+            getGameMusic().stop();
+        Game.gameMusic = gameMusic;
+        gameMusic.loop();
     }
 
     public static Room getCurrentRoom() {
