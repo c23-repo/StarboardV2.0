@@ -153,15 +153,16 @@ public class Prompt {
         System.out.printf(ConsoleColors.GREEN+"%2s %8s %47s %n", "", "Action   ", "       Command to Type" + ConsoleColors.RESET);
         System.out.printf("%2s %8s %45s %n", "", "----------------------------", "         --------------------------------------------------");
         System.out.printf("%2s %-30s %1s %-10s %n", " 1.", "Go somewhere","|    ", "\"go\" and one of the available locations displayed");
-        System.out.printf("%2s %-30s %1s %-10s %n", " 2.", "open a container","|    ", "\"open\" and \"container name\"");
-        System.out.printf("%2s %-30s %1s %-1s %n", " 3.", "pick-up or drop an item","|    ", "\"pick\", \"drop\" and \"item name\"");
-        System.out.printf("%2s %-30s %1s %-1s %n", " 4.", "fight an alien","|    ", "\"use\" and \"weapon name\"");
-        System.out.printf("%2s %-30s %1s %-1s %n", " 5.", "display map","|    ", "\"show map\"");
-        System.out.printf("%2s %-30s %1s %-1s %n", " 6.", "display instructions","|    ", "\"help\"");
-        System.out.printf("%2s %-30s %1s %-1s %n", " 7.", "quit the training/game","|    ", "\"quit\"");
+        System.out.printf("%2s %-30s %1s %-10s %n", " 2.", "Open a container","|    ", "\"open\" and \"container name\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 3.", "Pick-up or Drop an Item","|    ", "\"pick\", \"drop\" and \"item name\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 4.", "Fight an Alien","|    ", "\"use\" and \"weapon name\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 5.", "Display map","|    ", "\"show map\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 6.", "Display instructions","|    ", "\"help\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 7.", "Turn the Sound ON or OFF","|    ", "\"sound\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 8.", "Quit the training/game","|    ", "\"quit\"");
 
         InputHandler.getUserInput("\nPress enter to continue...");
-        Prompt.clearScreen();
+        clearScreen();
     }
 
     public static void clearScreen() {

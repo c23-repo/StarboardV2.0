@@ -194,10 +194,10 @@ public class Game {
         String soundChoice;
         if(isSoundOn())
             soundChoice= InputHandler.getUserInput("\nEnter " + ConsoleColors.RED + "\"OFF\"" + ConsoleColors.RESET +
-                    " to play without sound or Press " + ConsoleColors.GREEN + "\"Enter\" " + "to continue:" + ConsoleColors.RESET);
+                    " to play without the sound or Press " + ConsoleColors.GREEN + "\"Enter\" " + ConsoleColors.RESET + "to continue:" );
         else
             soundChoice= InputHandler.getUserInput("\nEnter " + ConsoleColors.GREEN + "\"ON\"" + ConsoleColors.RESET +
-                    " to play with sound or Press " + ConsoleColors.GREEN + "\"Enter\" " + "to continue:" + ConsoleColors.RESET);
+                    " to play with the sound or Press " + ConsoleColors.GREEN + "\"Enter\" " + ConsoleColors.RESET + "to continue:" );
 
         if(soundChoice.equalsIgnoreCase("off")){
             soundOn =false;
