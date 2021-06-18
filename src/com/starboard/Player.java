@@ -26,6 +26,13 @@ public class Player {
         String[] battleCommandInput = InputHandler.input(Game.getCurrentRoom());
         while (!battleCommandInput[0].equals("use") || battleCommandInput[1].equals("map")) {
             //you can only use "use" or "help" or "quit" command.
+            if (battleCommandInput[0].equals("quit")){
+                this.hp=0; //kill the player to get out of the while loop in battle.fight
+                alien.setHp(0);
+                Game.endGame = true;
+                System.out.println("You've quit the game.......Thank you for playing Starboard !!");
+                break;
+            }
             if (battleCommandInput[0].equals("help")){
                 Prompt.showInstructions();
                 Prompt.showStatus(Game.getCurrentRoom());
@@ -41,53 +48,56 @@ public class Player {
             }
             battleCommandInput = InputHandler.input(Game.getCurrentRoom());
         }
-        CommandMatch.matchCommand(battleCommandInput,this);
+        if(this.hp>0){ //player has not quit the game
+            CommandMatch.matchCommand(battleCommandInput,this);
 
-        GameItem item = getInventory().get(battleCommandInput[1]);
-        if(item instanceof Weapon){
-            //equip with weapon to attack
-            setEquippedWeapon((Weapon) item);
-            System.out.println("You are attacking the alien with " + getEquippedWeapon().getName() + ".");
-            if (item.getName().equals("m4")) {
-                Sound.play(4); // index 4 is file path for m4 sound file
-                Sound.play(7); // index 7 is file path for alien scream sound file
-            } else if (item.getName().equals("shotgun")) {
-                Sound.play(5); // index 5 is file path for shotgun sound file
-                Sound.play(7); // index 7 is file path for alien scream sound file
-            } else {
+            GameItem item = getInventory().get(battleCommandInput[1]);
+            if(item instanceof Weapon){
+                //equip with weapon to attack
+                setEquippedWeapon((Weapon) item);
+                System.out.println("You are attacking the alien with " + getEquippedWeapon().getName() + ".");
+                if (item.getName().equals("m4")) {
+                    Sound.play(4); // index 4 is file path for m4 sound file
+                    Sound.play(7); // index 7 is file path for alien scream sound file
+                } else if (item.getName().equals("shotgun")) {
+                    Sound.play(5); // index 5 is file path for shotgun sound file
+                    Sound.play(7); // index 7 is file path for alien scream sound file
+                } else {
+                    Sound.play(3); // index 3 is file path for player attack sound file
+                    Sound.play(7); // index 7 is file path for alien scream sound file
+                }
+                alien.setHp(alien.getHp() + getEquippedWeapon().getDamage());
+                //mimic attacking
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Prompt.showBattleStatus(alien, this);
+            }else if(item instanceof HealingItem){
+                //use healing item to recover
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Your hp is recovered to: " + getHp());
+                Prompt.showBattleStatus(alien, this);
+            }else{
+                //you are default to use fist
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("You punched alien with your fist");
+                alien.setHp(alien.getHp() - 30);
                 Sound.play(3); // index 3 is file path for player attack sound file
                 Sound.play(7); // index 7 is file path for alien scream sound file
+                Prompt.showBattleStatus(alien, this);
             }
-            alien.setHp(alien.getHp() + getEquippedWeapon().getDamage());
-            //mimic attacking
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            Prompt.showBattleStatus(alien, this);
-        }else if(item instanceof HealingItem){
-            //use healing item to recover
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Your hp is recovered to: " + getHp());
-            Prompt.showBattleStatus(alien, this);
-        }else{
-            //you are default to use fist
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("You punched alien with your fist");
-            alien.setHp(alien.getHp() - 30);
-            Sound.play(3); // index 3 is file path for player attack sound file
-            Sound.play(7); // index 7 is file path for alien scream sound file
-            Prompt.showBattleStatus(alien, this);
         }
+
     }
 
 

@@ -158,7 +158,7 @@ public class Prompt {
         System.out.printf("%2s %-30s %1s %-1s %n", " 4.", "fight an alien","|    ", "\"use\" and \"weapon name\"");
         System.out.printf("%2s %-30s %1s %-1s %n", " 5.", "display map","|    ", "\"show map\"");
         System.out.printf("%2s %-30s %1s %-1s %n", " 6.", "display instructions","|    ", "\"help\"");
-        System.out.printf("%2s %-30s %1s %-1s %n", " 7.", "quit the game","|    ", "\"quit\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 7.", "quit the training/game","|    ", "\"quit\"");
 
         InputHandler.getUserInput("\nPress enter to continue...");
         Prompt.clearScreen();
