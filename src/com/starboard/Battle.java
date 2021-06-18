@@ -36,7 +36,7 @@ class Battle {
                 ConsoleColors.reset();
                 setWinning(true);
             }
-            if (player.isKilled()){
+            if (player.isKilled() && !Game.endGame){//endgame = player quit in the middle of the fight
                 System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "You are killed by alien! Game Over!" + ConsoleColors.RESET);
                 setWinning(false);
             }

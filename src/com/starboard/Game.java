@@ -14,6 +14,8 @@ public class Game {
     private static Music battleMusic = new Music("resources/audios/battle.wav");
     private static Music alienEntry = new Music("resources/audios/alien-Entry.wav");
     private static Music electric = new Music("resources/audios/electric.wav");
+    public static boolean endGame;
+    private static int alienNumber;
 
     public static void main(String[] args) {
         backgroundMusic.loop();
@@ -56,7 +58,7 @@ public class Game {
 
     public static void start() {
 
-        int alienNumber = chooseLevel();
+        alienNumber = chooseLevel();
 
         //Training mode
         while (alienNumber == 0) {
@@ -71,8 +73,7 @@ public class Game {
 
         //reset room and items
         Game.init();
-
-        boolean endGame = false;
+        endGame = false;
 
         while (!endGame) {
             Prompt.showStatus(currentRoom);
@@ -84,7 +85,7 @@ public class Game {
                 backgroundMusic.stop();
                 battleMusic.loop();
                 battle.fight();
-                if (battle.isWinning()) {
+                if (battle.isWinning() & !endGame) { //endGame check to allow quit while fighting
                     System.out.println("Keep moving!");
                     Prompt.showStatus(currentRoom);
                     Prompt.showInventory(player);
@@ -114,9 +115,9 @@ public class Game {
         // show commands
         Prompt.showCommands();
         Player player = new Player();
-        boolean endGame = false;
+        boolean endTraining = false;
 
-        while (!endGame) {
+        while (!endTraining) {
             Prompt.showStatus(currentRoom);
             Prompt.showInventory(player);
 
@@ -129,8 +130,13 @@ public class Game {
                 ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
                 System.out.println("Congratulations! You successfully finished the training!");
                 ConsoleColors.reset();
-                endGame = true;
+                endTraining = true;
             }
+
+            if (endGame){
+                endTraining = true;
+            }
+
         }
     }
 
@@ -189,5 +195,9 @@ public class Game {
 
     public static void setCurrentRoom(Room currentRoom) {
         Game.currentRoom = currentRoom;
+    }
+
+    public static int getAlienNumber() {
+        return alienNumber;
     }
 }

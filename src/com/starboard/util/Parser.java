@@ -52,6 +52,9 @@ public class Parser {
             } else if (command.get(0).equalsIgnoreCase("help")){
                 setFirstCommand("help");
                 setParseStatus(true);
+            }else if (command.get(0).equalsIgnoreCase("quit")){
+                setFirstCommand("quit");
+                setParseStatus(true);
             }else {
                 System.out.println("Unrecognized command");
             }
