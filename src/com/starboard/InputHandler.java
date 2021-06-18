@@ -16,7 +16,7 @@ public class InputHandler {
             ConsoleColors.changeTo(ConsoleColors.BLACK_BOLD);
             System.out.print(ConsoleColors.WHITE_BACKGROUND  + "Please type in your command.   Enter " + ConsoleColors.GREEN_BACKGROUND+"\"help\"" +
                     ConsoleColors.WHITE_BACKGROUND + " for help with the commands,  " + ConsoleColors.GREEN_BACKGROUND + "\"quit\"" +
-                    ConsoleColors.WHITE_BACKGROUND + "to quit the game or the training\n> "+ ConsoleColors.RESET);
+                    ConsoleColors.WHITE_BACKGROUND + " to quit the game or the training\n> "+ ConsoleColors.RESET);
             ConsoleColors.reset();
             String input = sc.nextLine();
             if (input.equals("")) {
