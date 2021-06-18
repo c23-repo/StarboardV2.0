@@ -176,7 +176,7 @@ public class Prompt {
                 "You need to successfully escape to the POD and kill any alien on your way to win!\n" +
                 "Good Luck!";
         keyboard.play();
-        printOneAtATime(intro,0);
+        printOneAtATime(intro,80);
         System.out.println();
         keyboard.close();
         try {
