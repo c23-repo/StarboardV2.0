@@ -2,6 +2,7 @@ package com.starboard;
 
 import com.starboard.items.Weapon;
 import com.starboard.util.ConsoleColors;
+import com.starboard.util.Music;
 import com.starboard.util.Prompt;
 import com.starboard.util.Sound;
 
@@ -18,22 +19,23 @@ public class Alien {
     private boolean confirmedKilled;
 
 
+
     public Alien(int hp, int number) {
         setNumOfAliens(number);
         setHp(hp);
     }
 
     public void attack(Player player){
-        System.out.println("Alien is attacking");
+        System.out.print("Alien is attacking");
         Sound.play(8); // index 8 is file path for alien attack sound file
         player.changeHp(getEquippedWeapon().getDamage());
         //mimic attacking
-        try {
+        Prompt.printOneAtATime(" . . . ",300);
+        System.out.println("\nAlien finished attacking.");try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Alien finished attacking.");
 //        System.out.println("Your hp decreased " + (-getEquippedWeapon().getDamage()));
 //        System.out.println("You have " + player.getHp() + " hp left.");
         Prompt.showBattleStatus(this, player);
@@ -41,11 +43,11 @@ public class Alien {
     }
 
 
-    public void showUp() {
+    public boolean showUp() {
         if (Math.random() < getShowUpChance()) {
-            System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien appeared." + ConsoleColors.RESET);
-            setExisted(true);
+            return true;
         }
+        return false;
     }
 
     public boolean isKilled(){

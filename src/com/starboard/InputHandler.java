@@ -5,7 +5,7 @@ import com.starboard.util.*;
 import java.io.Console;
 import java.util.Scanner;
 
-class InputHandler {
+public class InputHandler {
 
     public static String[] input(Room room) {
         //check scanner from file
@@ -14,7 +14,8 @@ class InputHandler {
 
         do {
             ConsoleColors.changeTo(ConsoleColors.BLACK_BOLD);
-            System.out.print(ConsoleColors.WHITE_BACKGROUND  + "Please type in your command.\n> "+ ConsoleColors.RESET);
+            System.out.print(ConsoleColors.WHITE_BACKGROUND  + "Please type in your command.   Enter \"help\"" +
+                    " if you need help with the commands.\n> "+ ConsoleColors.RESET);
             ConsoleColors.reset();
             String input = sc.nextLine();
             if (input.equals("")) {
@@ -29,5 +30,11 @@ class InputHandler {
         command[1] = parser.getSecondCommand();
 
         return command;
+    }
+
+    public static String getUserInput(String displayMessage) {
+        System.out.printf(displayMessage + "\n>");
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine();
     }
 }

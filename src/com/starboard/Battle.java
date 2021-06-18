@@ -19,6 +19,7 @@ class Battle {
         if (!isEscaped()) {
             //keep fighting until one of alien and player is killed
             while(!player.isKilled()){
+                System.out.println("\n" + ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien Present" + ConsoleColors.RESET + ConsoleColors.RED_BOLD + " Fight for your life!" + ConsoleColors.RESET);
                 player.attack(alien);
 
                 if (alien.isKilled()) break;
@@ -53,7 +54,7 @@ class Battle {
             System.out.println(ConsoleColors.GREEN_BOLD + "You are lucky, Escaped from the brutal alien!" + ConsoleColors.RESET);
             return true;
         } else {
-            System.out.println(ConsoleColors.RED_BOLD + "You failed to escape this time, be prepared to fight!" + ConsoleColors.RESET);
+            System.out.println("\n" + ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien Present" + ConsoleColors.RESET + ConsoleColors.RED_BOLD + " and you failed to escape this time, be prepared to fight!" + ConsoleColors.RESET);
             return false;
         }
     }

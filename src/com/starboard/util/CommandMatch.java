@@ -42,6 +42,10 @@ public class CommandMatch {
                 break;
             case "open":
                 openContainer(subject);
+                break;
+            case "help":
+                Prompt.showInstructions();
+                break;
         }
     }
 
