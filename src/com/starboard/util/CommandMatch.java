@@ -43,6 +43,9 @@ public class CommandMatch {
             case "open":
                 openContainer(subject);
                 break;
+            case "sound":
+                Game.soundControl();
+                break;
             case "help":
                 Prompt.showInstructions();
                 break;

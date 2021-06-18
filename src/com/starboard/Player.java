@@ -25,15 +25,18 @@ public class Player {
         //Prompt.showBattleStatus(alien, this);
         String[] battleCommandInput = InputHandler.input(Game.getCurrentRoom());
         while (!battleCommandInput[0].equals("use") || battleCommandInput[1].equals("map")) {
-            //you can only use "use" or "help" or "quit" command.
-            if (battleCommandInput[0].equals("quit")){
+            //you can only use "use" or "help" or "quit" or "sound" command.
+            if (battleCommandInput[0].equals("sound")){
+                Game.soundControl();
+            }
+            else if (battleCommandInput[0].equals("quit")){
                 this.hp=0; //kill the player to get out of the while loop in battle.fight
                 alien.setHp(0);
                 Game.endGame = true;
                 System.out.println("You've quit the game.......Thank you for playing Starboard !!");
                 break;
             }
-            if (battleCommandInput[0].equals("help")){
+            else if (battleCommandInput[0].equals("help")){
                 Prompt.showInstructions();
                 Prompt.showStatus(Game.getCurrentRoom());
                 Prompt.showInventory(this);
