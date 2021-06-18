@@ -30,8 +30,8 @@ public class Player {
                 Prompt.showInstructions();
                 Prompt.showStatus(Game.getCurrentRoom());
                 Prompt.showInventory(this);
-                System.out.println("\n" + ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien Present" + ConsoleColors.RESET);
                 Prompt.showBattleStatus(alien,this);
+                System.out.println("\n" + ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien Present" + ConsoleColors.RESET + ConsoleColors.RED_BOLD + " Fight for your life!" + ConsoleColors.RESET);
                 System.out.println("Please use the weapon in your inventory, otherwise you will use your fist.");
             }
             else if (!battleCommandInput[0].equals("use")) {

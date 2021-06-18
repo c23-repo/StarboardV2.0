@@ -104,7 +104,6 @@ public class Game {
                 ConsoleColors.reset();
                 endGame = true;
             }
-            System.out.println("Here");
         }
     }
 
@@ -120,7 +119,6 @@ public class Game {
         while (!endGame) {
             Prompt.showStatus(currentRoom);
             Prompt.showInventory(player);
-
 
             String[] parsedInputs = InputHandler.input(currentRoom);
 
@@ -164,6 +162,7 @@ public class Game {
 
     static void aliensSetupInCurrentRoom(Alien aliens){
         aliens.setRoom(currentRoom);
+        aliens.setExisted(false);
         aliens.setShowUpChance();
         if(aliens.showUp()){
             System.out.print(ConsoleColors.RED_BOLD_BRIGHT + ".  " + ConsoleColors.RESET);
@@ -180,6 +179,7 @@ public class Game {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            alienEntry.stop();
         };
     }
 

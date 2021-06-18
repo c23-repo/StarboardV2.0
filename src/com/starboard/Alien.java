@@ -10,7 +10,7 @@ import java.io.Console;
 
 public class Alien {
 
-    private boolean isExisted =false;
+    private boolean isExisted;
     private Weapon equippedWeapon = new Weapon("stick", -20,"It is a powerful weapon used by alien.",1);
     private double showUpChance;
     private Room room;
@@ -26,16 +26,16 @@ public class Alien {
     }
 
     public void attack(Player player){
-        System.out.println("Alien is attacking");
+        System.out.print("Alien is attacking");
         Sound.play(8); // index 8 is file path for alien attack sound file
         player.changeHp(getEquippedWeapon().getDamage());
         //mimic attacking
-        try {
+        Prompt.printOneAtATime(" . . . ",300);
+        System.out.println("\nAlien finished attacking.");try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Alien finished attacking.");
 //        System.out.println("Your hp decreased " + (-getEquippedWeapon().getDamage()));
 //        System.out.println("You have " + player.getHp() + " hp left.");
         Prompt.showBattleStatus(this, player);
