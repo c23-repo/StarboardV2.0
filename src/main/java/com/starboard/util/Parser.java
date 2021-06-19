@@ -38,6 +38,7 @@ public class Parser {
             setParseStatus(false);
 
         } else if (command.size() == 1) {
+            // TODO: this should be where quit and help go. Also nearby should be the two word command Validation happening.
             List<String> singleEntryRoomNames = Arrays.asList("bridge","lab","enginebay");
             List<String> exitCollection = Arrays.asList("exit","leave");
             //if currentroom is bridge||lab||enginebay, can use exit and leave

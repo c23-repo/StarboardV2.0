@@ -3,30 +3,49 @@
     "name": "knife",
     "damage": -15,
     "description": "This is a knife.",
-    "quantity": 1
+    "quantity": 1,
+    "weight": 0.32
   },
   {
     "name": "hammer",
     "damage": -30,
     "description": "This is a hammer.",
-    "quantity": 1
+    "quantity": 1,
+    "weight": 0.62369
   },
   {
     "name": "m4",
-    "damage": -45,
+    "damage": -22,
     "description": "This is a m4.",
-    "quantity": 1
+    "quantity": 1,
+    "weight": 3.04
   },
   {
     "name": "axe",
     "damage": -40,
-    "description": "This is a axe.",
-    "quantity": 1
+    "description": "This is an axe.",
+    "quantity": 1,
+    "weight": 2.72
   },
   {
     "name": "shotgun",
-    "damage": -60,
+    "damage": -25,
     "description": "This is a shotgun.",
-    "quantity": 1
+    "quantity": 1,
+    "weight": 3.82
+  },
+  {
+    "name": "magazine",
+    "damage": -45,
+    "description": "30rd. magazine for the m4.",
+    "quantity": 1,
+    "weight": 0.51
+  },
+  {
+    "name": "slugs",
+    "damage": -60,
+    "description": "A bandoleer with 12 shotgun slugs.",
+    "quantity": 1,
+    "weight": 0.297
   }
 ]

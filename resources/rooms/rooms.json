@@ -1,12 +1,17 @@
 [
   {
-      "name": "bridge",
-      "linkedRooms": ["galley"],
-      "description": "The bridge is a room or platform of a ship from which the ship can be commanded.",
-      "containers": {
-        "console": "knife",
-        "safe": "potion"
-      }
+    "name": "bridge",
+    "linkedRooms": ["galley"],
+    "description": "The bridge is a room or platform of a ship from which the ship can be commanded.",
+    "containers": {
+      "console": "knife",
+      "safe": "potion",
+      "table": "magazine",
+      "corner": "shotgun",
+      "floor": "shotgun",
+      "bed": "shotgun",
+      "wall": "shotgun"
+    }
   },
 
   {

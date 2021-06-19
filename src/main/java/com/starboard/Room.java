@@ -24,18 +24,20 @@ public class Room {
         this.name = name;
     }
 
-    public GameItem giveItem(String name) throws NullPointerException {
+    public GameItem giveItem(String name, Player player) throws NullPointerException {
         GameItem item = null;
-        for (Container container : containers.values()) {
-            if (container.getContents().containsKey(name)) {
-                item = container.giveItem(name);
+        List<String> openedRoomContainers = player.getOpenedContainers();
+        for (String openedContainerName : openedRoomContainers) {
+            item = containers.get(openedContainerName).giveItem(name);
+            if (containers.containsKey(openedContainerName) && item != null && item.getName().equalsIgnoreCase(name)) {
+                if (!containers.containsKey("console")) {
+                    openedRoomContainers.remove(openedContainerName);
+                }
+                player.setOpenedContainers(openedRoomContainers);
+                break;
             }
         }
-        if (item != null) {
-            return item;
-        } else {
-            throw new NullPointerException();
-        }
+        return item;
     }
 
     // Accessors

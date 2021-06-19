@@ -109,18 +109,21 @@ public class Prompt {
 
     public static void showInventory(Player player) {
         ConsoleColors.changeTo(ConsoleColors.YELLOW);
-        System.out.printf("\n------------------------------- Inventory (HP:%s)----------------------------%n",
-                (ConsoleColors.GREEN + String.valueOf(player.getHp()) + ConsoleColors.YELLOW));
+        System.out.printf("\n------------------------------- Inventory (HP:%s WEIGHT:%5s/%5s)----------------------------%n",
+                (ConsoleColors.GREEN + String.valueOf(player.getHp()) + ConsoleColors.YELLOW), (ConsoleColors.BLUE_BRIGHT + String.valueOf(player.getInventoryWeight()) + ConsoleColors.RESET), (ConsoleColors.BLUE_BRIGHT + String.valueOf(player.getInventoryMax()) + ConsoleColors.RESET));
         ConsoleColors.reset();
         ConsoleColors.changeTo(ConsoleColors.WHITE_BOLD_BRIGHT);
-        System.out.printf("%10s%15s%15s%35s%n","Item", "healValue", "damageValue", "description");
+        System.out.printf("%10s%15s%15s%15s%35s%n","Item", "healValue", "Damage", "Weight", "Description");
         ConsoleColors.reset();
         for (GameItem item : player.getInventory().values()) {
             // if the item is a healingItem, display its healValue
             String healValue = item instanceof HealingItem ? (ConsoleColors.GREEN + String.valueOf(((HealingItem) item).getHealValue()) + ConsoleColors.RESET) : "n/a";
             // if the item is a weapon, display its damageValue
             String damageValue = item instanceof Weapon ? (ConsoleColors.RED + String.valueOf(((Weapon) item).getDamage()) + ConsoleColors.RESET) : "n/a";
-            System.out.printf("%10s X %d%10s%s%10s%s%40s%n", item.getName(), item.getQuantity(), "",healValue , "", damageValue , item.getDescription());
+            // this displays the weight of the game item
+            String weightValue = item instanceof Weapon ? (ConsoleColors.BLUE_BRIGHT + String.valueOf((item).getWeight()) + ConsoleColors.RESET) : "n/a";
+            System.out.printf("%10s X %d%10s%s%10s%s%10s%s%40s%n", item.getName(), item.getQuantity(), "", healValue,
+                    "", damageValue, "", weightValue, item.getDescription());
         }
         ConsoleColors.changeTo(ConsoleColors.YELLOW);
         System.out.println("------------------------------- Inventory -------------------------------------");
