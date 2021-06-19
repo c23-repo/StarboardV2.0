@@ -42,6 +42,20 @@ public class CommandMatch {
                 break;
             case "open":
                 openContainer(subject);
+                break;
+            case "sound":
+                Game.soundControl();
+                break;
+            case "help":
+                Prompt.showInstructions();
+                break;
+            case "quit":
+                Game.endGame = true;
+                if(Game.getAlienNumber()==0)
+                    System.out.println(ConsoleColors.YELLOW + "You've quit the training. Good Luck!!" + ConsoleColors.RESET);
+                else
+                    System.out.println("You've quit the game.......Thank you for playing Starboard !!");
+                break;
         }
     }
 

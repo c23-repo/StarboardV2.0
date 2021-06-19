@@ -1,5 +1,7 @@
 package com.starboard.util;
 
+import com.starboard.Game;
+
 import java.io.File;
 import java.io.IOException;
 import javax.sound.sampled.*;
@@ -12,7 +14,8 @@ public class Sound {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
-            clip.start();
+            if(Game.isSoundOn())
+                clip.start();
             do {
                 try {
                     Thread.sleep(10);

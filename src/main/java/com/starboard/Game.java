@@ -10,12 +10,20 @@ import java.util.Scanner;
 
 public class Game {
     private static Room currentRoom;
+    private static Music gameMusic;
     private static final Music backgroundMusic = new Music("resources/audios/background.wav");
     private static Music battleMusic = new Music("resources/audios/battle.wav");
+    private static Music alienEntry = new Music("resources/audios/alien-Entry.wav");
+    private static Music electric = new Music("resources/audios/electric.wav");
+    public static boolean endGame;
+    private static int alienNumber;
+    private static boolean soundOn = true;
 
     public static void main(String[] args) {
-        backgroundMusic.loop();
+        setGameMusic(backgroundMusic);
         Prompt.showWelcome();
+        soundControl();
+        Prompt.showInstructions();
         init();
         start();
     }
@@ -53,11 +61,10 @@ public class Game {
 
     public static void start() {
 
-        int alienNumber = chooseLevel();
+        alienNumber = chooseLevel();
 
         //Training mode
         while (alienNumber == 0) {
-
             training();
             alienNumber = chooseLevel();
         }
@@ -69,29 +76,22 @@ public class Game {
 
         //reset room and items
         Game.init();
-
-        boolean endGame = false;
+        endGame = false;
 
         while (!endGame) {
-            aliens.setRoom(currentRoom);
-            aliens.setExisted(false);
-            aliens.setShowUpChance();
-            aliens.showUp();
             Prompt.showStatus(currentRoom);
             Prompt.showInventory(player);
-
+            aliensSetupInCurrentRoom(aliens);
             //battle mode
             if (aliens.isExisted()) {
                 Battle battle = new Battle(aliens, player, currentRoom);
-                backgroundMusic.stop();
-                battleMusic.loop();
+                setGameMusic(battleMusic);
                 battle.fight();
-                if (battle.isWinning()) {
+                if (battle.isWinning() & !endGame) { //endGame check to allow quit while fighting
                     System.out.println("Keep moving!");
                     Prompt.showStatus(currentRoom);
                     Prompt.showInventory(player);
-                    battleMusic.stop();
-                    backgroundMusic.loop();
+                    setGameMusic(backgroundMusic);
                 } else break;
             }
 
@@ -100,7 +100,7 @@ public class Game {
             CommandMatch.matchCommand(parsedInputs, player);
             //winning condition
             if (currentRoom.getName().equals("pod")) {
-                backgroundMusic.close();
+                getGameMusic().close();
                 ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
                 System.out.println("Congratulations! You successfully escape from the ship!");
                 ConsoleColors.reset();
@@ -116,12 +116,11 @@ public class Game {
         // show commands
         Prompt.showCommands();
         Player player = new Player();
-        boolean endGame = false;
+        boolean endTraining = false;
 
-        while (!endGame) {
+        while (!endTraining) {
             Prompt.showStatus(currentRoom);
             Prompt.showInventory(player);
-
 
             String[] parsedInputs = InputHandler.input(currentRoom);
 
@@ -132,8 +131,13 @@ public class Game {
                 ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
                 System.out.println("Congratulations! You successfully finished the training!");
                 ConsoleColors.reset();
-                endGame = true;
+                endTraining = true;
             }
+
+            if (endGame){
+                endTraining = true;
+            }
+
         }
     }
 
@@ -163,11 +167,77 @@ public class Game {
         return updateValue * 2;
     }
 
+    static void aliensSetupInCurrentRoom(Alien aliens){
+        aliens.setRoom(currentRoom);
+        aliens.setExisted(false);
+        aliens.setShowUpChance();
+        if(aliens.showUp()){
+            System.out.print(ConsoleColors.RED_BOLD_BRIGHT + ".  " + ConsoleColors.RESET);
+            Game.getGameMusic().stop();
+            electric.play();
+            Prompt.printOneAtATime(ConsoleColors.RED_BOLD_BRIGHT + ".  .  .  .  .  .  .  .  .  .  " +ConsoleColors.RESET,200);
+            alienEntry.play();
+            electric.stop();
+            System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "ALIEN APPEARED" + ConsoleColors.RESET + ConsoleColors.RED + " in the " + Game.getCurrentRoom().getName() + ConsoleColors.RESET);
+            aliens.setExisted(true);
+            try {
+                Thread.sleep(2000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            alienEntry.stop();
+        };
+    }
+
+    public static void soundControl(){
+        String soundChoice;
+        if(isSoundOn())
+            soundChoice= InputHandler.getUserInput("\nEnter " + ConsoleColors.RED + "\"OFF\"" + ConsoleColors.RESET +
+                    " to play without the sound or Press " + ConsoleColors.GREEN + "\"Enter\" " + ConsoleColors.RESET + "to continue:" );
+        else
+            soundChoice= InputHandler.getUserInput("\nEnter " + ConsoleColors.GREEN + "\"ON\"" + ConsoleColors.RESET +
+                    " to play with the sound or Press " + ConsoleColors.GREEN + "\"Enter\" " + ConsoleColors.RESET + "to continue:" );
+
+        if(soundChoice.equalsIgnoreCase("off")){
+            soundOn =false;
+            Game.getGameMusic().stop();
+            System.out.print("No sound mode activated");
+            Prompt.printOneAtATime("....",400);
+            System.out.println();
+        }
+        else if(soundChoice.equalsIgnoreCase("on")){
+            soundOn = true;
+            Game.getGameMusic().loop();
+        }
+
+    }
+
+    public static boolean isSoundOn() {
+        return soundOn;
+    }
+
+    public static Music getGameMusic() {
+        return gameMusic;
+    }
+
+    //stop old music if it's palying, set new music and loop
+    public static void setGameMusic(Music gameMusic) {
+        if(getGameMusic() != null)
+            getGameMusic().stop();
+        Game.gameMusic = gameMusic;
+        gameMusic.loop();
+    }
+
     public static Room getCurrentRoom() {
         return currentRoom;
     }
 
     public static void setCurrentRoom(Room currentRoom) {
         Game.currentRoom = currentRoom;
+    }
+
+    public static int getAlienNumber() {
+        return alienNumber;
     }
 }

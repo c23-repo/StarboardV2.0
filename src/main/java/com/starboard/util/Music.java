@@ -1,5 +1,7 @@
 package com.starboard.util;
 
+import com.starboard.Game;
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
@@ -18,13 +20,19 @@ public class Music {
     }
 
     public void play() {
-        clip.setFramePosition(0);
-        clip.start();
+        if(Game.isSoundOn()){
+            clip.setFramePosition(0);
+            clip.start();
+        }
+
     }
 
     public void loop() {
-        clip.setFramePosition(0);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        if(Game.isSoundOn()){
+            clip.setFramePosition(0);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+
     }
 
     public void stop() {
@@ -33,5 +41,9 @@ public class Music {
 
     public void close() {
         clip.close();
+    }
+
+    public Clip getClip() {
+        return clip;
     }
 }

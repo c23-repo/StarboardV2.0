@@ -1,9 +1,6 @@
 package com.starboard.util;
 
-import com.starboard.Alien;
-import com.starboard.Game;
-import com.starboard.Player;
-import com.starboard.Room;
+import com.starboard.*;
 import com.starboard.items.Container;
 import com.starboard.items.GameItem;
 import com.starboard.items.HealingItem;
@@ -148,6 +145,23 @@ public class Prompt {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void showInstructions() {
+        clearScreen();
+        System.out.println("\nGame Instructions:");
+        System.out.printf(ConsoleColors.GREEN+"%2s %8s %47s %n", "", "Action   ", "       Command to Type" + ConsoleColors.RESET);
+        System.out.printf("%2s %8s %45s %n", "", "----------------------------", "         --------------------------------------------------");
+        System.out.printf("%2s %-30s %1s %-10s %n", " 1.", "Go somewhere","|    ", "\"go\" and one of the available locations displayed");
+        System.out.printf("%2s %-30s %1s %-10s %n", " 2.", "Open a container","|    ", "\"open\" and \"container name\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 3.", "Pick-up or Drop an Item","|    ", "\"pick\", \"drop\" and \"item name\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 4.", "Fight an Alien","|    ", "\"use\" and \"weapon name\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 5.", "Display map","|    ", "\"show map\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 6.", "Display instructions","|    ", "\"help\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 7.", "Turn the Sound ON or OFF","|    ", "\"sound\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 8.", "Quit the training/game","|    ", "\"quit\"");
+
+        InputHandler.getUserInput("\nPress enter to continue...");
         clearScreen();
     }
 
@@ -163,7 +177,8 @@ public class Prompt {
                 "You need to successfully escape to the POD and kill any alien on your way to win!\n" +
                 "Good Luck!";
         keyboard.play();
-        printOneAtATime(intro);
+        printOneAtATime(intro,80);
+        System.out.println();
         keyboard.close();
         try {
             Thread.sleep(5000);
@@ -172,16 +187,16 @@ public class Prompt {
         }
     }
 
-    private static void printOneAtATime(String str){
+    public static void printOneAtATime(String str, int sleepTime){
         for (char chr: str.toCharArray()) {
             System.out.print(chr);
             try {
-                Thread.sleep(80);
+                //Thread.sleep(0);
+                Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println();
     }
 
     public static void showLevelChooser(){

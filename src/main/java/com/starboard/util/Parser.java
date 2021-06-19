@@ -49,7 +49,17 @@ public class Parser {
             }else if (exitCollection.contains(command.get(0)) && !singleEntryRoomNames.contains(room.getName())){
                 setParseStatus(false);
                 System.out.println("You cannot use exit on multi-door room, please use go command.");
-            } else{
+            } else if (command.get(0).equalsIgnoreCase("sound")){
+                setFirstCommand("sound");
+                setParseStatus(true);
+            }
+            else if (command.get(0).equalsIgnoreCase("help")){
+                setFirstCommand("help");
+                setParseStatus(true);
+            }else if (command.get(0).equalsIgnoreCase("quit")){
+                setFirstCommand("quit");
+                setParseStatus(true);
+            }else {
                 System.out.println("Unrecognized command");
             }
         } else {
