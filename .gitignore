@@ -86,3 +86,4 @@ fabric.properties
 ## OS X
 ##############################
 .DS_Store
+.target
