@@ -41,7 +41,7 @@ public class CommandMatch {
                 }
                 break;
             case "open":
-                openContainer(subject);
+                openContainer(subject, player);
                 break;
             case "sound":
                 Game.soundControl();
@@ -65,9 +65,9 @@ public class CommandMatch {
      * it finds, even if multiple containers.json have copies of the same
      * object.
      */
-    public static void take(String name, Player player) {
+    public static void take(String name, Player player) throws NullPointerException{
         try {
-            player.takeItem(Game.getCurrentRoom().giveItem(name));
+            player.takeItem(Game.getCurrentRoom().giveItem(name, player));
         } catch (NullPointerException e) {
             System.out.println("There is no " + name + " to take.");
         }
@@ -81,8 +81,10 @@ public class CommandMatch {
      */
     public static void drop(String name, Player player) {
         try {
-            // Requires every Room instance to have a Container with name "floor".
-            Game.getCurrentRoom().addItemToContainer(player.dropItem(name), Game.getCurrentRoom().getContainer("console"));
+            // Requires every Room instance to have a Container with name "console".
+            String baseContainer = "console";
+            Game.getCurrentRoom().addItemToContainer(player.dropItem(name), Game.getCurrentRoom().getContainer(baseContainer));
+            player.addOpenedContainer(baseContainer);
         } catch (NullPointerException e) {
             String article = aOrAn(name);
             System.out.printf("You don't have %s %s.%n", article, name);
@@ -116,10 +118,12 @@ public class CommandMatch {
         }
     }
 
-    public static void openContainer(String containerName) {
+    public static void openContainer(String containerName, Player player) {
+        // TODO: GET CONTAINER NAME PASSED TO take() and SET BOOLEAN TO MAKE SURE CONTAINER IS OPENED
         try {
             Game.getCurrentRoom().getContainer(containerName).open();
             Sound.play(10); // index 10 is file path for move sound fileƒ
+            player.addOpenedContainer(containerName);
         } catch (NullPointerException e) {
             System.out.println("You can't open that.");
         }

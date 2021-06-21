@@ -9,14 +9,20 @@ import com.starboard.util.Prompt;
 import com.starboard.util.Sound;
 import com.starboard.util.ConsoleColors;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Player {
     private int maxHp = 100;
     private int hp = maxHp;
-    private final Map<String, GameItem> inventory = new HashMap<>();
+    private double inventoryWeight = 0; // This is the weight in kilograms
+    private final double inventoryMax = 9.0;
+    private final Map<String, GameItem> inventory = new HashMap<>(5);
     private Weapon equippedWeapon = new Weapon("fist", 50);
+    List<String> openedContainers = new ArrayList<>(); // package-private
+
 
 
     // Business
@@ -119,13 +125,18 @@ public class Player {
     }
 
     public void takeItem(GameItem item) {
+        double inventoryWeight = this.getInventoryWeight();
+
         if (item.isPortable()) {
-            if (inventory.containsKey(item.getName())) {
-                inventory.get(item.getName()).changeQuantity(item.getQuantity());
+            if (inventoryWeight < inventoryMax && inventoryMax > (item.getWeight() + inventoryWeight)){
+                if (inventory.containsKey(item.getName())) {
+                    inventory.get(item.getName()).changeQuantity(item.getQuantity());
+                } else {
+                    inventory.put(item.getName(), item);
+                }
                 Sound.play(1); // index 1 is file path for get item sound file
             } else {
-                inventory.put(item.getName(), item);
-                Sound.play(1); // index 1 is file path for get item sound file
+                System.out.printf("Can't take %s, this will pass your inventory max weight. Drop an item to pick this up", item.getName());
             }
         } else {
             System.out.printf("Can't take %s.%n", item.getName());
@@ -154,8 +165,6 @@ public class Player {
 
 
     // Accessors
-
-
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
     }
@@ -195,5 +204,29 @@ public class Player {
 
     public void setEquippedWeapon(Weapon weapon) {
         equippedWeapon = weapon;
+    }
+
+    public double getInventoryWeight() {
+        this.inventoryWeight = 0;
+        getInventory().forEach((key, value) -> {
+            this.inventoryWeight += value.getWeight();
+        });
+        return inventoryWeight;
+    }
+
+    public List<String> getOpenedContainers() {
+        return openedContainers;
+    }
+
+    public void addOpenedContainer(String containerName) {
+        this.openedContainers.add(containerName);
+    }
+
+    public void setOpenedContainers(List<String> openedContainers) {
+        this.openedContainers = openedContainers;
+    }
+
+    public double getInventoryMax() {
+        return inventoryMax;
     }
 }

@@ -6,7 +6,8 @@ public abstract class GameItem implements Cloneable {
     protected String name;
     private String description;
     protected boolean isPortable;
-    private int quantity = 1;
+    private int quantity;
+    private double weight;
 
 
     // Business
@@ -59,6 +60,10 @@ public abstract class GameItem implements Cloneable {
         this.quantity = quantity;
     }
 
+    public GameItem(String name, String description, boolean isPortable, int quantity, double weight) {
+        this(name, isPortable, description, quantity);
+        this.weight = weight;
+    }
 
     // Accessors
 
@@ -88,5 +93,13 @@ public abstract class GameItem implements Cloneable {
 
     public void changeQuantity(int change) {
         this.quantity += change;
+    }
+
+    public double getWeight() {
+        return weight * quantity;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 }
