@@ -1,0 +1,77 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane fx:id="mainPanel" fx:controller="com.gui.ControllerMain"
+            xmlns:fx="http://javafx.com/fxml">
+    <top>
+        <MenuBar>
+            <menus>
+                <Menu text="Contacts" style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed">
+                    <items>
+                        <MenuItem text="Add ...."/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+
+    <center>
+        <TextArea fx:id="gameTextArea" text="nothing to see here"
+                  style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed"/>
+    </center>
+
+    <right>
+
+        <VBox>
+            <HBox xmlns:fx="http://javafx.com/fxml"
+                  style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed"
+                  spacing="10" alignment="TOP_LEFT">
+                <!--            <padding>-->
+                <!--                <Insets bottom="10" right="10" left="10"/>-->
+                <!--            </padding>-->
+                <MenuBar>
+                    <menus>
+                        <Menu text="Inventory">
+                            <items>
+                                <MenuItem text="Add ...."/>
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </HBox>
+            <HBox xmlns:fx="http://javafx.com/fxml"
+                  style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed"
+                  spacing="10" alignment="BOTTOM_CENTER">
+                <!--            <padding>-->
+                <!--                <Insets bottom="10" right="10" left="10"/>-->
+                <!--            </padding>-->
+                <Button fx:id="btnOk" text="ok" prefWidth="90" onAction="#handle"/>
+                <Button text="Cancel" prefWidth="90"/>
+                <Button text="Help" prefWidth="90"/>
+            </HBox>
+        </VBox>
+    </right>
+
+    <bottom>
+        <HBox xmlns:fx="http://javafx.com/fxml"
+              style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed"
+              spacing="10" alignment="BOTTOM_LEFT">
+            <padding>
+                <Insets bottom="10" right="10" left="10"/>
+            </padding>
+            <TextField text="enter text here" prefWidth="550" alignment="BOTTOM_LEFT"/>
+
+            <Button fx:id="btnUserInput" text="Enter" prefWidth="90" onAction="#handle"/>
+        </HBox>
+    </bottom>
+</BorderPane>
