@@ -86,4 +86,5 @@ fabric.properties
 ## OS X
 ##############################
 .DS_Store
-.target
+/target/classes/
+/target/maven-status/maven-compiler-plugin/compile/
