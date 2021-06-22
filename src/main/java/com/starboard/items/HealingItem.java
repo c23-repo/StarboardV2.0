@@ -43,6 +43,11 @@ public class HealingItem extends GameItem implements Usable {
         setQuantity(quantity);
     }
 
+    public HealingItem(String name, boolean isPortable, int healValue, String description, int quantity, double weight) {
+        this(name, isPortable, healValue, description, quantity);
+        setWeight(weight);
+    }
+
     public int getHealValue() {
         return healValue;
     }

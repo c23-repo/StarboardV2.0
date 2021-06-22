@@ -3,18 +3,21 @@
     "name": "potion",
     "healValue": 30,
     "description": "This is a small potion.",
-    "quantity": 1
+    "quantity": 1,
+    "weight": 0.000000001
   },
   {
     "name": "apple",
     "healValue": 20,
     "description": "This is a magic apple.",
-    "quantity": 1
+    "quantity": 1,
+    "weight": 0.223
   },
   {
     "name": "bandaid",
     "healValue": 40,
     "description": "This is a magic bandaid",
-    "quantity": 1
+    "quantity": 1,
+    "weight": 0.063
   }
 ]

@@ -24,7 +24,7 @@ public class Game {
         Prompt.showWelcome();
         soundControl();
         Prompt.showInstructions();
-        init();
+//        init();
         start();
     }
 
@@ -60,12 +60,14 @@ public class Game {
     }
 
     public static void start() {
+        init();
 
         alienNumber = chooseLevel();
 
         //Training mode
         while (alienNumber == 0) {
             training();
+            init();
             alienNumber = chooseLevel();
         }
         Prompt.showIntroduction();
@@ -75,7 +77,6 @@ public class Game {
         Alien aliens = new Alien(100, alienNumber);
 
         //reset room and items
-        Game.init();
         endGame = false;
 
         while (!endGame) {
@@ -187,7 +188,7 @@ public class Game {
                 e.printStackTrace();
             }
             alienEntry.stop();
-        };
+        }
     }
 
     public static void soundControl(){
