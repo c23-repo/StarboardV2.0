@@ -28,4 +28,7 @@ public class Sound {
             e.printStackTrace();
         }
     }
+    private static String getPath(String fileName) {
+        return "src/main/resources/audios/" + fileName + ".wav";
+    }
 }
