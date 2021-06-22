@@ -75,7 +75,6 @@ public class Game {
         Alien aliens = new Alien(100, alienNumber);
 
         //reset room and items
-        Game.init();
         endGame = false;
 
         while (!endGame) {
@@ -139,6 +138,7 @@ public class Game {
             }
 
         }
+        init();
     }
 
     public static int chooseLevel() {
@@ -187,7 +187,7 @@ public class Game {
                 e.printStackTrace();
             }
             alienEntry.stop();
-        };
+        }
     }
 
     public static void soundControl(){

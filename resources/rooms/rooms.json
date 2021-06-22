@@ -7,10 +7,8 @@
       "console": "knife",
       "safe": "potion",
       "table": "magazine",
-      "corner": "shotgun",
-      "floor": "shotgun",
-      "bed": "shotgun",
-      "wall": "shotgun"
+      "floor": "slugs",
+      "bed": "shotgun"
     }
   },
 
