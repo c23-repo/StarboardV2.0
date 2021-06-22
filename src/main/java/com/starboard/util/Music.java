@@ -19,6 +19,10 @@ public class Music {
         }
     }
 
+    private String getPath(String fileName) {
+        return "src/main/resources/audios/" + fileName + ".wav";
+    }
+
     public void play() {
         if(Game.isSoundOn()){
             clip.setFramePosition(0);
