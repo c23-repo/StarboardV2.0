@@ -2,7 +2,7 @@
 A text-based console game written in JAVA. 
 A player starts from the bridge in the starship and needs to find a way to the pod to escape from the alien chase.   
 
-**Authors**: Wenhao, Yichun, Julian
+**Authors**: Wenhao, Yichun, Julian, Malik, Cristian, Aashis
 
 ## How to start
 1. Clone the repo
