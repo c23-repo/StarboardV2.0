@@ -2,6 +2,7 @@ package com.starboard;
 
 import com.starboard.items.*;
 import com.starboard.util.*;
+import org.openjfx.App;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Game {
     private static boolean soundOn = true;
 
     public static void main(String[] args) {
+        App.main(args);
         setGameMusic(backgroundMusic);
         Prompt.showWelcome();
         soundControl();
