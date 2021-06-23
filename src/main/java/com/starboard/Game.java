@@ -80,6 +80,15 @@ public class Game {
             if (aliens.isExisted()) {
                 Battle battle = new Battle(aliens, player, currentRoom);
                 setGameMusic(Music.battleMusic);
+
+                String userInput = InputHandler.getUserInput("Enter \"fight\" to fight the alien or \"flee\" to evade the alien?");
+                while(!userInput.equalsIgnoreCase("fight") && !userInput.equalsIgnoreCase("flee")){
+                    userInput = InputHandler.getUserInput("Enter \"fight\" to fight the alien or \"flee\" to evade the alien?");
+                }
+                if(userInput.equalsIgnoreCase("fight")){
+                    battle.setEscapeChance(-1);
+                    System.out.println(ConsoleColors.RED + "You've chosen to fight the alien .... be ready for the battle" + ConsoleColors.RESET);
+                }
                 battle.fight();
                 if (battle.isWinning() & !endGame) { //endGame check to allow quit while fighting
                     System.out.println("Keep moving!");
