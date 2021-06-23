@@ -20,7 +20,6 @@ public class Game {
         Prompt.showWelcome();
         soundControl();
         Prompt.showInstructions();
-//        init();
         start();
     }
 
@@ -57,7 +56,6 @@ public class Game {
 
     public static void start() {
         init();
-
         alienNumber = chooseLevel();
 
         //Training mode

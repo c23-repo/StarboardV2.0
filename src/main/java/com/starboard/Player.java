@@ -32,25 +32,22 @@ public class Player {
         String[] battleCommandInput = InputHandler.input(Game.getCurrentRoom());
         while (!battleCommandInput[0].equals("use") || battleCommandInput[1].equals("map")) {
             //you can only use "use" or "help" or "quit" or "sound" command.
-            if (battleCommandInput[0].equals("sound")){
+            if (battleCommandInput[0].equals("sound")) {
                 Game.soundControl();
-            }
-            else if (battleCommandInput[0].equals("quit")){
-                this.hp=0; //kill the player to get out of the while loop in battle.fight
+            } else if (battleCommandInput[0].equals("quit")) {
+                this.hp = 0; //kill the player to get out of the while loop in battle.fight
                 alien.setHp(0);
                 Game.endGame = true;
                 System.out.println("You've quit the game.......Thank you for playing Starboard !!");
                 break;
-            }
-            else if (battleCommandInput[0].equals("help")){
+            } else if (battleCommandInput[0].equals("help")) {
                 Prompt.showInstructions();
                 Prompt.showStatus(Game.getCurrentRoom());
                 Prompt.showInventory(this);
-                Prompt.showBattleStatus(alien,this);
+                Prompt.showBattleStatus(alien, this);
                 System.out.println("\n" + ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien Present" + ConsoleColors.RESET + ConsoleColors.RED_BOLD + " Fight for your life!" + ConsoleColors.RESET);
                 System.out.println("Please use the weapon in your inventory, otherwise you will use your fist.");
-            }
-            else if (!battleCommandInput[0].equals("use")) {
+            } else if (!battleCommandInput[0].equals("use")) {
                 System.out.println("You cannot leave the room nor take or drop items at the moment. You gotta fight the alien!");
             } else {
                 System.out.println("You don't have time to look at your map now.You gotta fight the alien!");
@@ -58,11 +55,11 @@ public class Player {
             battleCommandInput = InputHandler.input(Game.getCurrentRoom());
         }
 
-        if(this.hp>0){ //player has not quit the game
-            CommandMatch.matchCommand(battleCommandInput,this);
+        if (this.hp > 0) {  //player has not quit the game
+            CommandMatch.matchCommand(battleCommandInput, this);
 
             GameItem item = getInventory().get(battleCommandInput[1]);
-            if(item instanceof Weapon){
+            if (item instanceof Weapon) {
                 //equip with weapon to attack
                 setEquippedWeapon((Weapon) item);
                 System.out.println("You are attacking the alien with " + getEquippedWeapon().getName() + ".");
@@ -84,7 +81,7 @@ public class Player {
                     e.printStackTrace();
                 }
                 Prompt.showBattleStatus(alien, this);
-            }else if(item instanceof HealingItem){
+            } else if (item instanceof HealingItem) {
                 //use healing item to recover
                 try {
                     Thread.sleep(1000);
@@ -93,7 +90,7 @@ public class Player {
                 }
                 System.out.println("Your hp is recovered to: " + getHp());
                 Prompt.showBattleStatus(alien, this);
-            }else{
+            } else {
                 //you are default to use fist
                 try {
                     Thread.sleep(1000);
@@ -107,9 +104,7 @@ public class Player {
                 Prompt.showBattleStatus(alien, this);
             }
         }
-
     }
-
 
     public boolean isKilled() {
         return getHp() <= 0;
