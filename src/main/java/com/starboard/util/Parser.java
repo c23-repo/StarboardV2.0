@@ -1,6 +1,6 @@
 package com.starboard.util;
 
-
+import com.starboard.Game;
 import com.starboard.Room;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class Parser {
 
     public void parse(String str) {
         //strip filler words from user input
-        List<String> fillerWords = Arrays.asList("to", "the", "a", "an", "from", "in", "inside", "out", "outside", "of","me","at");
+        List<String> fillerWords = Arrays.asList("to", "the", "a", "an", "from", "in", "inside", "out", "outside", "of", "me", "at");
         String[] splitWords = str.trim().split("\\W|\\d"); // removing all non-Alpha characters
         List<String> command = new ArrayList<>();
 
@@ -51,21 +51,21 @@ public class Parser {
             setFirstCommand("exit");
             Room nextRoom = room.getPaths().get(room.getLinkedRooms().get(0));
             setSecondCommand(nextRoom.getName());
-            if(SINGLE_ENTRY_ROOM_NAMES.contains(room.getName()) && EXIT_COLLECTION.contains(command.get(0))){
+            if (SINGLE_ENTRY_ROOM_NAMES.contains(room.getName()) && EXIT_COLLECTION.contains(command.get(0))) {
                 setParseStatus(true);
-            }else if (EXIT_COLLECTION.contains(command.get(0)) && !SINGLE_ENTRY_ROOM_NAMES.contains(room.getName())){
+            } else if (EXIT_COLLECTION.contains(command.get(0)) && !SINGLE_ENTRY_ROOM_NAMES.contains(room.getName())) {
                 setParseStatus(false);
                 System.out.println("You cannot use exit on multi-door room, please use go command.");
-            } else if (command.get(0).equalsIgnoreCase("sound")){
+            } else if (command.get(0).equalsIgnoreCase("sound")) {
                 setFirstCommand("sound");
                 setParseStatus(true);
-            } else if (command.get(0).equalsIgnoreCase("help")){
+            } else if (command.get(0).equalsIgnoreCase("help")) {
                 setFirstCommand("help");
                 setParseStatus(true);
-            }else if (command.get(0).equalsIgnoreCase("quit")){
+            } else if (command.get(0).equalsIgnoreCase("quit")) {
                 setFirstCommand("quit");
                 setParseStatus(true);
-            }else {
+            } else {
                 System.out.println("Unrecognized command");
             }
         } else {
@@ -91,22 +91,28 @@ public class Parser {
             }
 
             //create synonyms for use command
-            if (USE_ITEMS_COLLECTION.contains(command.get(0).toLowerCase())) {
-                setFirstCommand("use");
-                setSecondCommand(command.get(1).toLowerCase());
-                setParseStatus(true);
-            }
+            if (Game.getGameMusic() == Music.battleMusic) { // allow only "use" during the battle
+                if (command.get(0).equalsIgnoreCase("use")) {
+                    setFirstCommand("use");
+                    setSecondCommand(command.get(1).toLowerCase());
+                    setParseStatus(true);
+                }
+            }else if (USE_ITEMS_COLLECTION.contains(command.get(0).toLowerCase())) {
+                    setFirstCommand("use");
+                    setSecondCommand(command.get(1).toLowerCase());
+                    setParseStatus(true);
+                }
 
-            // create synonyms for open command
-            if (OPEN_CONTAINERS_COLLECTION.contains(command.get(0).toLowerCase())) {
-                setFirstCommand("open");
-                setSecondCommand(command.get(1).toLowerCase());
-                setParseStatus(true);
+                // create synonyms for open command
+                if (OPEN_CONTAINERS_COLLECTION.contains(command.get(0).toLowerCase())) {
+                    setFirstCommand("open");
+                    setSecondCommand(command.get(1).toLowerCase());
+                    setParseStatus(true);
+                    System.out.println("here");
+                }
             }
         }
 
-
-    }
 
     public static String aOrAn(String itemName) {
         String article;

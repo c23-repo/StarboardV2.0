@@ -54,6 +54,7 @@ public class Player {
             }
             battleCommandInput = InputHandler.input(Game.getCurrentRoom());
         }
+
         if (this.hp > 0) {  //player has not quit the game
             CommandMatch.matchCommand(battleCommandInput, this);
 
