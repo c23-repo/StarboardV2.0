@@ -1,5 +1,6 @@
 package com.starboard.util;
 
+import com.starboard.Game;
 import com.starboard.Room;
 
 import java.util.ArrayList;
@@ -91,8 +92,13 @@ public class Parser {
             }
 
             //create synonyms for use command
-            List<String> useItemsCollection = Arrays.asList("use", "kill","show", "display", "exhibit", "display", "shoot", "apply", "fire", "throw", "insert", "turn", "push", "pull", "eat", "utilize");
+            //List<String> useItemsCollection = Arrays.asList("use", "kill","show", "display", "exhibit", "display", "shoot", "apply", "fire", "throw", "insert", "turn", "push", "pull", "eat", "utilize");
+            List<String> useItemsCollection = new ArrayList<>(Arrays.asList("use"));
 
+            if(Game.getGameMusic()!=Music.battleMusic){
+                List<String> nonBattle_useItemsCollection = Arrays.asList("show", "display", "exhibit", "eat","kill","shoot", "apply", "fire", "throw", "insert", "turn", "push", "pull", "utilize");
+                useItemsCollection.addAll(nonBattle_useItemsCollection);
+            }
             if (useItemsCollection.contains(command.get(0).toLowerCase())) {
                 setFirstCommand("use");
                 setSecondCommand(command.get(1).toLowerCase());

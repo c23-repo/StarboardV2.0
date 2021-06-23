@@ -11,16 +11,12 @@ import java.util.Scanner;
 public class Game {
     private static Room currentRoom;
     private static Music gameMusic;
-    private static final Music backgroundMusic = new Music("resources/audios/background.wav");
-    private static Music battleMusic = new Music("resources/audios/battle.wav");
-    private static Music alienEntry = new Music("resources/audios/alien-Entry.wav");
-    private static Music electric = new Music("resources/audios/electric.wav");
     public static boolean endGame;
     private static int alienNumber;
     private static boolean soundOn = true;
 
     public static void main(String[] args) {
-        setGameMusic(backgroundMusic);
+        setGameMusic(Music.backgroundMusic);
         Prompt.showWelcome();
         soundControl();
         Prompt.showInstructions();
@@ -65,10 +61,9 @@ public class Game {
         alienNumber = chooseLevel();
 
         //Training mode
-        while (alienNumber == 0) {
+        if (alienNumber == 0) {
             training();
-            init();
-            alienNumber = chooseLevel();
+            start();
         }
         Prompt.showIntroduction();
 
@@ -86,13 +81,13 @@ public class Game {
             //battle mode
             if (aliens.isExisted()) {
                 Battle battle = new Battle(aliens, player, currentRoom);
-                setGameMusic(battleMusic);
+                setGameMusic(Music.battleMusic);
                 battle.fight();
                 if (battle.isWinning() & !endGame) { //endGame check to allow quit while fighting
                     System.out.println("Keep moving!");
                     Prompt.showStatus(currentRoom);
                     Prompt.showInventory(player);
-                    setGameMusic(backgroundMusic);
+                    setGameMusic(Music.backgroundMusic);
                 } else break;
             }
 
@@ -118,6 +113,7 @@ public class Game {
         Prompt.showCommands();
         Player player = new Player();
         boolean endTraining = false;
+        endGame = false;
 
         while (!endTraining) {
             Prompt.showStatus(currentRoom);
@@ -175,10 +171,10 @@ public class Game {
         if(aliens.showUp()){
             System.out.print(ConsoleColors.RED_BOLD_BRIGHT + ".  " + ConsoleColors.RESET);
             Game.getGameMusic().stop();
-            electric.play();
+            Music.electric.play();
             Prompt.printOneAtATime(ConsoleColors.RED_BOLD_BRIGHT + ".  .  .  .  .  .  .  .  .  .  " +ConsoleColors.RESET,200);
-            alienEntry.play();
-            electric.stop();
+            Music.alienEntry.play();
+            Music.electric.stop();
             System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "ALIEN APPEARED" + ConsoleColors.RESET + ConsoleColors.RED + " in the " + Game.getCurrentRoom().getName() + ConsoleColors.RESET);
             aliens.setExisted(true);
             try {
@@ -187,7 +183,7 @@ public class Game {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            alienEntry.stop();
+            Music.alienEntry.stop();
         }
     }
 
