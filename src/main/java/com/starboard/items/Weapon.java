@@ -21,7 +21,7 @@ public class Weapon extends GameItem implements Usable {
 
     public Weapon(String name, int damage) {
         this();
-        // super(name);
+//        super();
         this.name = name;
         this.damage = damage;
     }
@@ -44,6 +44,12 @@ public class Weapon extends GameItem implements Usable {
     public Weapon(String name, int damage, String description, int quantity, double weight) {
         this(name, damage, description, quantity);
         setWeight(weight);
+    }
+
+    public Weapon(String name, int damage, String description, int quantity, double weight, boolean needsAmmo, int ammoCount) {
+        this(name, damage, description, quantity, weight);
+        setNeedsAmmo(needsAmmo);
+        setAmmoCount(ammoCount);
     }
 
     // Accessors

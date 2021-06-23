@@ -119,15 +119,44 @@ public class Player {
         }
     }
 
+    public void loadWeapon(String itemName){
+        GameItem magazine;
+        GameItem firearm;
+
+
+        if ((itemName.equals("m4") && inventory.containsKey("magazine")) ||
+                (itemName.equals("magazine") && inventory.containsKey("m4"))){
+
+            magazine = inventory.get("magazine");
+            firearm = inventory.get("m4");
+            firearm.setAmmoCount(magazine.getAmmoCount() * magazine.getQuantity());
+            firearm.setDamage(magazine.getDamage());
+
+        } else if ((itemName.equals("shotgun") && inventory.containsKey("slugs")) ||
+                (itemName.equals("slugs") && inventory.containsKey("shotgun"))){
+
+            magazine = inventory.get("slugs");
+            firearm = inventory.get("shotgun");
+            firearm.setAmmoCount(magazine.getAmmoCount() * magazine.getQuantity());
+            firearm.setDamage(magazine.getDamage());
+
+        }
+    }
+
     public void takeItem(GameItem item) {
         double inventoryWeight = this.getInventoryWeight();
+        String itemName = item.getName();
+        boolean isFirearmOrAmmo = itemName.equals("m4") || itemName.equals("shotgun") || itemName.equals("magazine") || itemName.equals("slugs");
 
         if (item.isPortable()) {
             if (inventoryWeight < inventoryMax && inventoryMax > (item.getWeight() + inventoryWeight)){
-                if (inventory.containsKey(item.getName())) {
-                    inventory.get(item.getName()).changeQuantity(item.getQuantity());
+                if (inventory.containsKey(itemName)) {
+                    inventory.get(itemName).changeQuantity(item.getQuantity());
                 } else {
-                    inventory.put(item.getName(), item);
+                    inventory.put(itemName, item);
+                }
+                if (isFirearmOrAmmo){
+                    loadWeapon(itemName);
                 }
                 Sound.play(1); // index 1 is file path for get item sound file
             } else {

@@ -16,7 +16,7 @@
   {
     "name": "bandaid",
     "healValue": 40,
-    "description": "This is a magic bandaid",
+    "description": "This is a magic band-aid",
     "quantity": 1,
     "weight": 0.063
   }
