@@ -1,13 +1,8 @@
 package com.starboard;
 
-import com.starboard.items.Container;
-import com.starboard.items.GameItem;
-import com.starboard.items.HealingItem;
-import com.starboard.items.Weapon;
-import com.starboard.util.CommandMatch;
-import com.starboard.util.ConsoleColors;
-import com.starboard.util.Music;
-import com.starboard.util.Prompt;
+import com.gui.Main;
+import com.starboard.items.*;
+import com.starboard.util.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +22,7 @@ public class Game {
         soundControl();
         Prompt.showInstructions();
         start();
+        Main.main(args);
     }
 
     public static void init() {
