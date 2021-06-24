@@ -52,7 +52,7 @@ public class InputHandler {
     }
 
     public static String getUserInput(String displayMessage) {
-        System.out.printf(displayMessage + "\n>");
+        System.out.print(displayMessage + "\n>");
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }
