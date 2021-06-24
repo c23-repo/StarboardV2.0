@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-
-<BorderPane fx:id="gameScene" prefHeight="300.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.gui.ControllerMainScene">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="gameScene" prefHeight="300.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/16" fx:controller="com.gui.ControllerMainScene">
     <top>
         <MenuBar prefHeight="31.0" prefWidth="415.0">
             <menus>
                 <Menu style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" text="File">
                     <items>
-                        <MenuItem text="New Game" />
-                        <MenuItem text="Save Game" />
-                        <MenuItem text="Quit" />
+                        <MenuItem text="New Game"/>
+                        <MenuItem text="Save Game"/>
+                        <MenuItem text="Quit"/>
                     </items>
                 </Menu>
             </menus>
@@ -29,13 +21,16 @@
 
     <center>
         <HBox fx:id="mediaViewPane">
-            <TextArea fx:id="gameTextArea" editable="false" wrapText="true" style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" text="" />
+            <TextArea fx:id="gameTextArea" editable="false" wrapText="true"
+                      style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" text=""/>
         </HBox>
     </center>
 
     <right>
         <VBox>
-            <HBox alignment="TOP_LEFT" prefWidth="300" spacing="10" style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" xmlns:fx="http://javafx.com/fxml">
+            <HBox xmlns:fx="http://javafx.com/fxml" alignment="TOP_LEFT" prefWidth="300"
+                  spacing="10"
+                  style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed">
                 <!--            <padding>-->
                 <!--                <Insets bottom="10" right="10" left="10"/>-->
                 <!--            </padding>-->
@@ -43,7 +38,7 @@
                     <menus>
                         <Menu text="Inventory">
                             <items>
-                                <MenuItem text="Add ...." />
+                                <MenuItem text="Add ...."/>
                             </items>
                         </Menu>
                     </menus>
@@ -54,23 +49,27 @@
 
     <bottom>
         <VBox>
-            <HBox alignment="BOTTOM_LEFT" spacing="10" style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" xmlns:fx="http://javafx.com/fxml">
+            <HBox xmlns:fx="http://javafx.com/fxml" alignment="BOTTOM_LEFT"
+                  spacing="10"
+                  style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed">
                 <padding>
-                    <Insets bottom="10" left="10" right="10" />
+                    <Insets bottom="10" left="10" right="10"/>
                 </padding>
-                <Label text="Player Input:" />
+                <Label text="Player Input:"/>
 
-                <TextField fx:id="playerInput" accessibleRole="TEXT_AREA" alignment="BOTTOM_LEFT" prefWidth="550" />
+                <TextField fx:id="playerInput" accessibleRole="TEXT_AREA" alignment="BOTTOM_LEFT" prefWidth="550"/>
 
-                <Button fx:id="btnUserInput" prefWidth="90" text="Enter" />
+                <Button fx:id="btnUserInput" prefWidth="90" text="Enter"/>
             </HBox>
-            <HBox alignment="BOTTOM_RIGHT" spacing="10" style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" HBox.hgrow="ALWAYS" xmlns:fx="http://javafx.com/fxml">
-                            <padding>
-                                <Insets bottom="10" left="10" right="10" />
-                            </padding>
-                <Button fx:id="btnMap" prefWidth="90" text="Map" />
-                <Button fx:id="btnHelp" prefWidth="90" text="Inventory" />
-                <Button fx:id="btnInventory" prefWidth="90" text="Help" />
+            <HBox xmlns:fx="http://javafx.com/fxml" alignment="BOTTOM_RIGHT"
+                  spacing="10" style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed"
+                  HBox.hgrow="ALWAYS">
+                <padding>
+                    <Insets bottom="10" left="10" right="10"/>
+                </padding>
+                <Button fx:id="btnMap" prefWidth="90" text="Map"/>
+                <Button fx:id="btnHelp" prefWidth="90" text="Inventory"/>
+                <Button fx:id="btnInventory" prefWidth="90" text="Help"/>
             </HBox>
         </VBox>
     </bottom>

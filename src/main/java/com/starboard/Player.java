@@ -172,6 +172,8 @@ public class Player {
                     dropItem(ammo.getName());
                 }
                 break;
+            default:
+                break;
         }
 
     }

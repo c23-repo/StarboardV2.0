@@ -1,4 +1,4 @@
-module com.gui{
+module com.gui {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.fasterxml.jackson.databind;

@@ -1,8 +1,14 @@
 package com.starboard;
 
 import com.gui.Main;
-import com.starboard.items.*;
-import com.starboard.util.*;
+import com.starboard.items.Container;
+import com.starboard.items.GameItem;
+import com.starboard.items.HealingItem;
+import com.starboard.items.Weapon;
+import com.starboard.util.CommandMatch;
+import com.starboard.util.ConsoleColors;
+import com.starboard.util.Music;
+import com.starboard.util.Prompt;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,10 +24,11 @@ public class Game {
 
     public static void main(String[] args) {
         setGameMusic(Music.backgroundMusic);
-        Prompt.showWelcome();
-        soundControl();
-        Prompt.showInstructions();
-        start();
+//        Prompt.showWelcome();
+//        soundControl();
+//        Prompt.showInstructions();
+//        start();
+        init();
         Main.main(args);
     }
 
@@ -61,10 +68,12 @@ public class Game {
         alienNumber = chooseLevel();
 
         //Training mode
-        if (alienNumber == 0) {
+        while (alienNumber == 0) {
             training();
-            start();
+            init();
+            alienNumber = chooseLevel();
         }
+        Prompt.showIntroduction();
         Prompt.showIntroduction();
 
         //initialize player
