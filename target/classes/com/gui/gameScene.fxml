@@ -28,8 +28,9 @@
     </top>
 
     <center>
-            <TextArea fx:id="gameTextArea" style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" text="nothing to see here" />
-
+        <HBox fx:id="mediaViewPane">
+            <TextArea fx:id="gameTextArea" editable="false" wrapText="true" style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" text="" />
+        </HBox>
     </center>
 
     <right>
