@@ -5,23 +5,15 @@ import com.starboard.Player;
 public class Weapon extends GameItem implements Usable {
     private int damage;
 
-    @Override
-    public void use(Player player) {
-        if (player.getEquippedWeapon() != this) {
-            player.setEquippedWeapon(this);
-            System.out.println("You equipped " + this.getName() + ".");
-        }
-    }
-
-    // Constructors
-
     public Weapon() {
         isPortable = true;
     }
 
+    // Constructors
+
     public Weapon(String name, int damage) {
         this();
-        // super(name);
+//        super();
         this.name = name;
         this.damage = damage;
     }
@@ -44,6 +36,25 @@ public class Weapon extends GameItem implements Usable {
     public Weapon(String name, int damage, String description, int quantity, double weight) {
         this(name, damage, description, quantity);
         setWeight(weight);
+    }
+
+    public Weapon(String name, int damage, String description, int quantity, double weight, boolean needsAmmo, int ammoCount) {
+        this(name, damage, description, quantity, weight);
+        setNeedsAmmo(needsAmmo);
+        setAmmoCount(ammoCount);
+    }
+
+    public Weapon(String name, int damage, String description, int quantity, double weight, boolean needsAmmo, int ammoCount, int totalAmmo) {
+        this(name, damage, description, quantity, weight, needsAmmo, ammoCount);
+        setTotalAmmo(totalAmmo);
+    }
+
+    @Override
+    public void use(Player player) {
+        if (player.getEquippedWeapon() != this) {
+            player.setEquippedWeapon(this);
+            System.out.println("You equipped " + this.getName() + ".");
+        }
     }
 
     // Accessors

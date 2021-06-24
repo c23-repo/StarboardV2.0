@@ -2,6 +2,7 @@ package com.starboard.util;
 
 import com.starboard.Game;
 import com.starboard.Player;
+
 import static com.starboard.util.Parser.aOrAn;
 
 /* CommandMatch is an all static class that groups methods belonging
@@ -51,7 +52,7 @@ public class CommandMatch {
                 break;
             case "quit":
                 Game.endGame = true;
-                if(Game.getAlienNumber()==0)
+                if (Game.getAlienNumber() == 0)
                     System.out.println(ConsoleColors.YELLOW + "You've quit the training. Good Luck!!" + ConsoleColors.RESET);
                 else
                     System.out.println("You've quit the game.......Thank you for playing Starboard !!");
@@ -65,7 +66,7 @@ public class CommandMatch {
      * it finds, even if multiple containers.json have copies of the same
      * object.
      */
-    public static void take(String name, Player player) throws NullPointerException{
+    public static void take(String name, Player player) throws NullPointerException {
         try {
             player.takeItem(Game.getCurrentRoom().giveItem(name, player));
         } catch (NullPointerException e) {

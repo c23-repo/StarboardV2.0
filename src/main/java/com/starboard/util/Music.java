@@ -12,6 +12,7 @@ public class Music {
     public static Music alienEntry = new Music("resources/audios/alien-Entry.wav");
     public static Music electric = new Music("resources/audios/electric.wav");
     private Clip clip;
+
     public Music(String path) {
         try {
             File file = new File(path);
@@ -28,7 +29,7 @@ public class Music {
     }
 
     public void play() {
-        if(Game.isSoundOn()){
+        if (Game.isSoundOn()) {
             clip.setFramePosition(0);
             clip.start();
         }
@@ -36,7 +37,7 @@ public class Music {
     }
 
     public void loop() {
-        if(Game.isSoundOn()){
+        if (Game.isSoundOn()) {
             clip.setFramePosition(0);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         }

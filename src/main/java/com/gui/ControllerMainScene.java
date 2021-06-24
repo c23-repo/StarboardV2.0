@@ -23,29 +23,18 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class ControllerMainScene implements Initializable {
+    private final InputSignal inputSignal = new InputSignal();
     @FXML
     TextArea gameTextArea;
-
     @FXML
     TextField playerInput;
-
     @FXML
     Button btnUserInput;
-
     @FXML
     Button btnNewGame;
-
     Player player = new Player();
-
     InputHandler inputHandler;
-
     private String currentInput;
-
-    private final InputSignal inputSignal = new InputSignal();
-
-    public static class InputSignal {
-
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -135,5 +124,9 @@ public class ControllerMainScene implements Initializable {
 
     TextArea getGameTextArea() {
         return gameTextArea;
+    }
+
+    public static class InputSignal {
+
     }
 }

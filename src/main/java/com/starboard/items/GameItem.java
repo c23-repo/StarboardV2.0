@@ -4,36 +4,27 @@ public abstract class GameItem implements Cloneable {
     // Attributes
 
     protected String name;
-    private String description;
     protected boolean isPortable;
+    protected int damage;
+    private String description;
     private int quantity;
     private double weight;
+    private boolean needsAmmo;
+    private int ammoCount;
+    private int totalAmmo;
 
 
     // Business
 
-    public <T extends GameItem> T cloneToType() {
-        try {
-            return (T) clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public GameItem() {
     }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-
-    // Constructors
-
-    public GameItem() {}
 
     public GameItem(String name) {
         this.name = name;
     }
+
+
+    // Constructors
 
     public GameItem(String name, String description) {
         this(name);
@@ -65,10 +56,39 @@ public abstract class GameItem implements Cloneable {
         this.weight = weight;
     }
 
+    public GameItem(String name, String description, boolean isPortable, int quantity, double weight, boolean needsAmmo, int ammoCount) {
+        this(name, description, isPortable, quantity, weight);
+        this.needsAmmo = needsAmmo;
+        this.ammoCount = ammoCount;
+    }
+
+    public GameItem(String name, String description, boolean isPortable, int quantity, double weight, boolean needsAmmo, int ammoCount, int totalAmmo) {
+        this(name, description, isPortable, quantity, weight, needsAmmo, ammoCount);
+        this.totalAmmo = totalAmmo;
+    }
+
+    public <T extends GameItem> T cloneToType() {
+        try {
+            return (T) clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     // Accessors
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -101,5 +121,37 @@ public abstract class GameItem implements Cloneable {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    public boolean isNeedsAmmo() {
+        return needsAmmo;
+    }
+
+    public void setNeedsAmmo(boolean needsAmmo) {
+        this.needsAmmo = needsAmmo;
+    }
+
+    public int getAmmoCount() {
+        return ammoCount;
+    }
+
+    public void setAmmoCount(int ammoCount) {
+        this.ammoCount = ammoCount;
+    }
+
+    public int getTotalAmmo() {
+        return totalAmmo;
+    }
+
+    public void setTotalAmmo(int moreAmmo) {
+        this.totalAmmo = moreAmmo;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 }

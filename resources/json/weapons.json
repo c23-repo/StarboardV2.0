@@ -4,48 +4,74 @@
     "damage": -15,
     "description": "This is a knife.",
     "quantity": 1,
-    "weight": 0.32
+    "weight": 0.32,
+    "needsAmmo": false,
+    "ammoCount": 0
   },
   {
     "name": "hammer",
     "damage": -30,
     "description": "This is a hammer.",
     "quantity": 1,
-    "weight": 0.62369
+    "weight": 0.62369,
+    "needsAmmo": false,
+    "ammoCount": 0
   },
   {
     "name": "m4",
-    "damage": -22,
-    "description": "This is a m4.",
+    "damage": -20,
+    "description": "M4 Assault Rifle.",
     "quantity": 1,
-    "weight": 3.04
+    "weight": 3.04,
+    "needsAmmo": true,
+    "ammoCount": 30,
+    "totalAmmo": 0
   },
   {
     "name": "axe",
     "damage": -40,
     "description": "This is an axe.",
     "quantity": 1,
-    "weight": 2.72
+    "weight": 2.72,
+    "needsAmmo": false,
+    "ammoCount": 0
   },
   {
     "name": "shotgun",
     "damage": -25,
-    "description": "This is a shotgun.",
+    "description": "12g pump shotgun.",
     "quantity": 1,
-    "weight": 3.82
+    "weight": 3.82,
+    "needsAmmo": true,
+    "ammoCount": 6,
+    "totalAmmo": 0
   },
   {
     "name": "magazine",
     "damage": -45,
-    "description": "30rd. magazine for the m4.",
+    "description": "M4 30rd Mag",
     "quantity": 1,
-    "weight": 0.51
+    "weight": 0.51,
+    "needsAmmo": true,
+    "ammoCount": 30,
+    "totalAmmo": 30
   },
   {
     "name": "slugs",
     "damage": -60,
-    "description": "A bandoleer with 12 shotgun slugs.",
+    "description": "Bandoleer of 12g slugs.",
     "quantity": 1,
-    "weight": 0.297
+    "weight": 0.297,
+    "needsAmmo": true,
+    "ammoCount": 6,
+    "totalAmmo": 6
+  },
+  {
+    "name": "pulsifier",
+    "damage": -70,
+    "description": "Energy pulse ammo upgrade",
+    "quantity": 1,
+    "weight": 0.55,
+    "needsAmmo": false
   }
 ]

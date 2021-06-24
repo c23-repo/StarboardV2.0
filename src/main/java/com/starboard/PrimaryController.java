@@ -1,7 +1,8 @@
 package com.starboard;
 
-import java.io.IOException;
 import javafx.fxml.FXML;
+
+import java.io.IOException;
 
 public class PrimaryController {
 

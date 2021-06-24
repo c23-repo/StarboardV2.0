@@ -16,7 +16,7 @@ public class ControllerStartScene implements Initializable {
 
 
     @Override
-    public void initialize(URL url, ResourceBundle rd){
+    public void initialize(URL url, ResourceBundle rd) {
 
     }
 
@@ -24,7 +24,7 @@ public class ControllerStartScene implements Initializable {
     private void loadNewGame(ActionEvent event) throws IOException {
         BorderPane pane = (BorderPane) Main.loadFXML("gameScene");
         Scene scene = new Scene(pane, 1000, 500);
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
     }

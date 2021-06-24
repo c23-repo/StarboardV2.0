@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Room {
+    public final static double TOTALROOMS = 12.0;
+    private final Map<String, Room> paths = new HashMap<>();
     // Fields
     private String name;
     private String description;
     private List<String> linkedRooms;
     private Map<String, Container> containers = new HashMap<>();
-    private final Map<String, Room> paths = new HashMap<>();
-    public final static double TOTALROOMS = 12.0;
 
     // Constructors
     public Room() {
@@ -61,6 +61,10 @@ public class Room {
         return containers;
     }
 
+    public void setContainers(Map<String, Container> containers) {
+        this.containers = containers;
+    }
+
     public Container getContainer(String name) throws NullPointerException {
         return containers.get(name);
     }
@@ -79,10 +83,6 @@ public class Room {
         } else {
             throw new NullPointerException();
         }
-    }
-
-    public void setContainers(Map<String, Container> containers) {
-        this.containers = containers;
     }
 
     public void addContainer(Container container) {
