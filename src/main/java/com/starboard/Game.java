@@ -1,5 +1,6 @@
 package com.starboard;
 
+import com.gui.Main;
 import com.starboard.items.*;
 import com.starboard.util.*;
 
@@ -21,6 +22,7 @@ public class Game {
         soundControl();
         Prompt.showInstructions();
         start();
+        Main.main(args);
     }
 
     public static void init() {
