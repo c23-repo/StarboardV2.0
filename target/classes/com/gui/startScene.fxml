@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane id="BorderPane" fx:id="introScene" styleClass="bodybg" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.gui.ControllerIntro">
+<BorderPane id="BorderPane" fx:id="startScene" styleClass="bodybg" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.gui.ControllerStartScene">
     <center>
         <VBox alignment="CENTER" spacing="10" style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" xmlns:fx="http://javafx.com/fxml">
             <padding>

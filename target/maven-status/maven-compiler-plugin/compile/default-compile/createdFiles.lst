@@ -1,6 +1,6 @@
 com\starboard\Room.class
-com\gui\ControllerIntro.class
 com\starboard\items\Tool.class
+com\gui\ControllerMainScene.class
 com\starboard\Battle.class
 com\starboard\items\Weapon.class
 com\starboard\util\Prompt.class
@@ -12,14 +12,15 @@ com\starboard\util\CommandMatch.class
 com\starboard\items\HealingItem.class
 com\starboard\items\GameItem.class
 com\starboard\Alien.class
+com\gui\ControllerStartScene.class
 com\starboard\InputHandler.class
 com\starboard\PrimaryController.class
 com\starboard\Player.class
 com\starboard\util\Sound.class
 com\starboard\util\Parser.class
+com\gui\ControllerMainScene$1.class
 com\starboard\CreateItems.class
 com\starboard\CreateRooms$1.class
-com\gui\ControllerMain.class
 com\starboard\Game.class
 com\starboard\util\Music.class
 com\starboard\SecondaryController.class
