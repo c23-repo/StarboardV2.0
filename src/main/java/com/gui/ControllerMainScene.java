@@ -4,7 +4,9 @@ import com.starboard.Game;
 import com.starboard.InputHandler;
 import com.starboard.Player;
 import com.starboard.Room;
+import com.starboard.items.Container;
 import com.starboard.util.CommandMatch;
+import com.starboard.util.ConsoleColors;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,7 +22,11 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+
+import static com.starboard.util.Parser.aOrAn;
 
 public class ControllerMainScene implements Initializable {
     private final InputSignal inputSignal = new InputSignal();
@@ -42,6 +48,9 @@ public class ControllerMainScene implements Initializable {
     }
 
     private void runGameThread() {
+
+        setIntroGameTextArea();
+
         EventHandler<ActionEvent> eventHandler =
                 new EventHandler<ActionEvent>() {
                     @Override
@@ -56,6 +65,7 @@ public class ControllerMainScene implements Initializable {
                         System.out.println(Game.getCurrentRoom());
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
+                        updateGameTextArea();
                     }
                 };
 
@@ -72,6 +82,7 @@ public class ControllerMainScene implements Initializable {
                         System.out.println(Game.getCurrentRoom());
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
+                        updateGameTextArea();
                     }
                 };
 
@@ -101,7 +112,7 @@ public class ControllerMainScene implements Initializable {
         }
     }
 
-    private void updateGameTextArea() {
+    private void setIntroGameTextArea() {
         String path = "resources/welcome/introtext.txt";
         String banner = null;
         try {
@@ -109,9 +120,42 @@ public class ControllerMainScene implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        gameTextArea.setText(banner);
-//        String text = gameTextArea.getText();
-//        getGameTextArea().appendText(text);
+        gameTextArea.setText(banner + "\n\n\n\n");
+
+    }
+
+    private void updateGameTextArea() {
+        Room currentRoom = Game.getCurrentRoom();
+        StringBuilder currentScene = new StringBuilder();
+        currentScene.append("------------------------------- status ----------------------------------------\n");
+        currentScene.append("Location: You are in the " + currentRoom.getName() + "\n");
+        currentScene.append("Description: " + currentRoom.getDescription() + "\n");
+
+        // show items in the current room
+        Map<String, Container> containers = currentRoom.getContainers();
+        if (containers.size() > 0) {
+            for (String itemLocation : containers.keySet()) {
+                if (!containers.get(itemLocation).areContentsHidden()) {
+                    for (String itemName : containers.get(itemLocation).getContents().keySet()) {
+                        currentScene.append("Item: You see " + aOrAn(itemName) + " " + itemName + " in the " + itemLocation + "\n");
+                    }
+                } else {
+                    currentScene.append("You see " + aOrAn(itemLocation) + " " + itemLocation + "\n");
+                }
+            }
+        }
+
+        // show linked rooms
+        List<String> linkedRooms = currentRoom.getLinkedRooms();
+        if (linkedRooms.size() > 0) {
+            for (String roomName : linkedRooms) {
+                currentScene.append("Linked room: You can go to " + roomName + "\n");
+            }
+        } else {
+            currentScene.append("This room is not linked to any rooms!\n");
+        }
+        currentScene.append("--------------------------------------------------------------------------------\n");
+        gameTextArea.setText(currentScene.toString());
     }
 
     public TextField getPlayerInput() {
