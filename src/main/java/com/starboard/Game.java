@@ -74,7 +74,6 @@ public class Game {
             alienNumber = chooseLevel();
         }
         Prompt.showIntroduction();
-        Prompt.showIntroduction();
 
         //initialize player
         Player player = new Player();
