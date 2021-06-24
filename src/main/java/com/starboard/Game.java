@@ -18,11 +18,7 @@ public class Game {
 
     public static void main(String[] args) {
         setGameMusic(Music.backgroundMusic);
-//        Prompt.showWelcome();
-//        soundControl();
-//        Prompt.showInstructions();
         init();
-//        start();
         Main.main(args);
     }
 
