@@ -48,7 +48,6 @@ public class ControllerMainScene implements Initializable {
     }
 
     private void runGameThread() {
-
         setIntroGameTextArea();
 
         EventHandler<ActionEvent> eventHandler =
@@ -88,6 +87,11 @@ public class ControllerMainScene implements Initializable {
 
         getPlayerInput().setOnKeyPressed(enterPressedHandler);
         getBtnUserInput().setOnAction(eventHandler);
+        /*try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
         updateGameTextArea();
     }
 
@@ -121,7 +125,6 @@ public class ControllerMainScene implements Initializable {
             e.printStackTrace();
         }
         gameTextArea.setText(banner + "\n\n\n\n");
-
     }
 
     private void updateGameTextArea() {
