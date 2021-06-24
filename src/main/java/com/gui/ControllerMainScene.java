@@ -6,7 +6,13 @@ import com.starboard.Player;
 import com.starboard.Room;
 import com.starboard.items.Container;
 import com.starboard.util.CommandMatch;
-import com.starboard.util.ConsoleColors;
+import com.starboard.util.Music;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,6 +22,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +32,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.starboard.util.Parser.aOrAn;
 
@@ -92,7 +100,7 @@ public class ControllerMainScene implements Initializable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
-        updateGameTextArea();
+       // updateGameTextArea();
     }
 
     public String getInput() {
@@ -124,7 +132,37 @@ public class ControllerMainScene implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        gameTextArea.setText(banner + "\n\n\n\n");
+
+        Music keyboard = new Music("resources/audios/keyboard.wav");
+        Game.setGameMusic(keyboard);
+        oneAtATime(banner,0.1);
+        Game.setGameMusic(Music.backgroundMusic);
+    }
+
+    private void oneAtATime(String s, double timeInSeconds){
+        final IntegerProperty i = new SimpleIntegerProperty(0);
+        Timeline timeline = new Timeline();
+        String finalBanner = s;
+        KeyFrame keyFrame = new KeyFrame(
+                Duration.seconds(timeInSeconds),
+                event -> {
+                    if (i.get() > finalBanner.length()) {
+                        timeline.stop();
+                    } else {
+                        gameTextArea.setText(finalBanner.substring(0, i.get()));
+                        i.set(i.get() + 1);
+                    }
+                });
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+        pauseAndDisplay(20);
+    }
+    private void pauseAndDisplay(double timeIntervalInSeconds){
+        PauseTransition pause = new PauseTransition(Duration.seconds(timeIntervalInSeconds));
+        pause.setOnFinished(event ->
+                updateGameTextArea());
+        pause.play();
     }
 
     private void updateGameTextArea() {
