@@ -3,6 +3,11 @@
     -fx-background-size: cover;
 }
 
+.welcomebodybg{
+    -fx-background-image: url("welcomeSpaceship.jpeg");
+    -fx-background-size: cover;
+}
+
 .label {
     -fx-font-size: 12px;
     -fx-font-weight: bold;
@@ -30,4 +35,9 @@
 }
 .button:hover {
     -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+
+.text-area, .text-area .viewport, .text-area .content {
+    -fx-background-color: transparent ;
+    -fx-text-fill: #1e88e5;
 }

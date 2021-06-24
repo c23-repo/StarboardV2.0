@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane id="BorderPane" fx:id="introScene" styleClass="bodybg" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.starboard.ControllerIntro">
+<BorderPane id="BorderPane" fx:id="introScene" styleClass="bodybg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starboard.ControllerIntro">
     <center>
-        <VBox alignment="CENTER" spacing="10" style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" xmlns:fx="http://javafx.com/fxml">
+        <VBox alignment="CENTER" prefHeight="556.0" prefWidth="845.0" spacing="10" style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" xmlns:fx="http://javafx.com/fxml">
             <padding>
                 <Insets bottom="10" left="10" right="10" />
             </padding>
-            <Button fx:id="btnNewGame" onAction="#loadNewGame" prefWidth="90" text="New Game" />
-            <Button fx:id="btnSavedGame" prefWidth="90" text="Saved Game" />
-            <Button fx:id="btnExitGame" prefWidth="90" text="Exit" />
+            <Button fx:id="btnNewGame" onAction="#loadGameWelcome" prefHeight="34.0" prefWidth="116.0" text="NEW GAME">
+            <font>
+               <Font size="18.0" />
+            </font></Button>
+            <Button fx:id="btnSavedGame" prefHeight="35.0" prefWidth="109.0" text="SAVED GAME">
+            <font>
+               <Font size="18.0" />
+            </font></Button>
+            <Button fx:id="btnExitGame" prefHeight="38.0" prefWidth="112.0" text="EXIT">
+            <font>
+               <Font size="18.0" />
+            </font></Button>
         </VBox>
 
 
