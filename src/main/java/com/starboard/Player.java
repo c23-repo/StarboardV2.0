@@ -5,9 +5,9 @@ import com.starboard.items.HealingItem;
 import com.starboard.items.Usable;
 import com.starboard.items.Weapon;
 import com.starboard.util.CommandMatch;
+import com.starboard.util.ConsoleColors;
 import com.starboard.util.Prompt;
 import com.starboard.util.Sound;
-import com.starboard.util.ConsoleColors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,15 +15,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Player {
+    private final double inventoryMax = 14.0;
+    private final Map<String, GameItem> inventory = new HashMap<>(5);
+    List<String> openedContainers = new ArrayList<>(); // package-private
     private int maxHp = 100;
     private int hp = maxHp;
     private double inventoryWeight = 0; // This is the weight in kilograms
-    private final double inventoryMax = 9.0;
-    private final Map<String, GameItem> inventory = new HashMap<>(5);
     private Weapon equippedWeapon = new Weapon("fist", 8);
-    List<String> openedContainers = new ArrayList<>(); // package-private
-
-
 
     // Business
     public void attack(Alien alien) {
@@ -110,7 +108,7 @@ public class Player {
         return getHp() <= 0;
     }
 
-    public void decreaseAmmo(GameItem item){
+    public void decreaseAmmo(GameItem item) {
         GameItem ammo;
         int burst = 3;
         int dblPump = 2;
@@ -118,41 +116,62 @@ public class Player {
         int origRifleDmg = -25;
         int origShotgunDmg = -25;
 
-        if (item.getName().equals("m4")){
+        switch (item.getName()) {
+            case "m4":
 
-            ammo = inventory.get("magazine");
-            ammo.setTotalAmmo(ammo.getTotalAmmo() - burst);
-            item.setAmmoCount(item.getAmmoCount() - burst);
-            item.setTotalAmmo(item.getAmmoCount());
+                ammo = inventory.get("magazine");
+                ammo.setTotalAmmo(ammo.getTotalAmmo() - burst);
+                item.setAmmoCount(item.getAmmoCount() - burst);
+                item.setTotalAmmo(item.getAmmoCount());
 
-            if (item.getTotalAmmo() < 0){
-                item.setTotalAmmo(0);
-            }
-            if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() <= 0) {
-                item.setDamage(origRifleDmg);
-                dropItem(ammo.getName());
-            } else if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() > 0) {
-                item.setTotalAmmo(ammo.getAmmoCount());
-                dropItem(ammo.getName());
-            }
+                if (item.getTotalAmmo() < 0) {
+                    item.setTotalAmmo(0);
+                }
+                if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() <= 0) {
+                    item.setDamage(origRifleDmg);
+                    dropItem(ammo.getName());
+                } else if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() > 0) {
+                    item.setTotalAmmo(ammo.getAmmoCount());
+                    dropItem(ammo.getName());
+                }
 
-        } else if (item.getName().equals("shotgun")){
+                break;
+            case "shotgun":
 
-            ammo = inventory.get("slugs");
-            ammo.setTotalAmmo(ammo.getTotalAmmo() - pump);
-            item.setAmmoCount(item.getAmmoCount() - pump);
-            item.setTotalAmmo(item.getAmmoCount());
+                ammo = inventory.get("slugs");
+                ammo.setTotalAmmo(ammo.getTotalAmmo() - pump);
+                item.setAmmoCount(item.getAmmoCount() - pump);
+                item.setTotalAmmo(item.getAmmoCount());
 
-            if (item.getTotalAmmo() < 0){
-                item.setTotalAmmo(0);
-            }
-            if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() <= 0) {
-                item.setDamage(origShotgunDmg);
-                dropItem(ammo.getName());
-            } else if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() > 0) {
-                item.setTotalAmmo(ammo.getAmmoCount());
-                dropItem(ammo.getName());
-            }
+                if (item.getTotalAmmo() < 0) {
+                    item.setTotalAmmo(0);
+                }
+                if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() <= 0) {
+                    item.setDamage(origShotgunDmg);
+                    dropItem(ammo.getName());
+                } else if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() > 0) {
+                    item.setTotalAmmo(ammo.getAmmoCount());
+                    dropItem(ammo.getName());
+                }
+                break;
+            case "dp12":
+
+                ammo = inventory.get("slugs");
+                ammo.setTotalAmmo(ammo.getTotalAmmo() - dblPump);
+                item.setAmmoCount(item.getAmmoCount() - dblPump);
+                item.setTotalAmmo(item.getAmmoCount());
+
+                if (item.getTotalAmmo() < 0) {
+                    item.setTotalAmmo(0);
+                }
+                if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() <= 0) {
+                    item.setDamage(origShotgunDmg);
+                    dropItem(ammo.getName());
+                } else if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() > 0) {
+                    item.setTotalAmmo(ammo.getAmmoCount());
+                    dropItem(ammo.getName());
+                }
+                break;
         }
 
     }
@@ -164,56 +183,83 @@ public class Player {
             decreaseAmmo(item);
         } catch (ClassCastException e) {
             ConsoleColors.changeTo(ConsoleColors.RED_BACKGROUND_BRIGHT);
-            System.out.printf("Can't use %s.%n", item.getName()+ConsoleColors.RESET);
+            System.out.printf("Can't use %s.%n", item.getName() + ConsoleColors.RESET);
         }
     }
 
-    public void loadWeapon(String itemName){
+    public void loadWeapon(String itemName) {
         GameItem ammo;
         GameItem firearm;
 
 
         if ((itemName.equals("m4") && inventory.containsKey("magazine")) ||
-                (itemName.equals("magazine") && inventory.containsKey("m4"))){
+                (itemName.equals("magazine") && inventory.containsKey("m4"))) {
 
             ammo = inventory.get("magazine");
             firearm = inventory.get("m4");
 
-            if (firearm.getTotalAmmo() == 0){
+            if (firearm.getTotalAmmo() == 0) {
                 firearm.setTotalAmmo(ammo.getAmmoCount());
                 firearm.setDamage(ammo.getDamage());
             }
 
         } else if ((itemName.equals("shotgun") && inventory.containsKey("slugs")) ||
-                (itemName.equals("slugs") && inventory.containsKey("shotgun"))){
+                (itemName.equals("slugs") && inventory.containsKey("shotgun"))) {
 
             ammo = inventory.get("slugs");
             firearm = inventory.get("shotgun");
 
-            if (firearm.getTotalAmmo() == 0){
+            if (firearm.getTotalAmmo() == 0) {
                 firearm.setTotalAmmo(ammo.getAmmoCount());
                 firearm.setDamage(ammo.getDamage());
             }
+        } else if ((itemName.equals("dp12") && inventory.containsKey("slugs")) ||
+                (itemName.equals("slugs") && inventory.containsKey("dp12"))) {
+
+            ammo = inventory.get("slugs");
+            firearm = inventory.get("dp12");
+
+            if (firearm.getTotalAmmo() == 0) {
+                firearm.setTotalAmmo(ammo.getAmmoCount());
+                firearm.setDamage(ammo.getDamage() * 2);
+            }
         }
+    }
+
+    public void craftWeapon() {
+
+        if (inventory.containsKey("shotgun") && inventory.get("shotgun").getQuantity() > 1) {
+            ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
+            System.out.println("You have two Shotguns and engineered a Double Barrel Pump Action!!");
+            ConsoleColors.reset();
+            GameItem item = inventory.get("shotgun");
+            int dmg = item.getDamage() == -60 ? item.getDamage() * 2 : item.getDamage() - 5;
+            GameItem dblPump = new Weapon("dp12", dmg, "Dbl-Barrel Pump Shotgun",
+                    1, 4.27, true, item.getAmmoCount(), 0);
+            inventory.putIfAbsent("dp12", dblPump);
+            inventory.remove("shotgun", item);
+        }
+
     }
 
     public void takeItem(GameItem item) {
         double inventoryWeight = this.getInventoryWeight();
         String itemName = item.getName();
-        boolean isFirearmOrAmmo = itemName.equals("m4") || itemName.equals("shotgun") || itemName.equals("magazine") || itemName.equals("slugs");
+        boolean isFirearmOrAmmo = itemName.equals("dp12") || itemName.equals("m4") || itemName.equals("shotgun") || itemName.equals("magazine") || itemName.equals("slugs");
 
         if (item.isPortable()) {
-            if (inventoryWeight < inventoryMax && inventoryMax > (item.getWeight() + inventoryWeight)){
+            if (inventoryWeight < inventoryMax && inventoryMax > (item.getWeight() + inventoryWeight)) {
                 if (inventory.containsKey(itemName)) {
                     if ((itemName.equals("magazine") && inventory.containsKey("magazine"))
                             || (itemName.equals("slugs") && inventory.containsKey("slugs"))) {
                         inventory.get(itemName).setTotalAmmo(item.getAmmoCount() + inventory.get(itemName).getTotalAmmo());
                     }
                     inventory.get(itemName).changeQuantity(item.getQuantity());
+                    craftWeapon();
                 } else {
                     inventory.put(itemName, item);
                 }
-                if (isFirearmOrAmmo){
+                if (isFirearmOrAmmo) {
                     loadWeapon(itemName);
                 }
                 Sound.play(1); // index 1 is file path for get item sound file
@@ -306,12 +352,12 @@ public class Player {
         return openedContainers;
     }
 
-    public void addOpenedContainer(String containerName) {
-        this.openedContainers.add(containerName);
-    }
-
     public void setOpenedContainers(List<String> openedContainers) {
         this.openedContainers = openedContainers;
+    }
+
+    public void addOpenedContainer(String containerName) {
+        this.openedContainers.add(containerName);
     }
 
     public double getInventoryMax() {

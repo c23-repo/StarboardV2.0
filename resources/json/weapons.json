@@ -43,7 +43,7 @@
     "quantity": 1,
     "weight": 3.82,
     "needsAmmo": true,
-    "ammoCount": 8,
+    "ammoCount": 6,
     "totalAmmo": 0
   },
   {
@@ -63,7 +63,15 @@
     "quantity": 1,
     "weight": 0.297,
     "needsAmmo": true,
-    "ammoCount": 8,
-    "totalAmmo": 8
+    "ammoCount": 6,
+    "totalAmmo": 6
+  },
+  {
+    "name": "pulsifier",
+    "damage": -70,
+    "description": "Energy pulse ammo upgrade",
+    "quantity": 1,
+    "weight": 0.55,
+    "needsAmmo": false
   }
 ]

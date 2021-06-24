@@ -32,8 +32,8 @@ public class ControllerMain implements EventHandler<ActionEvent> {
         if (event.getSource() == btnUserInput) {
             btnUserInput.setOnAction(e -> gameTextArea.setText("Lambda User Input BTN"));
             gameTextArea.setText("User Input BTN");
-        } else if(
-            event.getSource() == btnNewGame) {
+        } else if (
+                event.getSource() == btnNewGame) {
             System.out.println("else");
 
         }

@@ -1,4 +1,4 @@
-module com.starboard{
+module com.starboard {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.fasterxml.jackson.databind;

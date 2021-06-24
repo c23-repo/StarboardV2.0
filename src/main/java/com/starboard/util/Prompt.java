@@ -5,13 +5,15 @@ import com.starboard.items.Container;
 import com.starboard.items.GameItem;
 import com.starboard.items.HealingItem;
 import com.starboard.items.Weapon;
-import static com.starboard.util.Parser.aOrAn;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
+
+import static com.starboard.util.Parser.aOrAn;
 
 public class Prompt {
     public static void showStatus(Room currentRoom) {
@@ -55,7 +57,7 @@ public class Prompt {
         ConsoleColors.changeTo(ConsoleColors.YELLOW);
         System.out.println("--------------------------------------------------------------------------------");
         ConsoleColors.reset();
-   }
+    }
 
     public static void showCommands() {
         ConsoleColors.changeTo(ConsoleColors.WHITE_BRIGHT);
@@ -108,12 +110,13 @@ public class Prompt {
     }
 
     public static void showInventory(Player player) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.000");
         ConsoleColors.changeTo(ConsoleColors.YELLOW);
         System.out.printf("\n------------------------------- Inventory (HP:%s WEIGHT:%5s/%5s)------------------------------------------%n",
-                (ConsoleColors.GREEN + String.valueOf(player.getHp()) + ConsoleColors.YELLOW), (ConsoleColors.BLUE_BRIGHT + String.valueOf(player.getInventoryWeight()) + ConsoleColors.RESET), (ConsoleColors.BLUE_BRIGHT + String.valueOf(player.getInventoryMax()) + ConsoleColors.RESET));
+                (ConsoleColors.GREEN + String.valueOf(player.getHp()) + ConsoleColors.YELLOW), (ConsoleColors.BLUE_BRIGHT + String.valueOf(decimalFormat.format(player.getInventoryWeight())) + ConsoleColors.RESET), (ConsoleColors.BLUE_BRIGHT + String.valueOf(player.getInventoryMax()) + ConsoleColors.RESET));
         ConsoleColors.reset();
         ConsoleColors.changeTo(ConsoleColors.WHITE_BOLD_BRIGHT);
-        System.out.printf("%10s%15s%15s%15s%15s%35s%n","Item", "healValue", "Damage", "Ammo","Weight", "Description");
+        System.out.printf("%10s%15s%15s%15s%15s%35s%n", "Item", "healValue", "Damage", "Ammo", "Weight", "Description");
         ConsoleColors.reset();
         for (GameItem item : player.getInventory().values()) {
             // if the item is a healingItem, display its healValue
@@ -132,7 +135,7 @@ public class Prompt {
         ConsoleColors.reset();
     }
 
-    public static void showWelcome(){
+    public static void showWelcome() {
         String path = "resources/welcome/welcome.txt";
         String banner = null;
         try {
@@ -155,34 +158,34 @@ public class Prompt {
     public static void showInstructions() {
         clearScreen();
         System.out.println("\nGame Instructions:");
-        System.out.printf(ConsoleColors.GREEN+"%2s %8s %47s %n", "", "Action   ", "       Command to Type" + ConsoleColors.RESET);
+        System.out.printf(ConsoleColors.GREEN + "%2s %8s %47s %n", "", "Action   ", "       Command to Type" + ConsoleColors.RESET);
         System.out.printf("%2s %8s %45s %n", "", "----------------------------", "         --------------------------------------------------");
-        System.out.printf("%2s %-30s %1s %-10s %n", " 1.", "Go somewhere","|    ", "\"go\" and one of the available locations displayed");
-        System.out.printf("%2s %-30s %1s %-10s %n", " 2.", "Open a container","|    ", "\"open\" and \"container name\"");
-        System.out.printf("%2s %-30s %1s %-1s %n", " 3.", "Pick-up or Drop an Item","|    ", "\"pick\", \"drop\" and \"item name\"");
-        System.out.printf("%2s %-30s %1s %-1s %n", " 4.", "Fight an Alien","|    ", "\"use\" and \"weapon name\"");
-        System.out.printf("%2s %-30s %1s %-1s %n", " 5.", "Display map","|    ", "\"show map\"");
-        System.out.printf("%2s %-30s %1s %-1s %n", " 6.", "Display instructions","|    ", "\"help\"");
-        System.out.printf("%2s %-30s %1s %-1s %n", " 7.", "Turn the Sound ON or OFF","|    ", "\"sound\"");
-        System.out.printf("%2s %-30s %1s %-1s %n", " 8.", "Quit the training/game","|    ", "\"quit\"");
+        System.out.printf("%2s %-30s %1s %-10s %n", " 1.", "Go somewhere", "|    ", "\"go\" and one of the available locations displayed");
+        System.out.printf("%2s %-30s %1s %-10s %n", " 2.", "Open a container", "|    ", "\"open\" and \"container name\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 3.", "Pick-up or Drop an Item", "|    ", "\"pick\", \"drop\" and \"item name\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 4.", "Fight an Alien", "|    ", "\"use\" and \"weapon name\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 5.", "Display map", "|    ", "\"show map\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 6.", "Display instructions", "|    ", "\"help\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 7.", "Turn the Sound ON or OFF", "|    ", "\"sound\"");
+        System.out.printf("%2s %-30s %1s %-1s %n", " 8.", "Quit the training/game", "|    ", "\"quit\"");
 
         InputHandler.getUserInput("\nPress enter to continue...");
         clearScreen();
     }
 
     public static void clearScreen() {
-        for(int i = 0; i<30;i++){
+        for (int i = 0; i < 30; i++) {
             System.out.println(" ");
         }
     }
 
-    public static void showIntroduction(){
+    public static void showIntroduction() {
         Music keyboard = new Music("resources/audios/keyboard.wav");
         String intro = "You are at the bridge and were notified there are a few aliens boarding the ship.\n" +
                 "You need to successfully escape to the POD and kill any alien on your way to win!\n" +
                 "Good Luck!";
         keyboard.play();
-        printOneAtATime(intro,80);
+        printOneAtATime(intro, 80);
         System.out.println();
         keyboard.close();
         try {
@@ -192,8 +195,8 @@ public class Prompt {
         }
     }
 
-    public static void printOneAtATime(String str, int sleepTime){
-        for (char chr: str.toCharArray()) {
+    public static void printOneAtATime(String str, int sleepTime) {
+        for (char chr : str.toCharArray()) {
             System.out.print(chr);
             try {
                 //Thread.sleep(0);
@@ -204,7 +207,7 @@ public class Prompt {
         }
     }
 
-    public static void showLevelChooser(){
+    public static void showLevelChooser() {
         String path = "resources/welcome/ChooseLevel.txt";
         String chooser = null;
         try {
@@ -224,11 +227,11 @@ public class Prompt {
         }
     }
 
-    public static void showBattleStatus(Alien alien, Player player){
+    public static void showBattleStatus(Alien alien, Player player) {
         ConsoleColors.changeTo(ConsoleColors.CYAN);
         System.out.println("╔════════HP═════════╗");
-        System.out.printf("║%7s%10s  ║%n","Alien",alien.getHp());
-        System.out.printf("║%7s%10s  ║%n","You",player.getHp());
+        System.out.printf("║%7s%10s  ║%n", "Alien", alien.getHp());
+        System.out.printf("║%7s%10s  ║%n", "You", player.getHp());
         System.out.println("╚═══════════════════╝");
         ConsoleColors.reset();
     }

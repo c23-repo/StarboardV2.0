@@ -1,17 +1,13 @@
 package com.starboard;
 
 import com.starboard.items.Weapon;
-import com.starboard.util.ConsoleColors;
-import com.starboard.util.Music;
 import com.starboard.util.Prompt;
 import com.starboard.util.Sound;
-
-import java.io.Console;
 
 public class Alien {
 
     private boolean isExisted;
-    private Weapon equippedWeapon = new Weapon("stick", -20,"It is a powerful weapon used by alien.",1);
+    private Weapon equippedWeapon = new Weapon("stick", -20, "It is a powerful weapon used by alien.", 1);
     private double showUpChance;
     private Room room;
     private int numOfAliens;
@@ -19,19 +15,19 @@ public class Alien {
     private boolean confirmedKilled;
 
 
-
     public Alien(int hp, int number) {
         setNumOfAliens(number);
         setHp(hp);
     }
 
-    public void attack(Player player){
+    public void attack(Player player) {
         System.out.print("Alien is attacking");
         Sound.play(8); // index 8 is file path for alien attack sound file
         player.changeHp(getEquippedWeapon().getDamage());
         //mimic attacking
-        Prompt.printOneAtATime(" . . . ",300);
-        System.out.println("\nAlien finished attacking.");try {
+        Prompt.printOneAtATime(" . . . ", 300);
+        System.out.println("\nAlien finished attacking.");
+        try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -44,14 +40,11 @@ public class Alien {
 
 
     public boolean showUp() {
-        if (Math.random() < getShowUpChance()) {
-            return true;
-        }
-        return false;
+        return Math.random() < getShowUpChance();
     }
 
-    public boolean isKilled(){
-        if (getHp() <= 0){
+    public boolean isKilled() {
+        if (getHp() <= 0) {
             setNumOfAliens(getNumOfAliens() - 1);
             setConfirmedKilled(true);
             setHp(100);

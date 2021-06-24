@@ -2,9 +2,9 @@ package com.starboard.util;
 
 import com.starboard.Game;
 
+import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-import javax.sound.sampled.*;
 
 public class Sound {
     public static void play(int index) {
@@ -14,7 +14,7 @@ public class Sound {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
-            if(Game.isSoundOn())
+            if (Game.isSoundOn())
                 clip.start();
             do {
                 try {
@@ -28,6 +28,7 @@ public class Sound {
             e.printStackTrace();
         }
     }
+
     private static String getPath(String fileName) {
         return "src/main/resources/audios/" + fileName + ".wav";
     }

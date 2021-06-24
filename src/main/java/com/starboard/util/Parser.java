@@ -11,28 +11,33 @@ public class Parser {
     static final List<String> MOVE_COLLECTION = Arrays.asList("go", "move", "walk", "run", "sprint", "proceed", "pass", "enter");
     static final List<String> PICK_ITEMS_COLLECTION = Arrays.asList("pick", "pickup", "grab", "get", "take", "catch", "capture", "snag", "occupy", "steal", "seize", "grasp", "snatch");
     static final List<String> DROP_ITEMS_COLLECTION = Arrays.asList("drop", "leave", "discard");
-    static final List<String> USE_ITEMS_COLLECTION = Arrays.asList("use", "kill","show", "display", "exhibit", "display", "shoot", "apply", "fire", "throw", "insert", "turn", "push", "pull", "eat", "utilize");
-    static final List<String> OPEN_CONTAINERS_COLLECTION = Arrays.asList("open", "look","see","discover","watch");
-    static final List<String> SINGLE_ENTRY_ROOM_NAMES = Arrays.asList("bridge","lab","enginebay");
-    static final List<String> EXIT_COLLECTION = Arrays.asList("exit","leave");
-
+    static final List<String> USE_ITEMS_COLLECTION = Arrays.asList("use", "kill", "show", "display", "exhibit", "display", "shoot", "apply", "fire", "throw", "insert", "turn", "push", "pull", "eat", "utilize");
+    static final List<String> OPEN_CONTAINERS_COLLECTION = Arrays.asList("open", "look", "see", "discover", "watch");
+    static final List<String> SINGLE_ENTRY_ROOM_NAMES = Arrays.asList("bridge", "lab", "enginebay");
+    static final List<String> EXIT_COLLECTION = Arrays.asList("exit", "leave");
+    private final Room room;
     private String firstCommand;
-
     private String secondCommand;
-
     private boolean parseStatus;
 
-    private final Room room;
-
-    public Parser(Room room){
+    public Parser(Room room) {
         this.room = room;
     }
 
+    public static String aOrAn(String itemName) {
+        String article;
+        if (Arrays.asList('a', 'e', 'i', 'o', 'u').contains(itemName.charAt(0))) {
+            article = "an";
+        } else {
+            article = "a";
+        }
+        return article;
+    }
 
     public void parse(String str) {
         //strip filler words from user input
         List<String> fillerWords = Arrays.asList("to", "the", "a", "an", "from", "in", "inside", "out", "outside", "of", "me", "at");
-        String[] splitWords = str.trim().split("\\W|\\d"); // removing all non-Alpha characters
+        String[] splitWords = str.trim().split("\\W"); // removing all non-Alpha characters
         List<String> command = new ArrayList<>();
 
         //build the command
@@ -97,11 +102,11 @@ public class Parser {
                     setSecondCommand(command.get(1).toLowerCase());
                     setParseStatus(true);
                 }
-            }else if (USE_ITEMS_COLLECTION.contains(command.get(0).toLowerCase())) {
-                    setFirstCommand("use");
-                    setSecondCommand(command.get(1).toLowerCase());
-                    setParseStatus(true);
-                }
+            } else if (USE_ITEMS_COLLECTION.contains(command.get(0).toLowerCase())) {
+                setFirstCommand("use");
+                setSecondCommand(command.get(1).toLowerCase());
+                setParseStatus(true);
+            }
 
             // create synonyms for open command
             if (OPEN_CONTAINERS_COLLECTION.contains(command.get(0).toLowerCase())) {
@@ -111,17 +116,6 @@ public class Parser {
             }
         }
     }
-
-    public static String aOrAn(String itemName) {
-        String article;
-        if (Arrays.asList('a', 'e', 'i', 'o', 'u').contains(itemName.charAt(0))) {
-            article = "an";
-        } else {
-            article = "a";
-        }
-        return article;
-    }
-
 
     public boolean getParseStatus() {
         return parseStatus;

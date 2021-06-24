@@ -4,40 +4,27 @@ public abstract class GameItem implements Cloneable {
     // Attributes
 
     protected String name;
-    private String description;
     protected boolean isPortable;
+    protected int damage;
+    private String description;
     private int quantity;
     private double weight;
     private boolean needsAmmo;
     private int ammoCount;
     private int totalAmmo;
-    protected int damage;
 
 
     // Business
 
-    public <T extends GameItem> T cloneToType() {
-        try {
-            return (T) clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public GameItem() {
     }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-
-    // Constructors
-
-    public GameItem() {}
 
     public GameItem(String name) {
         this.name = name;
     }
+
+
+    // Constructors
 
     public GameItem(String name, String description) {
         this(name);
@@ -80,10 +67,28 @@ public abstract class GameItem implements Cloneable {
         this.totalAmmo = totalAmmo;
     }
 
+    public <T extends GameItem> T cloneToType() {
+        try {
+            return (T) clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     // Accessors
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -131,7 +136,7 @@ public abstract class GameItem implements Cloneable {
     }
 
     public void setAmmoCount(int ammoCount) {
-            this.ammoCount = ammoCount;
+        this.ammoCount = ammoCount;
     }
 
     public int getTotalAmmo() {

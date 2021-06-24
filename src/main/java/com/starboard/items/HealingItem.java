@@ -6,18 +6,6 @@ import com.starboard.util.Sound;
 public class HealingItem extends GameItem implements Usable {
     private int healValue;
 
-    @Override
-    public void use(Player player) {
-        player.changeHp(getHealValue());
-        System.out.printf("Healed %d HP.%n", healValue);
-        Sound.play(6); // index 6 is file path for healing sound file
-        if (getQuantity() > 1) {
-            changeQuantity(-1);
-        } else if (getQuantity() == 1) {
-            player.getInventory().remove(getName());
-        }
-    }
-
     // Constructors
     public HealingItem() {
         isPortable = true;
@@ -46,6 +34,18 @@ public class HealingItem extends GameItem implements Usable {
     public HealingItem(String name, boolean isPortable, int healValue, String description, int quantity, double weight) {
         this(name, isPortable, healValue, description, quantity);
         setWeight(weight);
+    }
+
+    @Override
+    public void use(Player player) {
+        player.changeHp(getHealValue());
+        System.out.printf("Healed %d HP.%n", healValue);
+        Sound.play(6); // index 6 is file path for healing sound file
+        if (getQuantity() > 1) {
+            changeQuantity(-1);
+        } else if (getQuantity() == 1) {
+            player.getInventory().remove(getName());
+        }
     }
 
     public int getHealValue() {
