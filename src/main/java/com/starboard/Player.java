@@ -212,7 +212,6 @@ public class Player {
                     inventory.get(itemName).changeQuantity(item.getQuantity());
                 } else {
                     inventory.put(itemName, item);
-//                int currentAmmo = inventory.get(itemName).getAmmoCount();
                 }
                 if (isFirearmOrAmmo){
                     loadWeapon(itemName);
