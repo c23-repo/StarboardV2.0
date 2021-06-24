@@ -1,5 +1,10 @@
 package com.gui;//package sample;
 
+import com.starboard.Game;
+import com.starboard.InputHandler;
+import com.starboard.Player;
+import com.starboard.Room;
+import com.starboard.util.CommandMatch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class ControllerMainScene implements Initializable {
@@ -28,6 +34,10 @@ public class ControllerMainScene implements Initializable {
 
     @FXML
     Button btnNewGame;
+
+    Player player = new Player();
+
+    InputHandler inputHandler;
 
     private String currentInput;
 
@@ -47,9 +57,14 @@ public class ControllerMainScene implements Initializable {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+                        System.out.println(Game.getCurrentRoom());
                         currentInput = getPlayerInput().getText().trim();
+                        Room curRm = Game.getCurrentRoom();
+                        String[] ui = InputHandler.inputGui(curRm, currentInput);
+                        System.out.println(Arrays.toString(ui));
+                        CommandMatch.matchCommand(ui, player);
                         gameTextArea.setText(currentInput);
-                        System.out.println(currentInput);
+                        System.out.println(Game.getCurrentRoom());
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
                     }
@@ -58,9 +73,14 @@ public class ControllerMainScene implements Initializable {
         EventHandler<KeyEvent> enterPressedHandler =
                 keyEvent -> {
                     if (keyEvent.getCode() == KeyCode.ENTER) {
+                        System.out.println(Game.getCurrentRoom());
                         currentInput = getPlayerInput().getText().trim();
+                        Room curRm = Game.getCurrentRoom();
+                        String[] ui = InputHandler.inputGui(curRm, currentInput);
+                        System.out.println(Arrays.toString(ui));
+                        CommandMatch.matchCommand(ui, player);
                         gameTextArea.setText(currentInput);
-                        System.out.println(currentInput);
+                        System.out.println(Game.getCurrentRoom());
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
                     }
@@ -113,7 +133,7 @@ public class ControllerMainScene implements Initializable {
         return btnUserInput;
     }
 
-    TextArea getGameTextArea(){
+    TextArea getGameTextArea() {
         return gameTextArea;
     }
 }
