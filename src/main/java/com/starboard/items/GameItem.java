@@ -10,6 +10,7 @@ public abstract class GameItem implements Cloneable {
     private double weight;
     private boolean needsAmmo;
     private int ammoCount;
+    private int totalAmmo;
     protected int damage;
 
 
@@ -74,6 +75,11 @@ public abstract class GameItem implements Cloneable {
         this.ammoCount = ammoCount;
     }
 
+    public GameItem(String name, String description, boolean isPortable, int quantity, double weight, boolean needsAmmo, int ammoCount, int totalAmmo) {
+        this(name, description, isPortable, quantity, weight, needsAmmo, ammoCount);
+        this.totalAmmo = totalAmmo;
+    }
+
     // Accessors
 
     public String getName() {
@@ -125,7 +131,15 @@ public abstract class GameItem implements Cloneable {
     }
 
     public void setAmmoCount(int ammoCount) {
-        this.ammoCount = ammoCount;
+            this.ammoCount = ammoCount;
+    }
+
+    public int getTotalAmmo() {
+        return totalAmmo;
+    }
+
+    public void setTotalAmmo(int moreAmmo) {
+        this.totalAmmo = moreAmmo;
     }
 
     public int getDamage() {

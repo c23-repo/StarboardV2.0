@@ -20,7 +20,7 @@ public class Player {
     private double inventoryWeight = 0; // This is the weight in kilograms
     private final double inventoryMax = 9.0;
     private final Map<String, GameItem> inventory = new HashMap<>(5);
-    private Weapon equippedWeapon = new Weapon("fist", 50);
+    private Weapon equippedWeapon = new Weapon("fist", 8);
     List<String> openedContainers = new ArrayList<>(); // package-private
 
 
@@ -109,10 +109,58 @@ public class Player {
         return getHp() <= 0;
     }
 
+    public void decreaseAmmo(GameItem item){
+        GameItem ammo;
+        int burst = 3;
+        int dblPump = 2;
+        int pump = 1;
+        int origRifleDmg = -25;
+        int origShotgunDmg = -25;
+
+        if (item.getName().equals("m4")){
+
+            ammo = inventory.get("magazine");
+            ammo.setTotalAmmo(ammo.getTotalAmmo() - burst);
+            item.setAmmoCount(item.getAmmoCount() - burst);
+            item.setTotalAmmo(item.getAmmoCount());
+
+            if (item.getTotalAmmo() < 0){
+                item.setTotalAmmo(0);
+            }
+            if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() <= 0) {
+                item.setDamage(origRifleDmg);
+                dropItem(ammo.getName());
+            } else if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() > 0) {
+                item.setTotalAmmo(ammo.getAmmoCount());
+                dropItem(ammo.getName());
+            }
+
+        } else if (item.getName().equals("shotgun")){
+
+            ammo = inventory.get("slugs");
+            ammo.setTotalAmmo(ammo.getTotalAmmo() - pump);
+            item.setAmmoCount(item.getAmmoCount() - pump);
+            item.setTotalAmmo(item.getAmmoCount());
+
+            if (item.getTotalAmmo() < 0){
+                item.setTotalAmmo(0);
+            }
+            if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() <= 0) {
+                item.setDamage(origShotgunDmg);
+                dropItem(ammo.getName());
+            } else if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() > 0) {
+                item.setTotalAmmo(ammo.getAmmoCount());
+                dropItem(ammo.getName());
+            }
+        }
+
+    }
+
     public void use(GameItem item) {
         try {
             Usable useItem = (Usable) item;
             useItem.use(this);
+            decreaseAmmo(item);
         } catch (ClassCastException e) {
             ConsoleColors.changeTo(ConsoleColors.RED_BACKGROUND_BRIGHT);
             System.out.printf("Can't use %s.%n", item.getName()+ConsoleColors.RESET);
@@ -120,26 +168,31 @@ public class Player {
     }
 
     public void loadWeapon(String itemName){
-        GameItem magazine;
+        GameItem ammo;
         GameItem firearm;
 
 
         if ((itemName.equals("m4") && inventory.containsKey("magazine")) ||
                 (itemName.equals("magazine") && inventory.containsKey("m4"))){
 
-            magazine = inventory.get("magazine");
+            ammo = inventory.get("magazine");
             firearm = inventory.get("m4");
-            firearm.setAmmoCount(magazine.getAmmoCount() * magazine.getQuantity());
-            firearm.setDamage(magazine.getDamage());
+
+            if (firearm.getTotalAmmo() == 0){
+                firearm.setTotalAmmo(ammo.getAmmoCount());
+                firearm.setDamage(ammo.getDamage());
+            }
 
         } else if ((itemName.equals("shotgun") && inventory.containsKey("slugs")) ||
                 (itemName.equals("slugs") && inventory.containsKey("shotgun"))){
 
-            magazine = inventory.get("slugs");
+            ammo = inventory.get("slugs");
             firearm = inventory.get("shotgun");
-            firearm.setAmmoCount(magazine.getAmmoCount() * magazine.getQuantity());
-            firearm.setDamage(magazine.getDamage());
 
+            if (firearm.getTotalAmmo() == 0){
+                firearm.setTotalAmmo(ammo.getAmmoCount());
+                firearm.setDamage(ammo.getDamage());
+            }
         }
     }
 
@@ -151,9 +204,14 @@ public class Player {
         if (item.isPortable()) {
             if (inventoryWeight < inventoryMax && inventoryMax > (item.getWeight() + inventoryWeight)){
                 if (inventory.containsKey(itemName)) {
+                    if ((itemName.equals("magazine") && inventory.containsKey("magazine"))
+                            || (itemName.equals("slugs") && inventory.containsKey("slugs"))) {
+                        inventory.get(itemName).setTotalAmmo(item.getAmmoCount() + inventory.get(itemName).getTotalAmmo());
+                    }
                     inventory.get(itemName).changeQuantity(item.getQuantity());
                 } else {
                     inventory.put(itemName, item);
+//                int currentAmmo = inventory.get(itemName).getAmmoCount();
                 }
                 if (isFirearmOrAmmo){
                     loadWeapon(itemName);
@@ -171,12 +229,18 @@ public class Player {
      * If the item quantity is greater than 1, it will decrease quantity by 1 and return item with quantity of 1.
      */
     public GameItem dropItem(String itemName) throws NullPointerException {
-        if (inventory.get(itemName).getQuantity() == 1) {
+        GameItem inventoryItem = inventory.get(itemName);
+
+        if (inventoryItem.getQuantity() == 1) {
             Sound.play(2); // index 2 is file path for drop item sound file
             return inventory.remove(itemName);
         } else {
-            inventory.get(itemName).setQuantity(inventory.get(itemName).getQuantity() - 1);
-            GameItem droppedItem = inventory.get(itemName).cloneToType();
+            inventoryItem.setQuantity(inventoryItem.getQuantity() - 1);
+            if (inventoryItem.getName().equals("magazine")
+                    || inventoryItem.getName().equals("slugs")) {
+                inventoryItem.setTotalAmmo(inventoryItem.getTotalAmmo() - inventoryItem.getAmmoCount());
+            }
+            GameItem droppedItem = inventoryItem.cloneToType();
             droppedItem.setQuantity(1);
             Sound.play(2); // index 2 is file path for drop item sound file
             return droppedItem;

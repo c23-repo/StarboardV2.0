@@ -8,7 +8,9 @@
       "safe": "potion",
       "table": "magazine",
       "floor": "slugs",
-      "bed": "shotgun"
+      "bed": "shotgun",
+      "wall": "slugs",
+      "corner": "slugs"
     }
   },
 

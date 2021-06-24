@@ -51,6 +51,10 @@ public class Weapon extends GameItem implements Usable {
         setNeedsAmmo(needsAmmo);
         setAmmoCount(ammoCount);
     }
+    public Weapon(String name, int damage, String description, int quantity, double weight, boolean needsAmmo, int ammoCount, int totalAmmo) {
+        this(name, damage, description, quantity, weight, needsAmmo, ammoCount);
+        setTotalAmmo(totalAmmo);
+    }
 
     // Accessors
 
