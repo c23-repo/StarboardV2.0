@@ -23,7 +23,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -32,7 +31,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static com.starboard.util.Parser.aOrAn;
 
@@ -129,11 +127,11 @@ public class ControllerMainScene implements Initializable {
 
         System.out.println(Game.getCurrentRoom());
         Game.setGameMusic(Music.keyboard);
-        oneAtATime(banner,0.1);
+        oneAtATime(banner, 0.1);
     }
 
     //typing effect
-    private void oneAtATime(String s, double timeInSeconds){
+    private void oneAtATime(String s, double timeInSeconds) {
         final IntegerProperty i = new SimpleIntegerProperty(0);
         Timeline timeline = new Timeline();
         String finalBanner = s;
@@ -150,12 +148,12 @@ public class ControllerMainScene implements Initializable {
         timeline.getKeyFrames().add(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-        pauseAndPlay(17.60);
+        pauseAndPlay(17.0);
         pauseAndDisplay(21);
     }
 
     //stops music after given time
-    private void pauseAndPlay(double timeIntervalInSeconds){
+    private void pauseAndPlay(double timeIntervalInSeconds) {
         PauseTransition pause = new PauseTransition(Duration.seconds(timeIntervalInSeconds));
         pause.setOnFinished(event ->
                 Game.getGameMusic().stop());
@@ -163,7 +161,7 @@ public class ControllerMainScene implements Initializable {
     }
 
     //pauses text in screen for given time before refreshing
-    private void pauseAndDisplay(double timeIntervalInSeconds){
+    private void pauseAndDisplay(double timeIntervalInSeconds) {
         PauseTransition pause = new PauseTransition(Duration.seconds(timeIntervalInSeconds));
         pause.setOnFinished(event ->
                 updateGameTextArea());
@@ -219,6 +217,12 @@ public class ControllerMainScene implements Initializable {
     }
 
     public static class InputSignal {
+
+    }
+
+    public void callStartSceneSoundControl(ActionEvent event) throws IOException {
+        ControllerStartScene css = new ControllerStartScene();
+            css.guiSoundControlToggle(event);
 
     }
 }

@@ -3,11 +3,16 @@
     -fx-background-size: cover;
 }
 
+.welcomebodybg{
+    -fx-background-image: url("welcomeSpaceship.jpeg");
+    -fx-background-size: cover;
+}
+
 .label {
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
+    /*-fx-font-size: 12px;*/
+    /*-fx-font-weight: bold;
     -fx-text-fill: #333333;
-    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );*/
 }
 
 #welcome-text {
@@ -22,12 +27,17 @@
   -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
 .button {
-    -fx-text-fill: white;
+    /*-fx-text-fill: white;*/
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    /*-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );*/
 }
 .button:hover {
     -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+
+.text-area, .text-area .viewport, .text-area .content {
+    -fx-background-color: transparent ;
+    -fx-text-fill: #1e88e5;
 }
