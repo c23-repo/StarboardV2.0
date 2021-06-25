@@ -9,7 +9,7 @@
     <top>
         <MenuBar>
             <menus>
-                <Menu style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" text="File">
+                <Menu text="File">
                     <items>
                         <MenuItem text="New Game"/>
                         <MenuItem text="Save Game"/>
@@ -23,14 +23,14 @@
     <center>
         <HBox fx:id="mediaViewPane">
             <TextArea fx:id="gameTextArea" editable="false" wrapText="true"
-                      style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" text=""/>
+                       text=""/>
         </HBox>
     </center>
 
     <right>
         <VBox prefHeight="500.0">
             <VBox fx:id="inventoryBox" prefHeight="250" prefWidth="400.0"
-                  style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed">
+                  >
                 <Label alignment="TOP_LEFT" text="Inventory List"/>
                 <ListView onMouseClicked="#updateStatusArea" fx:id="carriedItems" prefHeight="250" prefWidth="400.0">
                     <effect>
@@ -40,7 +40,7 @@
             </VBox>
 
             <HBox fx:id="mapBox" prefHeight="250"
-                  style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed">
+                  >
                 <Label text="Map List"/>
             </HBox>
         </VBox>
@@ -50,7 +50,7 @@
         <VBox>
             <HBox xmlns:fx="http://javafx.com/fxml" alignment="BOTTOM_LEFT"
                   spacing="10"
-                  style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed">
+                 >
                 <padding>
                     <Insets bottom="10" left="10" right="10"/>
                 </padding>
@@ -61,7 +61,7 @@
                 <Button fx:id="btnUserInput" prefWidth="90" text="Enter"/>
             </HBox>
             <HBox xmlns:fx="http://javafx.com/fxml" alignment="BOTTOM_RIGHT"
-                  spacing="10" style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed"
+                  spacing="10"
                   HBox.hgrow="ALWAYS">
                 <padding>
                     <Insets bottom="10" left="10" right="10"/>
