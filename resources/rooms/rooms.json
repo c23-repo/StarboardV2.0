@@ -10,7 +10,7 @@
       "safe": "potion",
       "table": "magazine",
       "floor": "slugs",
-      "bed": "shotgun",
+      "bed": "m4",
       "wall": "shotgun",
       "corner": "slugs"
     }
@@ -25,7 +25,11 @@
     "containers": {
       "console": "m4",
       "wall": "hammer",
-      "hutch": "apple"
+      "hutch": "apple",
+      "bed": "torch",
+      "floor": "alcohol",
+      "corner": "rag",
+      "table": "charger"
     }
   },
   {

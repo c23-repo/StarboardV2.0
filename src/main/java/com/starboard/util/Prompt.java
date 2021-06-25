@@ -31,12 +31,12 @@ public class Prompt {
                 if (!containers.get(itemLocation).areContentsHidden()) {
                     for (String itemName : containers.get(itemLocation).getContents().keySet()) {
                         ConsoleColors.changeTo(ConsoleColors.GREEN);
-                        System.out.printf("Item: You see %s %s in the %s.\n", aOrAn(itemName), itemName, itemLocation);
+                        System.out.printf("Item: You see %s %s in the %s.\n", aOrAn(itemName), itemName.toUpperCase(), itemLocation);
                         ConsoleColors.reset();
                     }
                 } else {
                     ConsoleColors.changeTo(ConsoleColors.GREEN);
-                    System.out.printf("You see %s %s.\n", aOrAn(itemLocation), itemLocation);
+                    System.out.printf("You see %s %s.\n", aOrAn(itemLocation), itemLocation.toUpperCase());
                     ConsoleColors.reset();
                 }
             }
@@ -126,8 +126,9 @@ public class Prompt {
             // if the item is a weapon, display its ammoCount
             String ammoValue = (item instanceof Weapon && item.isNeedsAmmo()) ? (ConsoleColors.RED + String.valueOf(item.getTotalAmmo()) + ConsoleColors.RESET) : "n/a";
             // this displays the weight of the game item
+            // TODO: Make the Item Key allUpper or set a String attribute only for name display
             String weightValue = item instanceof Weapon ? (ConsoleColors.BLUE_BRIGHT + String.valueOf((item).getWeight()) + ConsoleColors.RESET) : "n/a";
-            System.out.printf("%10s X %d%10s%s%10s%s%10s%s%10s%s%40s%n", item.getName(), item.getQuantity(), "", healValue,
+            System.out.printf("%10s X %d%10s%s%10s%s%10s%s%10s%s%40s%n", item.getName().toUpperCase(), item.getQuantity(), "", healValue,
                     "", damageValue, "", ammoValue, "", weightValue, item.getDescription());
         }
         ConsoleColors.changeTo(ConsoleColors.YELLOW);

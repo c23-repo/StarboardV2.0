@@ -37,18 +37,9 @@ public class InputHandler {
     public static String[] inputGui(Room room, String input) {
         Parser parser = new Parser(room);
 
-        /*do {
-            if (input.equals("")) {
-                Prompt.showCommands();
-            } else {
-
-            }
-        } while (!parser.getParseStatus());*/
-
         parser.parse(input);
         String[] command = new String[2];
-
-        if(parser.getParseStatus()) {
+        if (parser.getParseStatus()){
             command[0] = parser.getFirstCommand();
             command[1] = parser.getSecondCommand();
         }

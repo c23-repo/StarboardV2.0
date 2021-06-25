@@ -23,7 +23,7 @@ public class Game {
     public static boolean soundOn = true;
 
     public static void main(String[] args) {
-        // setGameMusic(Music.backgroundMusic);
+        setGameMusic(Music.backgroundMusic);
 //        Prompt.showWelcome();
 //        soundControl();
 //        Prompt.showInstructions();
@@ -73,6 +73,7 @@ public class Game {
             init();
             alienNumber = chooseLevel();
         }
+        Prompt.showIntroduction();
         Prompt.showIntroduction();
 
         //initialize player
