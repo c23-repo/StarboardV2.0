@@ -95,12 +95,6 @@ public class ControllerMainScene implements Initializable {
 
         getPlayerInput().setOnKeyPressed(enterPressedHandler);
         getBtnUserInput().setOnAction(eventHandler);
-        /*try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-       // updateGameTextArea();
     }
 
     public String getInput() {
@@ -138,6 +132,7 @@ public class ControllerMainScene implements Initializable {
         oneAtATime(banner,0.1);
     }
 
+    //typing effect
     private void oneAtATime(String s, double timeInSeconds){
         final IntegerProperty i = new SimpleIntegerProperty(0);
         Timeline timeline = new Timeline();
@@ -159,12 +154,15 @@ public class ControllerMainScene implements Initializable {
         pauseAndDisplay(21);
     }
 
+    //stops music after given time
     private void pauseAndPlay(double timeIntervalInSeconds){
         PauseTransition pause = new PauseTransition(Duration.seconds(timeIntervalInSeconds));
         pause.setOnFinished(event ->
                 Game.getGameMusic().stop());
         pause.play();
     }
+
+    //pauses text in screen for given time before refreshing
     private void pauseAndDisplay(double timeIntervalInSeconds){
         PauseTransition pause = new PauseTransition(Duration.seconds(timeIntervalInSeconds));
         pause.setOnFinished(event ->
@@ -172,6 +170,7 @@ public class ControllerMainScene implements Initializable {
         pause.play();
     }
 
+    //displays current scene
     private void updateGameTextArea() {
         Game.setGameMusic(Music.backgroundMusic);
         Room currentRoom = Game.getCurrentRoom();
