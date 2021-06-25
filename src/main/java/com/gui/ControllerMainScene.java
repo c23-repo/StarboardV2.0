@@ -172,9 +172,9 @@ public class ControllerMainScene implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println(Game.getCurrentRoom());
+        //Game.getGameMusic().stop();
         Game.setGameMusic(Music.keyboard);
+        pauseAndPlay(17.6);
         oneAtATime(banner, 0.1);
     }
 
@@ -196,16 +196,16 @@ public class ControllerMainScene implements Initializable {
         timeline.getKeyFrames().add(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-        pauseAndPlay(17.6);
         pauseAndDisplay(21);
     }
 
-    //stops music after given time
+    //plays music after given time
     private void pauseAndPlay(double timeIntervalInSeconds) {
         PauseTransition pause = new PauseTransition(Duration.seconds(timeIntervalInSeconds));
         pause.setOnFinished(event ->
-                Game.getGameMusic().stop());
+                Game.setGameMusic(Music.backgroundMusic));
         pause.play();
+
     }
 
     //pauses text in screen for given time before refreshing
@@ -218,7 +218,8 @@ public class ControllerMainScene implements Initializable {
 
     //displays current scene
     private void updateGameTextArea() {
-        Game.setGameMusic(Music.backgroundMusic);
+
+        //Game.setGameMusic(Music.backgroundMusic);
         Room currentRoom = Game.getCurrentRoom();
         StringBuilder currentScene = new StringBuilder();
         currentScene.append("------------------------------- status ----------------------------------------\n");

@@ -22,7 +22,7 @@ public class ControllerStartScene implements Initializable {
 
     @FXML
     private void loadNewGame(ActionEvent event) throws IOException {
-        BorderPane pane = (BorderPane) Main.loadFXML("gameWelcome");
+        BorderPane pane = (BorderPane) Main.loadFXML("gameChoice");
         Scene scene = new Scene(pane, 1000, 500);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
