@@ -2,11 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="gameScene" prefHeight="300.0" prefWidth="400.0"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="gameScene"
             xmlns="http://javafx.com/javafx/16" fx:controller="com.gui.ControllerMainScene">
     <top>
-        <MenuBar prefHeight="31.0" prefWidth="415.0">
+        <MenuBar>
             <menus>
                 <Menu style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" text="File">
                     <items>
@@ -27,22 +28,20 @@
     </center>
 
     <right>
-        <VBox>
-            <HBox xmlns:fx="http://javafx.com/fxml" alignment="TOP_LEFT" prefWidth="300"
-                  spacing="10"
+        <VBox prefHeight="500.0">
+            <VBox fx:id="inventoryBox" prefHeight="250" prefWidth="400.0"
                   style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed">
-                <!--            <padding>-->
-                <!--                <Insets bottom="10" right="10" left="10"/>-->
-                <!--            </padding>-->
-                <MenuBar>
-                    <menus>
-                        <Menu text="Inventory">
-                            <items>
-                                <MenuItem text="Add ...."/>
-                            </items>
-                        </Menu>
-                    </menus>
-                </MenuBar>
+                <Label alignment="TOP_LEFT" text="Inventory List"/>
+                <ListView onMouseClicked="#updateStatusArea" fx:id="carriedItems" prefHeight="250" prefWidth="400.0">
+                    <effect>
+                        <InnerShadow/>
+                    </effect>
+                </ListView>
+            </VBox>
+
+            <HBox fx:id="mapBox" prefHeight="250"
+                  style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed">
+                <Label text="Map List"/>
             </HBox>
         </VBox>
     </right>

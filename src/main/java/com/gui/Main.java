@@ -32,7 +32,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        scene = new Scene(loadFXML("startScene"), 1000, 500);
+        scene = new Scene(loadFXML("startScene"), 1000.0, 500.0);
         primaryStage.setTitle("Star Board - First Blood");
         primaryStage.setScene(scene);
         primaryStage.show();
