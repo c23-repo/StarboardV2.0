@@ -42,12 +42,11 @@ public class ControllerStartScene implements Initializable {
     }
 
     @FXML
-    public void guiSoundControl(ActionEvent event) throws IOException{
-        if(Game.soundOn) {
+    public void guiSoundControlToggle(ActionEvent event) throws IOException {
+        if (Game.soundOn) {
             Game.soundOn = false;
             Game.getGameMusic().stop();
-        }
-        else{
+        } else {
             Game.soundOn = true;
             Game.getGameMusic().play();
         }

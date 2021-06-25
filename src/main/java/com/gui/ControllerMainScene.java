@@ -129,11 +129,11 @@ public class ControllerMainScene implements Initializable {
 
         System.out.println(Game.getCurrentRoom());
         Game.setGameMusic(Music.keyboard);
-        oneAtATime(banner,0.1);
+        oneAtATime(banner, 0.1);
     }
 
     //typing effect
-    private void oneAtATime(String s, double timeInSeconds){
+    private void oneAtATime(String s, double timeInSeconds) {
         final IntegerProperty i = new SimpleIntegerProperty(0);
         Timeline timeline = new Timeline();
         String finalBanner = s;
@@ -155,7 +155,7 @@ public class ControllerMainScene implements Initializable {
     }
 
     //stops music after given time
-    private void pauseAndPlay(double timeIntervalInSeconds){
+    private void pauseAndPlay(double timeIntervalInSeconds) {
         PauseTransition pause = new PauseTransition(Duration.seconds(timeIntervalInSeconds));
         pause.setOnFinished(event ->
                 Game.getGameMusic().stop());
@@ -163,7 +163,7 @@ public class ControllerMainScene implements Initializable {
     }
 
     //pauses text in screen for given time before refreshing
-    private void pauseAndDisplay(double timeIntervalInSeconds){
+    private void pauseAndDisplay(double timeIntervalInSeconds) {
         PauseTransition pause = new PauseTransition(Duration.seconds(timeIntervalInSeconds));
         pause.setOnFinished(event ->
                 updateGameTextArea());

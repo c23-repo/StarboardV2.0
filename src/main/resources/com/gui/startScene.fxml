@@ -10,45 +10,55 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="BorderPane" fx:id="startScene" styleClass="bodybg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.ControllerStartScene">
+<BorderPane id="BorderPane" fx:id="startScene" styleClass="bodybg" stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gui.ControllerStartScene">
     <center>
-        <VBox alignment="CENTER" blendMode="SRC_ATOP" prefHeight="380.0" prefWidth="1084.0" spacing="10" style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" xmlns:fx="http://javafx.com/fxml">
+        <VBox alignment="CENTER" blendMode="SRC_ATOP" prefHeight="380.0" prefWidth="1084.0" spacing="10"
+              style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed"
+              xmlns:fx="http://javafx.com/fxml">
             <padding>
-                <Insets bottom="10" left="10" right="10" />
+                <Insets bottom="10" left="10" right="10"/>
             </padding>
-         <Button mnemonicParsing="false" opacity="0.0" />
-            <Button fx:id="btnNewGame" onAction="#loadNewGame" prefHeight="45.0" prefWidth="172.0" text="NEW GAME" textFill="#0c0a0a" underline="true">
-            <font>
-               <Font size="24.0" />
-            </font>
-            <effect>
-               <Bloom />
-            </effect></Button>
+            <Button mnemonicParsing="false" opacity="0.0"/>
+            <Button fx:id="btnNewGame" onAction="#loadNewGame" prefHeight="45.0" prefWidth="172.0" text="NEW GAME"
+                    textFill="#0c0a0a" underline="true">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+                <effect>
+                    <Bloom/>
+                </effect>
+            </Button>
             <Button fx:id="btnSavedGame" prefHeight="45.0" prefWidth="174.0" text="SAVED GAME" textFill="#080808">
-            <font>
-               <Font size="24.0" />
-            </font></Button>
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
             <Button fx:id="btnExitGame" prefHeight="45.0" prefWidth="176.0" text="EXIT" textFill="#050505">
-            <font>
-               <Font size="24.0" />
-            </font></Button>
-         <HBox alignment="BOTTOM_RIGHT" prefHeight="91.0" prefWidth="220.0">
-            <children>
-               <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="47.0" prefWidth="146.0" text="SOUND">
-                  <font>
-                     <Font size="24.0" />
-                  </font>
-               </Button>
-               <ToggleButton fx:id="onButton" mnemonicParsing="false" onAction="#guiSoundControl" prefHeight="47.0" prefWidth="95.0" text="ON/OFF">
-                  <toggleGroup>
-                     <ToggleGroup fx:id="SOUND" />
-                  </toggleGroup>
-                  <font>
-                     <Font size="18.0" />
-                  </font>
-               </ToggleButton>
-            </children>
-         </HBox>
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="91.0" prefWidth="220.0">
+                <children>
+                    <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="47.0" prefWidth="146.0"
+                            text="SOUND">
+                        <font>
+                            <Font size="24.0"/>
+                        </font>
+                    </Button>
+                    <ToggleButton fx:id="onButton" mnemonicParsing="false" onAction="#guiSoundControlToggle"
+                                  prefHeight="47.0" prefWidth="95.0" text="ON/OFF">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="SOUND"/>
+                        </toggleGroup>
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </ToggleButton>
+                </children>
+            </HBox>
         </VBox>
 
 
