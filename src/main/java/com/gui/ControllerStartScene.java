@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -14,6 +15,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ControllerStartScene implements Initializable {
+    @FXML
+    private Button btnExitGame;
 
     @Override
     public void initialize(URL url, ResourceBundle rd) {
@@ -47,7 +50,11 @@ public class ControllerStartScene implements Initializable {
             Game.soundOn = true;
             Game.getGameMusic().play();
         }
+    }
 
-
+    @FXML
+    public void handleCloseButtonAction(ActionEvent event) {
+        Stage stage = (Stage) btnExitGame.getScene().getWindow();
+        stage.close();
     }
 }

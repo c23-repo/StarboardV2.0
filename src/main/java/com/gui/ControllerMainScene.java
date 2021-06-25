@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
@@ -48,10 +49,14 @@ public class ControllerMainScene implements Initializable {
     Button btnNewGame;
     @FXML
     private ListView carriedItems;
+    @FXML
+    MenuItem btnQuit;
 
     Player player = new Player();
     InputHandler inputHandler;
     private String currentInput;
+
+    ControllerStartScene css = new ControllerStartScene();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -273,8 +278,12 @@ public class ControllerMainScene implements Initializable {
     }
 
     public void callStartSceneSoundControl(ActionEvent event) throws IOException {
-        ControllerStartScene css = new ControllerStartScene();
-            css.guiSoundControlToggle(event);
+        css.guiSoundControlToggle(event);
+    }
 
+    @FXML
+    public void handleCloseButtonAction(ActionEvent event) {
+        Stage stage = (Stage) btnUserInput.getScene().getWindow();
+        stage.close();
     }
 }

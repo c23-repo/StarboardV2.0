@@ -26,7 +26,7 @@
                     <items>
                         <MenuItem text="New Game" />
                         <MenuItem text="Save Game" />
-                        <MenuItem text="Quit" />
+                        <MenuItem fx:id="btnQuit" onAction="#handleCloseButtonAction" text="Quit" />
                     </items>
                 </Menu>
             </menus>
