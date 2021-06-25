@@ -71,6 +71,7 @@ public class Parser {
                 setParseStatus(true);
             } else {
                 System.out.println("Unrecognized command");
+
             }
         } else {
 

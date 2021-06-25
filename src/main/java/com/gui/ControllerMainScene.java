@@ -84,7 +84,7 @@ public class ControllerMainScene implements Initializable {
                 keyEvent -> {
                     if (keyEvent.getCode() == KeyCode.ENTER) {
                         System.out.println(Game.getCurrentRoom());
-                        currentInput = getPlayerInput().getText().trim();
+                        currentInput = getPlayerInput().getText();
                         Room curRm = Game.getCurrentRoom();
                         String[] ui = InputHandler.inputGui(curRm, currentInput);
                         System.out.println(Arrays.toString(ui));
@@ -196,7 +196,7 @@ public class ControllerMainScene implements Initializable {
         timeline.getKeyFrames().add(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-        pauseAndPlay(17.0);
+        pauseAndPlay(17.6);
         pauseAndDisplay(21);
     }
 

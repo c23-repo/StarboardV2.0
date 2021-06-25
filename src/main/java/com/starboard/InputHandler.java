@@ -43,8 +43,6 @@ public class InputHandler {
             command[0] = parser.getFirstCommand();
             command[1] = parser.getSecondCommand();
         }
-
-
         return command;
     }
 
