@@ -4,8 +4,10 @@ import com.starboard.Game;
 import com.starboard.InputHandler;
 import com.starboard.Player;
 import com.starboard.Room;
+import com.starboard.items.GameItem;
 import com.starboard.items.Container;
 import com.starboard.util.CommandMatch;
+import javafx.application.Platform;
 import com.starboard.util.Music;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -17,9 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
@@ -27,7 +27,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -44,6 +46,9 @@ public class ControllerMainScene implements Initializable {
     Button btnUserInput;
     @FXML
     Button btnNewGame;
+    @FXML
+    private ListView carriedItems;
+
     Player player = new Player();
     InputHandler inputHandler;
     private String currentInput;
@@ -71,6 +76,7 @@ public class ControllerMainScene implements Initializable {
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
                         updateGameTextArea();
+                        updateStatusArea();
                     }
                 };
 
@@ -88,11 +94,53 @@ public class ControllerMainScene implements Initializable {
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
                         updateGameTextArea();
+                        updateStatusArea();
                     }
                 };
 
         getPlayerInput().setOnKeyPressed(enterPressedHandler);
         getBtnUserInput().setOnAction(eventHandler);
+        updateGameTextArea();
+        updateStatusArea();
+    }
+
+    public void updateStatusArea() {
+        List<String> items = new ArrayList<>();
+        for (GameItem item : player.getInventory().values()) {
+            items.add(item.getName());
+        }
+
+        carriedItems.getItems().setAll(String.valueOf(items));
+        carriedItems.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        System.out.println(items);
+        System.out.println(carriedItems.getItems().toString());
+
+        // clear item in the list view
+        Platform.runLater(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            getCarriedItems().getItems().clear();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        // add new carried items to items list view
+        Platform.runLater(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            for (GameItem item : player.getInventory().values()) {
+                                getCarriedItems().getItems().addAll(item.getName());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     public String getInput() {
@@ -202,6 +250,9 @@ public class ControllerMainScene implements Initializable {
         }
         currentScene.append("--------------------------------------------------------------------------------\n");
         gameTextArea.setText(currentScene.toString());
+    }
+    public ListView<String> getCarriedItems() {
+        return carriedItems;
     }
 
     public TextField getPlayerInput() {

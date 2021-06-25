@@ -253,4 +253,5 @@ public class Game {
     public static int getAlienNumber() {
         return alienNumber;
     }
+
 }
