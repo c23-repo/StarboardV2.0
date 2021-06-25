@@ -107,7 +107,7 @@
                                     </Bloom>
                                  </effect>
                               </Button>
-                              <Button fx:id="btnExitGame" alignment="CENTER" focusTraversable="false" prefHeight="27.0" prefWidth="84.0" text="EXIT" textFill="#cd1313">
+                              <Button fx:id="btnExitGame" alignment="CENTER" focusTraversable="false" onAction="#handleCloseButtonAction" prefHeight="27.0" prefWidth="84.0" text="EXIT" textFill="#cd1313">
                                  <font>
                                     <Font size="24.0" />
                                  </font>

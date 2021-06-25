@@ -55,7 +55,7 @@
                <Font size="24.0" />
             </font>
          </Button>
-            <Button fx:id="btnExitGame" prefHeight="45.0" prefWidth="176.0" text="EXIT" textFill="#050505">
+            <Button fx:id="btnExitGame" onAction="#handleCloseButtonAction" prefHeight="45.0" prefWidth="176.0" text="EXIT" textFill="#050505">
             <font>
                <Font size="24.0" />
             </font>
