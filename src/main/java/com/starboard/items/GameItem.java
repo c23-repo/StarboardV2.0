@@ -163,4 +163,17 @@ public abstract class GameItem implements Cloneable {
     public void setBaseDamage(int baseDamage) {
         this.baseDamage = baseDamage;
     }
+
+    @Override
+    public String toString() {
+        return "GameItem{" +
+                "name='" + name + '\'' +
+                ", damage=" + damage +
+                ", description='" + description + '\'' +
+                ", quantity=" + quantity +
+                ", weight=" + weight +
+                ", maxAmmo=" + maxAmmo +
+                ", totalAmmo=" + totalAmmo +
+                '}';
+    }
 }

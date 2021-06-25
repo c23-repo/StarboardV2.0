@@ -139,5 +139,4 @@ public class Parser {
     public void setSecondCommand(String secondCommand) {
         this.secondCommand = secondCommand;
     }
-
 }
