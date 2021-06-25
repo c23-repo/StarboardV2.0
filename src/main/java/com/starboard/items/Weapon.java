@@ -4,7 +4,7 @@ import com.starboard.Player;
 
 public class Weapon extends GameItem implements Usable {
     private int damage;
-
+    private int baseDamage;
     public Weapon() {
         isPortable = true;
     }
@@ -13,7 +13,6 @@ public class Weapon extends GameItem implements Usable {
 
     public Weapon(String name, int damage) {
         this();
-//        super();
         this.name = name;
         this.damage = damage;
     }
@@ -38,14 +37,14 @@ public class Weapon extends GameItem implements Usable {
         setWeight(weight);
     }
 
-    public Weapon(String name, int damage, String description, int quantity, double weight, boolean needsAmmo, int ammoCount) {
+    public Weapon(String name, int damage, String description, int quantity, double weight, boolean needsAmmo, int baseDamage) {
         this(name, damage, description, quantity, weight);
         setNeedsAmmo(needsAmmo);
-        setAmmoCount(ammoCount);
+        setBaseDamage(baseDamage);
     }
 
-    public Weapon(String name, int damage, String description, int quantity, double weight, boolean needsAmmo, int ammoCount, int totalAmmo) {
-        this(name, damage, description, quantity, weight, needsAmmo, ammoCount);
+    public Weapon(String name, int damage, String description, int quantity, double weight, boolean needsAmmo, int baseDamage, int totalAmmo) {
+        this(name, damage, description, quantity, weight, needsAmmo, baseDamage);
         setTotalAmmo(totalAmmo);
     }
 
@@ -65,5 +64,15 @@ public class Weapon extends GameItem implements Usable {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    @Override
+    public int getBaseDamage() {
+        return baseDamage;
+    }
+
+    @Override
+    public void setBaseDamage(int baseDamage) {
+        this.baseDamage = baseDamage;
     }
 }

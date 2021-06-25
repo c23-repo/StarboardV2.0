@@ -108,69 +108,48 @@ public class Player {
         return getHp() <= 0;
     }
 
-    public void decreaseAmmo(GameItem item) {
+    private void decreaseHelper(GameItem firearm, GameItem ammo, int shotsFired){
+
+        if (ammo != null){
+            ammo.setTotalAmmo(ammo.getTotalAmmo() - shotsFired);
+            if (firearm.getMaxAmmo() > ammo.getTotalAmmo()){
+                firearm.setTotalAmmo(ammo.getTotalAmmo());
+            } else {
+                firearm.setMaxAmmo(firearm.getMaxAmmo() - shotsFired);
+                firearm.setTotalAmmo(firearm.getMaxAmmo());
+            }
+
+            if (firearm.getTotalAmmo() <= 0 && ammo.getTotalAmmo() <= 0) {
+                firearm.setDamage(firearm.getBaseDamage());
+                dropItem(ammo.getName());
+            } else if (firearm.getTotalAmmo() == 0 && ammo.getTotalAmmo() > 0) {
+                firearm.setTotalAmmo(ammo.getMaxAmmo());
+                dropItem(ammo.getName());
+            }
+        }
+    }
+
+    public void decreaseAmmo(GameItem firearm) {
         GameItem ammo;
         int burst = 3;
         int dblPump = 2;
         int pump = 1;
-        int origRifleDmg = -25;
-        int origShotgunDmg = -25;
 
-        switch (item.getName()) {
+        switch (firearm.getName()) {
             case "m4":
 
                 ammo = inventory.get("magazine");
-                ammo.setTotalAmmo(ammo.getTotalAmmo() - burst);
-                item.setAmmoCount(item.getAmmoCount() - burst);
-                item.setTotalAmmo(item.getAmmoCount());
-
-                if (item.getTotalAmmo() < 0) {
-                    item.setTotalAmmo(0);
-                }
-                if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() <= 0) {
-                    item.setDamage(origRifleDmg);
-                    dropItem(ammo.getName());
-                } else if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() > 0) {
-                    item.setTotalAmmo(ammo.getAmmoCount());
-                    dropItem(ammo.getName());
-                }
-
+                decreaseHelper(firearm, ammo, burst);
                 break;
             case "shotgun":
 
                 ammo = inventory.get("slugs");
-                ammo.setTotalAmmo(ammo.getTotalAmmo() - pump);
-                item.setAmmoCount(item.getAmmoCount() - pump);
-                item.setTotalAmmo(item.getAmmoCount());
-
-                if (item.getTotalAmmo() < 0) {
-                    item.setTotalAmmo(0);
-                }
-                if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() <= 0) {
-                    item.setDamage(origShotgunDmg);
-                    dropItem(ammo.getName());
-                } else if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() > 0) {
-                    item.setTotalAmmo(ammo.getAmmoCount());
-                    dropItem(ammo.getName());
-                }
+                decreaseHelper(firearm, ammo, pump);
                 break;
             case "dp12":
 
                 ammo = inventory.get("slugs");
-                ammo.setTotalAmmo(ammo.getTotalAmmo() - dblPump);
-                item.setAmmoCount(item.getAmmoCount() - dblPump);
-                item.setTotalAmmo(item.getAmmoCount());
-
-                if (item.getTotalAmmo() < 0) {
-                    item.setTotalAmmo(0);
-                }
-                if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() <= 0) {
-                    item.setDamage(origShotgunDmg);
-                    dropItem(ammo.getName());
-                } else if (item.getTotalAmmo() == 0 && ammo.getTotalAmmo() > 0) {
-                    item.setTotalAmmo(ammo.getAmmoCount());
-                    dropItem(ammo.getName());
-                }
+                decreaseHelper(firearm, ammo, dblPump);
                 break;
             default:
                 break;
@@ -189,57 +168,151 @@ public class Player {
         }
     }
 
-    public void loadWeapon(String itemName) {
-        GameItem ammo;
-        GameItem firearm;
-
-
-        if ((itemName.equals("m4") && inventory.containsKey("magazine")) ||
-                (itemName.equals("magazine") && inventory.containsKey("m4"))) {
-
-            ammo = inventory.get("magazine");
-            firearm = inventory.get("m4");
-
-            if (firearm.getTotalAmmo() == 0) {
-                firearm.setTotalAmmo(ammo.getAmmoCount());
-                firearm.setDamage(ammo.getDamage());
-            }
-
-        } else if ((itemName.equals("shotgun") && inventory.containsKey("slugs")) ||
-                (itemName.equals("slugs") && inventory.containsKey("shotgun"))) {
-
-            ammo = inventory.get("slugs");
-            firearm = inventory.get("shotgun");
-
-            if (firearm.getTotalAmmo() == 0) {
-                firearm.setTotalAmmo(ammo.getAmmoCount());
-                firearm.setDamage(ammo.getDamage());
-            }
-        } else if ((itemName.equals("dp12") && inventory.containsKey("slugs")) ||
-                (itemName.equals("slugs") && inventory.containsKey("dp12"))) {
-
-            ammo = inventory.get("slugs");
-            firearm = inventory.get("dp12");
-
-            if (firearm.getTotalAmmo() == 0) {
-                firearm.setTotalAmmo(ammo.getAmmoCount());
+    private void weaponLoadHelper(GameItem firearm, GameItem ammo) {
+        if (firearm.getTotalAmmo() == 0) {
+            firearm.setTotalAmmo(ammo.getMaxAmmo());
+            if (firearm.getName().equals("dp12")){
                 firearm.setDamage(ammo.getDamage() * 2);
+            } else {
+                firearm.setDamage(ammo.getDamage());
             }
+        }
+        if (firearm.getMaxAmmo() > ammo.getTotalAmmo()){
+            firearm.setTotalAmmo(ammo.getTotalAmmo());
         }
     }
 
-    public void craftWeapon() {
+    public void loadWeapon(String itemName) {
+        boolean m4Mag = (itemName.equals("m4") && inventory.containsKey("magazine")) ||
+                (itemName.equals("magazine") && inventory.containsKey("m4"));
+        boolean pumpMag = (itemName.equals("shotgun") && inventory.containsKey("slugs")) ||
+                (itemName.equals("slugs") && inventory.containsKey("shotgun"));
+        boolean dblPumpMag = (itemName.equals("dp12") && inventory.containsKey("slugs")) ||
+                (itemName.equals("slugs") && inventory.containsKey("dp12"));
+        GameItem firearm;
+        GameItem ammo;
 
-        if (inventory.containsKey("shotgun") && inventory.get("shotgun").getQuantity() > 1) {
+        if (m4Mag) {
+            firearm = inventory.get("m4");
+            ammo = inventory.get("magazine");
+            weaponLoadHelper(firearm, ammo);
+
+        } else if (pumpMag) {
+            firearm = inventory.get("shotgun");
+            ammo = inventory.get("slugs");
+            weaponLoadHelper(firearm, ammo);
+
+        } else if (dblPumpMag) {
+            firearm = inventory.get("dp12");
+            ammo = inventory.get("slugs");
+            weaponLoadHelper(firearm, ammo);
+
+        }
+    }
+
+    public void craftWeapon(GameItem item) {
+
+        boolean isBayonet = ((inventory.containsKey("m4") && item.getName().equals("knife"))
+                || (inventory.containsKey("knife") && item.getName().equals("m4")));
+
+        boolean isElectric = ((inventory.containsKey("magazine") && (inventory.containsKey("m4")) && item.getName().equals("charger")))
+                || ((inventory.containsKey("magazine") && inventory.containsKey("charger") && item.getName().equals("m4")))
+                || ((inventory.containsKey("m4") && inventory.containsKey("charger") && item.getName().equals("magazine")));
+
+        boolean isFlaming = ((inventory.containsKey("alcohol") && item.getName().equals("rag"))
+                || (inventory.containsKey("rag") && item.getName().equals("alcohol")));
+
+        boolean isDoubleBarreled = ((inventory.containsKey("shotgun") && inventory.get("shotgun").getQuantity() > 1)
+                && inventory.containsKey("torch"));
+
+        GameItem craftItem;
+        GameItem craftItem2;
+
+        if (isDoubleBarreled) {
             ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
-            System.out.println("You have two Shotguns and engineered a Double Barrel Pump Action!!");
+            System.out.println("When life gives you Shotguns, make a Double Barrel Pump Action!");
             ConsoleColors.reset();
-            GameItem item = inventory.get("shotgun");
             int dmg = item.getDamage() == -60 ? item.getDamage() * 2 : item.getDamage() - 5;
-            GameItem dblPump = new Weapon("dp12", dmg, "Dbl-Barrel Pump Shotgun",
-                    1, 4.27, true, item.getAmmoCount(), 0);
+            craftItem = item.getName().equals("torch") ? inventory.get("shotgun") : inventory.get("torch");
+            GameItem dblPump;
+
+            if (item.getName().equals("torch")){
+                dblPump = new Weapon("dp12", dmg, "Dbl-Barrel Pump Shotgun",
+                        1, 4.27, true, craftItem.getMaxAmmo(), 0);
+                inventory.remove("torch", item);
+                inventory.remove("shotgun", craftItem);
+            } else  {
+                dblPump = new Weapon("dp12", dmg, "Dbl-Barrel Pump Shotgun",
+                        1, 4.27, true, item.getMaxAmmo(), 0);
+                inventory.remove("shotgun", item);
+                inventory.remove("torch", craftItem);
+            }
             inventory.putIfAbsent("dp12", dblPump);
-            inventory.remove("shotgun", item);
+
+        } else if (isFlaming) {
+            ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
+            System.out.println("It's getting a little cold, guess I'll have to.... turn up the Heat. You've created a Molotov!");
+            ConsoleColors.reset();
+            craftItem = item.getName().equals("rag") ? inventory.get("alcohol") : inventory.get("rag");
+            GameItem molotovCocktail = new Weapon("molotov", -60, "Molotov Cocktail",
+                    1, 0.057, false, -60);
+            inventory.putIfAbsent("molotov", molotovCocktail);
+            if (item.getName().equals("rag")){
+                inventory.remove("rag", item);
+                inventory.remove("alcohol", craftItem);
+            } else  {
+                inventory.remove("alcohol", item);
+                inventory.remove("rag", craftItem);
+            }
+
+        } else if (isBayonet) {
+            ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
+            System.out.println("I have a Knife and M4, time to poke around! #bayonet #jokes!");
+            ConsoleColors.reset();
+            craftItem = item.getName().equals("knife") ? inventory.get("m4") : inventory.get("knife");
+            if (craftItem.getName().equals("m4")){
+                craftItem.setBaseDamage(craftItem.getBaseDamage() + item.getDamage());
+                craftItem.setWeight(craftItem.getWeight() + item.getWeight());
+                if (!inventory.containsKey("magazine")){
+                    craftItem.setDamage(craftItem.getBaseDamage());
+                }
+                inventory.remove("knife", item);
+            } else {
+                item.setBaseDamage(craftItem.getBaseDamage() + item.getDamage());
+                item.setWeight(craftItem.getWeight() + item.getWeight());
+                if (!inventory.containsKey("magazine")){
+                    item.setDamage(item.getBaseDamage());
+                }
+                inventory.remove("knife", craftItem);
+            }
+        } else if (isElectric) {
+            ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
+            System.out.println("This Charger will juice up my Magazine, now it's ..... Electric! #boogieWoogieWoogie");
+            ConsoleColors.reset();
+            if (item.getName().equals("m4")){
+               craftItem = inventory.get("magazine");
+               craftItem2 = inventory.get("charger");
+               craftItem.setDamage(craftItem2.getDamage());
+               craftItem.setWeight(craftItem.getWeight() + craftItem2.getWeight());
+               inventory.remove("charger", craftItem2);
+            } else {
+                craftItem = item.getName().equals("charger") ? inventory.get("magazine") : inventory.get("charger");
+                if (craftItem.getName().equals("magazine")){
+                    craftItem.setWeight(craftItem.getWeight() + item.getWeight());
+                    craftItem.setDamage(item.getDamage());
+                    inventory.remove("charger", item);
+                    if (inventory.containsKey("m4")){
+                        inventory.get("m4").setDamage(craftItem.getDamage());
+                    }
+                } else {
+                    item.setWeight(craftItem.getWeight() + item.getWeight());
+                    item.setDamage(craftItem.getDamage());
+                    inventory.remove("charger", craftItem);
+                    if (inventory.containsKey("m4")){
+                        inventory.get("m4").setDamage(item.getDamage());
+                    }
+                }
+            }
         }
 
     }
@@ -254,13 +327,13 @@ public class Player {
                 if (inventory.containsKey(itemName)) {
                     if ((itemName.equals("magazine") && inventory.containsKey("magazine"))
                             || (itemName.equals("slugs") && inventory.containsKey("slugs"))) {
-                        inventory.get(itemName).setTotalAmmo(item.getAmmoCount() + inventory.get(itemName).getTotalAmmo());
+                        inventory.get(itemName).setTotalAmmo(item.getMaxAmmo() + inventory.get(itemName).getTotalAmmo());
                     }
                     inventory.get(itemName).changeQuantity(item.getQuantity());
-                    craftWeapon();
                 } else {
                     inventory.put(itemName, item);
                 }
+                craftWeapon(item);
                 if (isFirearmOrAmmo) {
                     loadWeapon(itemName);
                 }
@@ -286,7 +359,7 @@ public class Player {
             inventoryItem.setQuantity(inventoryItem.getQuantity() - 1);
             if (inventoryItem.getName().equals("magazine")
                     || inventoryItem.getName().equals("slugs")) {
-                inventoryItem.setTotalAmmo(inventoryItem.getTotalAmmo() - inventoryItem.getAmmoCount());
+                inventoryItem.setTotalAmmo(inventoryItem.getTotalAmmo() - inventoryItem.getMaxAmmo());
             }
             GameItem droppedItem = inventoryItem.cloneToType();
             droppedItem.setQuantity(1);

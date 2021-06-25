@@ -37,6 +37,13 @@ public class Alien {
         Prompt.showBattleStatus(this, player);
 
     }
+//    public double attackHitChance() {
+//        // TODO: Percentage of attack chance based on the numOfAliens(difficulty)
+//        int attkNum = (int) Math.floor(Math.random() * 100);
+//        if (0 < attkNum && attkNum < 25) {
+//            
+//        }
+//    }
 
 
     public boolean showUp() {

@@ -6,11 +6,12 @@ public abstract class GameItem implements Cloneable {
     protected String name;
     protected boolean isPortable;
     protected int damage;
+    protected int baseDamage;
     private String description;
     private int quantity;
     private double weight;
     private boolean needsAmmo;
-    private int ammoCount;
+    private int maxAmmo;
     private int totalAmmo;
 
 
@@ -56,14 +57,14 @@ public abstract class GameItem implements Cloneable {
         this.weight = weight;
     }
 
-    public GameItem(String name, String description, boolean isPortable, int quantity, double weight, boolean needsAmmo, int ammoCount) {
+    public GameItem(String name, String description, boolean isPortable, int quantity, double weight, boolean needsAmmo, int maxAmmo) {
         this(name, description, isPortable, quantity, weight);
         this.needsAmmo = needsAmmo;
-        this.ammoCount = ammoCount;
+        this.maxAmmo = maxAmmo;
     }
 
-    public GameItem(String name, String description, boolean isPortable, int quantity, double weight, boolean needsAmmo, int ammoCount, int totalAmmo) {
-        this(name, description, isPortable, quantity, weight, needsAmmo, ammoCount);
+    public GameItem(String name, String description, boolean isPortable, int quantity, double weight, boolean needsAmmo, int maxAmmo, int totalAmmo) {
+        this(name, description, isPortable, quantity, weight, needsAmmo, maxAmmo);
         this.totalAmmo = totalAmmo;
     }
 
@@ -131,12 +132,12 @@ public abstract class GameItem implements Cloneable {
         this.needsAmmo = needsAmmo;
     }
 
-    public int getAmmoCount() {
-        return ammoCount;
+    public int getMaxAmmo() {
+        return maxAmmo;
     }
 
-    public void setAmmoCount(int ammoCount) {
-        this.ammoCount = ammoCount;
+    public void setMaxAmmo(int maxAmmo) {
+        this.maxAmmo = maxAmmo;
     }
 
     public int getTotalAmmo() {
@@ -155,6 +156,14 @@ public abstract class GameItem implements Cloneable {
         this.damage = damage;
     }
 
+    public int getBaseDamage() {
+        return baseDamage;
+    }
+
+    public void setBaseDamage(int baseDamage) {
+        this.baseDamage = baseDamage;
+    }
+
     @Override
     public String toString() {
         return "GameItem{" +
@@ -163,7 +172,7 @@ public abstract class GameItem implements Cloneable {
                 ", description='" + description + '\'' +
                 ", quantity=" + quantity +
                 ", weight=" + weight +
-                ", ammoCount=" + ammoCount +
+                ", maxAmmo=" + maxAmmo +
                 ", totalAmmo=" + totalAmmo +
                 '}';
     }
