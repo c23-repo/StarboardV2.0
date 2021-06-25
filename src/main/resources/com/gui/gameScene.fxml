@@ -6,10 +6,24 @@
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="gameScene"
             xmlns="http://javafx.com/javafx/16" fx:controller="com.gui.ControllerMainScene">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="gameScene" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.ControllerMainScene">
     <top>
-        <MenuBar>
+        <MenuBar prefHeight="31.0" prefWidth="415.0">
             <menus>
-                <Menu text="File">
+                <Menu style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed" text="File">
                     <items>
                         <MenuItem text="New Game"/>
                         <MenuItem text="Save Game"/>
@@ -66,9 +80,18 @@
                 <padding>
                     <Insets bottom="10" left="10" right="10"/>
                 </padding>
-                <Button fx:id="btnMap" prefWidth="90" text="Map"/>
-                <Button fx:id="btnHelp" prefWidth="90" text="Inventory"/>
-                <Button fx:id="btnInventory" prefWidth="90" text="Help"/>
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="91.0" prefWidth="220.0">
+               <children>
+                  <ToggleButton fx:id="onButton1" mnemonicParsing="false" onAction="#callStartSceneSoundControl" prefHeight="26.0" prefWidth="96.0" text="Sound On/Off">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="SOUND1" />
+                     </toggleGroup>
+                  </ToggleButton>
+               </children>
+            </HBox>
+                <Button fx:id="btnMap" prefWidth="90" text="Map" />
+                <Button fx:id="btnHelp" prefWidth="90" text="Inventory" />
+                <Button fx:id="btnInventory" prefWidth="90" text="Help" />
             </HBox>
         </VBox>
     </bottom>

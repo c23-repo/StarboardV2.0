@@ -11,6 +11,7 @@ public class Music {
     public static Music battleMusic = new Music("resources/audios/battle.wav");
     public static Music alienEntry = new Music("resources/audios/alien-Entry.wav");
     public static Music electric = new Music("resources/audios/electric.wav");
+    public static Music keyboard = new Music("resources/audios/keyboard.wav");
     private Clip clip;
 
     public Music(String path) {
@@ -30,7 +31,10 @@ public class Music {
 
     public void play() {
         if (Game.isSoundOn()) {
-            clip.setFramePosition(0);
+            if (Game.getGameMusic() == keyboard)
+                clip.setFramePosition(6);
+            else
+                clip.setFramePosition(0);
             clip.start();
         }
 
