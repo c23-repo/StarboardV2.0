@@ -51,7 +51,6 @@ public class Parser {
             setParseStatus(false);
 
         } else if (command.size() == 1) {
-            // TODO: this should be where quit and help go. Also nearby should be the two word command Validation happening.
             //if currentroom is bridge||lab||enginebay, can use exit and leave
             setFirstCommand("exit");
             Room nextRoom = room.getPaths().get(room.getLinkedRooms().get(0));

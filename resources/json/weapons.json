@@ -1,31 +1,12 @@
 [
   {
-    "name": "knife",
-    "damage": -15,
-    "description": "This is a knife.",
-    "quantity": 1,
-    "weight": 0.32,
-    "needsAmmo": false,
-    "ammoCount": 0
-  },
-  {
     "name": "hammer",
     "damage": -30,
     "description": "This is a hammer.",
     "quantity": 1,
     "weight": 0.62369,
     "needsAmmo": false,
-    "ammoCount": 0
-  },
-  {
-    "name": "m4",
-    "damage": -20,
-    "description": "M4 Assault Rifle.",
-    "quantity": 1,
-    "weight": 3.04,
-    "needsAmmo": true,
-    "ammoCount": 30,
-    "totalAmmo": 0
+    "baseDamage": -30
   },
   {
     "name": "axe",
@@ -34,7 +15,27 @@
     "quantity": 1,
     "weight": 2.72,
     "needsAmmo": false,
-    "ammoCount": 0
+    "baseDamage": -40
+  },
+  {
+    "name": "knife",
+    "damage": -15,
+    "description": "This is a knife.",
+    "quantity": 1,
+    "weight": 0.32,
+    "needsAmmo": false,
+    "baseDamage": -15
+  },
+  {
+    "name": "m4",
+    "damage": -20,
+    "description": "M4 Assault Rifle.",
+    "quantity": 1,
+    "weight": 3.04,
+    "needsAmmo": true,
+    "baseDamage": -20,
+    "maxAmmo": 30,
+    "totalAmmo": 0
   },
   {
     "name": "shotgun",
@@ -43,7 +44,8 @@
     "quantity": 1,
     "weight": 3.82,
     "needsAmmo": true,
-    "ammoCount": 6,
+    "baseDamage": -25,
+    "maxAmmo": 6,
     "totalAmmo": 0
   },
   {
@@ -53,8 +55,8 @@
     "quantity": 1,
     "weight": 0.51,
     "needsAmmo": true,
-    "ammoCount": 30,
-    "totalAmmo": 30
+    "maxAmmo": 9,
+    "totalAmmo": 9
   },
   {
     "name": "slugs",
@@ -63,8 +65,26 @@
     "quantity": 1,
     "weight": 0.297,
     "needsAmmo": true,
-    "ammoCount": 6,
+    "maxAmmo": 6,
     "totalAmmo": 6
+  },
+  {
+    "name": "charger",
+    "damage": -70,
+    "description": "Electrified ammo upgrade for m4",
+    "quantity": 1,
+    "weight": 0.55,
+    "needsAmmo": false,
+    "baseDamage": -70
+  },
+  {
+    "name": "torch",
+    "damage": -10,
+    "description": "Welding torch",
+    "quantity": 1,
+    "weight": 1.55,
+    "needsAmmo": false,
+    "baseDamage": -10
   },
   {
     "name": "pulsifier",
