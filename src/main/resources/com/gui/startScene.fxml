@@ -35,7 +35,7 @@
             </font></Button>
          <HBox alignment="BOTTOM_RIGHT" prefHeight="91.0" prefWidth="220.0">
             <children>
-               <Label prefHeight="38.0" prefWidth="113.0" style="-fx-background-color: #008080#008080;" text="SOUND" textFill="#050505">
+               <Label prefHeight="38.0" prefWidth="113.0" style="-fx-background-color: #dc6851#dc6851;" text="SOUND" textFill="#050505">
                   <font>
                      <Font size="30.0" />
                   </font>

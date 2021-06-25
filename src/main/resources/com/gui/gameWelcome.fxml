@@ -21,22 +21,22 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane id="BorderPane" fx:id="introScene" prefHeight="459.0" prefWidth="838.0" styleClass="welcomebodybg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.ControllerStartScene">
-   <bottom>
+   <top>
       <GridPane prefHeight="458.0" prefWidth="838.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints maxWidth="327.0" minWidth="170.0" prefWidth="170.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="0.0" prefWidth="221.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="0.0" prefWidth="60.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="438.0" minWidth="10.0" prefWidth="87.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="0.0" prefWidth="162.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="0.0" prefWidth="146.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="273.0" minWidth="10.0" prefWidth="273.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="220.0" minHeight="10.0" prefHeight="154.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="220.0" minHeight="0.0" prefHeight="162.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="144.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="220.0" minHeight="10.0" prefHeight="165.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="220.0" minHeight="0.0" prefHeight="200.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="144.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text lineSpacing="10.0" strokeType="OUTSIDE" strokeWidth="2.0" text="WELCOME TO STARBOARD II" wrappingWidth="574.22900390625">
+            <Text lineSpacing="10.0" strokeType="OUTSIDE" strokeWidth="2.0" text="WELCOME TO STARBOARD II" wrappingWidth="589.22900390625">
                <font>
                   <Font size="72.0" />
                </font>
@@ -73,13 +73,13 @@
                   </LinearGradient>
                </stroke>
             </Text>
-            <VBox alignment="CENTER" blendMode="SRC_ATOP" focusTraversable="true" prefHeight="173.0" prefWidth="286.0" spacing="10" style="-fx-border-width: 3;" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <VBox alignment="CENTER" blendMode="SRC_ATOP" focusTraversable="true" prefHeight="194.0" prefWidth="260.0" spacing="20.0" style="-fx-border-width: 3;" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="10" left="10" right="10" />
                </padding>
                <children>
-                  <Button mnemonicParsing="false" opacity="0.0" />
-                  <Button fx:id="btnNewGame" onAction="#loadMainGame" prefHeight="45.0" prefWidth="123.0" text="START" textFill="#d72710" underline="true">
+                  <Button disable="true" mnemonicParsing="false" opacity="0.0" />
+                  <Button fx:id="btnNewGame" focusTraversable="false" onAction="#loadMainGame" prefHeight="45.0" prefWidth="123.0" text="START" textFill="#d72710" underline="true">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -91,7 +91,8 @@
                         </Bloom>
                      </effect>
                   </Button>
-                  <Button fx:id="btnExitGame" prefHeight="45.0" prefWidth="84.0" text="EXIT" textFill="#cd1313">
+                  <Button disable="true" mnemonicParsing="false" opacity="0.0" />
+                  <Button fx:id="btnExitGame" focusTraversable="false" prefHeight="27.0" prefWidth="84.0" text="EXIT" textFill="#cd1313">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -107,7 +108,7 @@
             </VBox>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="91.0" prefWidth="220.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <children>
-                  <Label prefHeight="36.0" prefWidth="122.0" style="-fx-background-color: #008080#008080;" text="SOUND" textFill="#050505">
+                  <Label prefHeight="36.0" prefWidth="122.0" style="-fx-background-color: #dc6851#dc6851;" text="SOUND" textFill="#050505">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -124,5 +125,5 @@
             </HBox>
          </children>
       </GridPane>
-   </bottom>
+   </top>
 </BorderPane>
