@@ -219,4 +219,10 @@ public class ControllerMainScene implements Initializable {
     public static class InputSignal {
 
     }
+
+    public void callStartSceneSoundControl(ActionEvent event) throws IOException {
+        ControllerStartScene css = new ControllerStartScene();
+            css.guiSoundControlToggle(event);
+
+    }
 }
