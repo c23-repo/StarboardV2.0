@@ -20,7 +20,7 @@ public class Game {
     private static Room currentRoom;
     private static Music gameMusic;
     private static int alienNumber;
-    private static boolean soundOn = true;
+    public static boolean soundOn = true;
 
     public static void main(String[] args) {
        // setGameMusic(Music.backgroundMusic);
