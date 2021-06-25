@@ -88,42 +88,7 @@ public class ControllerMainScene implements Initializable {
         updateStatusArea();
     }
 
-    public String getInput() {
-        waitInput();
-        return currentInput;
-    }
-
-    public void notifyInput() {
-        synchronized (inputSignal) {
-            inputSignal.notify();
-        }
-    }
-
-    public void waitInput() {
-        synchronized (inputSignal) {
-            try {
-                inputSignal.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void updateGameTextArea() {
-        String path = "resources/welcome/introtext.txt";
-        String banner = null;
-        try {
-            banner = Files.readString(Paths.get(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        gameTextArea.setText(banner);
-//        String text = gameTextArea.getText();
-//        getGameTextArea().appendText(text);
-    }
-
     public void updateStatusArea() {
-
         List<String> items = new ArrayList<>();
         for (GameItem item : player.getInventory().values()) {
             items.add(item.getName());
@@ -160,7 +125,38 @@ public class ControllerMainScene implements Initializable {
                         }
                     }
                 });
+    }
 
+    public String getInput() {
+        waitInput();
+        return currentInput;
+    }
+
+    public void notifyInput() {
+        synchronized (inputSignal) {
+            inputSignal.notify();
+        }
+    }
+
+    public void waitInput() {
+        synchronized (inputSignal) {
+            try {
+                inputSignal.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void updateGameTextArea() {
+        String path = "resources/welcome/introtext.txt";
+        String banner = null;
+        try {
+            banner = Files.readString(Paths.get(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        gameTextArea.setText(banner);
     }
 
     public ListView<String> getCarriedItems() {
