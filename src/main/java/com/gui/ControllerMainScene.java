@@ -88,11 +88,6 @@ public class ControllerMainScene implements Initializable {
                         updateGameTextArea(getGameCurrentScene());
                         updateStatusArea();
                         guiAliensSetupInCurrentRoom(aliens);
-                        //battle mode
-                        if (aliens.isExisted()) {
-                            Battle battle = new Battle(aliens, player, Game.getCurrentRoom());
-                            Game.setGameMusic(Music.battleMusic);
-                        }
                     }
                 };
 
@@ -112,11 +107,6 @@ public class ControllerMainScene implements Initializable {
                         updateGameTextArea(getGameCurrentScene());
                         updateStatusArea();
                         guiAliensSetupInCurrentRoom(aliens);
-                        //battle mode
-                        if (aliens.isExisted()) {
-                            Battle battle = new Battle(aliens, player, Game.getCurrentRoom());
-                            Game.setGameMusic(Music.battleMusic);
-                        }
                     }
                 };
 
