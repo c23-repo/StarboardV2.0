@@ -24,7 +24,7 @@ public class Player {
     private Weapon equippedWeapon = new Weapon("fist", 8);
 
     // Business
-    public void attack(Alien alien) {
+    public void attack(Alien alien, String weapon) {
         System.out.println("Please use the weapon in your inventory, otherwise you will use your fist.");
         //Prompt.showBattleStatus(alien, this);
         String[] battleCommandInput = InputHandler.input(Game.getCurrentRoom());

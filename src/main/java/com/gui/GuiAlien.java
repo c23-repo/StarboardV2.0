@@ -6,7 +6,7 @@ import com.starboard.items.Weapon;
 import com.starboard.util.Prompt;
 import com.starboard.util.Sound;
 
-public class Alien extends com.starboard.Alien {
+public class GuiAlien extends com.starboard.Alien {
 
     private boolean isExisted;
     private Weapon equippedWeapon = new Weapon("stick", -20, "It is a powerful weapon used by alien.", 1);
@@ -17,7 +17,7 @@ public class Alien extends com.starboard.Alien {
     private boolean confirmedKilled;
 
 
-    public Alien(int hp, int number) {
+    public GuiAlien(int hp, int number) {
         super(hp, number);
     }
 

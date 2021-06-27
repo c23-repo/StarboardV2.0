@@ -64,27 +64,25 @@ public class CommandMatch {
     public static void guiMatchCommand(String[] command, Player player) {
         String action = command[0];
         String subject = command[1];
-        if(Game.getGameMusic()==Music.battleMusic){
-            if (action.equals("use"))
-             use(subject, player);
-            else
-                System.out.println("use something fight man! if you've nothing use your fist");
-        }
-        else{
-            switch (action) {
-                case "get":
-                    take(subject, player);
-                    break;
-                case "drop":
-                    drop(subject, player);
-                    break;
-                case "go":
-                    goToRoom(subject);
-                    break;
-                case "open":
-                    openContainer(subject, player);
-                    break;
-            }
+
+        switch (action) {
+            case "get":
+                take(subject, player);
+                break;
+            case "drop":
+                drop(subject, player);
+                break;
+            case "go":
+                goToRoom(subject);
+                break;
+            case "open":
+                openContainer(subject, player);
+                break;
+            case "use":
+                use(subject, player);
+                break;
+
+
         }
 
     }

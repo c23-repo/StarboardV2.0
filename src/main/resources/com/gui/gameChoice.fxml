@@ -74,7 +74,7 @@
                   <Insets bottom="10" left="10" right="10" />
                </padding>
                <children>
-                  <RadioButton fx:id="training" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="29.0" prefWidth="222.0" text="    Training Mode" textFill="#ac6ab9">
+                  <RadioButton fx:id="training" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="29.0" prefWidth="222.0" selected="true" text="    Training Mode" textFill="#ac6ab9">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

@@ -15,12 +15,12 @@ public class Battle {
         this.room = room;
     }
 
-    public void fight() {
+    public void fight(String weapon) {
         if (escapeChance == -1 || !isEscaped()) {
             //keep fighting until one of alien and player is killed
             while (!player.isKilled()) {
                 System.out.println("\n" + ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien Present" + ConsoleColors.RESET + ConsoleColors.RED_BOLD + " Fight for your life!" + ConsoleColors.RESET);
-                player.attack(alien);
+                player.attack(alien, weapon);
 
                 if (alien.isKilled()) break;
 

@@ -101,7 +101,7 @@ public class Game {
                     battle.setEscapeChance(-1);
                     System.out.println(ConsoleColors.RED + "You've chosen to fight the alien .... be ready for the battle" + ConsoleColors.RESET);
                 }
-                battle.fight();
+                battle.fight("fist");//not considedered for GUI
                 if (battle.isWinning() & !endGame) { //endGame check to allow quit while fighting
                     System.out.println("Keep moving!");
                     Prompt.showStatus(currentRoom);

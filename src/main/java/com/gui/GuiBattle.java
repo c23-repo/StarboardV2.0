@@ -5,30 +5,31 @@ import com.starboard.Game;
 import com.starboard.Player;
 import com.starboard.Room;
 import com.starboard.util.ConsoleColors;
+import com.starboard.util.Music;
 
-public class Battle {
+public class GuiBattle {
     private final Room room;
     private final Alien alien;
     private final Player player;
     private double escapeChance;
     private boolean isWinning;
+    public boolean escaped;
 
-    public Battle(Alien alien, Player player, Room room) {
+    public GuiBattle(Alien alien, Player player, Room room) {
         this.alien = alien;
         this.player = player;
         this.room = room;
     }
 
-    public void fight() {
-        if (escapeChance == -1 || !isEscaped()) {
+    public void fight(String weapon) {
+        if (!escaped || escapeChance == -1 || !isEscaped()) {
             //keep fighting until one of alien and player is killed
-            while (!player.isKilled()) {
+            if (!player.isKilled()) {
                 System.out.println("\n" + ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien Present" + ConsoleColors.RESET + ConsoleColors.RED_BOLD + " Fight for your life!" + ConsoleColors.RESET);
-                player.attack(alien);
+                player.attack(alien,weapon);
 
-                if (alien.isKilled()) break;
-
-                alien.attack(player);
+                if (!alien.isKilled())
+                    alien.attack(player);
                 if (player.getHp() <= 30) {
                     System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "You are low in hp. use some healing items." + ConsoleColors.RESET);
                 }
@@ -38,6 +39,9 @@ public class Battle {
                 System.out.println("Congrats, you killed one of the aliens.");
                 System.out.println("There are " + alien.getNumOfAliens() + " aliens left.");
                 ConsoleColors.reset();
+                Game.setGameMusic(Music.backgroundMusic);
+                alien.setExisted(false);
+                alien.setConfirmedKilled(false);
                 setWinning(true);
             }
             if (player.isKilled() && !Game.endGame) {//endgame = player quit in the middle of the fight
@@ -56,6 +60,9 @@ public class Battle {
         setEscapeChance(alien.getShowUpChance() / 2.0);
         if (Math.random() <= getEscapeChance()) {
             System.out.println(ConsoleColors.GREEN_BOLD + "You are lucky, Escaped from the brutal alien!" + ConsoleColors.RESET);
+            Game.setGameMusic(Music.backgroundMusic);
+            alien.setExisted(false);
+            escaped=true;
             return true;
         } else {
             System.out.println("\n" + ConsoleColors.RED_BOLD + "Good try but you failed to escape this time, be prepared to fight!" + ConsoleColors.RESET);

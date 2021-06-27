@@ -1,13 +1,10 @@
 package com.gui;
 
 import com.starboard.Alien;
-import com.starboard.Game;
-import com.starboard.InputHandler;
 import com.starboard.items.GameItem;
 import com.starboard.items.HealingItem;
 import com.starboard.items.Usable;
 import com.starboard.items.Weapon;
-import com.starboard.util.CommandMatch;
 import com.starboard.util.ConsoleColors;
 import com.starboard.util.Prompt;
 import com.starboard.util.Sound;
@@ -17,17 +14,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Player extends com.starboard.Player {
+public class GuiPlayer extends com.starboard.Player {
     private final double inventoryMax = 14.0;
     private final Map<String, GameItem> inventory = new HashMap<>(5);
     List<String> openedContainers = new ArrayList<>(); // package-private
     private int maxHp = 100;
     private int hp = maxHp;
     private double inventoryWeight = 0; // This is the weight in kilograms
-    private Weapon equippedWeapon = new Weapon("fist", 8);
+    private Weapon equippedWeapon = new Weapon("fist", 45);
 
     // Business
-    public void attack(Alien alien) {
+    public void attack(Alien alien, String weapon) {
         System.out.println("Please use the weapon in your inventory, otherwise you will use your fist.");
         //Prompt.showBattleStatus(alien, this);
 //        String[] battleCommandInput = InputHandler.input(Game.getCurrentRoom());
@@ -56,10 +53,11 @@ public class Player extends com.starboard.Player {
 //            battleCommandInput = InputHandler.input(Game.getCurrentRoom());
 //        }
 
-        if (this.hp > 0) {  //player has not quit the game
+        //if (this.hp > 0)
+        {  //player has not quit the game
 //            CommandMatch.matchCommand(battleCommandInput, this);
 
-            GameItem item = getInventory().get("fist");
+            GameItem item = getInventory().get(weapon);
             if (item instanceof Weapon) {
                 //equip with weapon to attack
                 setEquippedWeapon((Weapon) item);
@@ -84,6 +82,7 @@ public class Player extends com.starboard.Player {
                 Prompt.showBattleStatus(alien, this);
             } else if (item instanceof HealingItem) {
                 //use healing item to recover
+                this.use(item);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -99,7 +98,7 @@ public class Player extends com.starboard.Player {
                     e.printStackTrace();
                 }
                 System.out.println("You punched alien with your fist");
-                alien.setHp(alien.getHp() - 30);
+                alien.setHp(alien.getHp() - equippedWeapon.getDamage());
                 Sound.play(3); // index 3 is file path for player attack sound file
                 Sound.play(7); // index 7 is file path for alien scream sound file
                 Prompt.showBattleStatus(alien, this);
