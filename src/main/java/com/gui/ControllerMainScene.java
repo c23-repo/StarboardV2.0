@@ -79,10 +79,9 @@ public class ControllerMainScene implements Initializable {
                         currentInput = getPlayerInput().getText().trim();
                         Room curRm = Game.getCurrentRoom();
                         String[] ui = InputHandler.inputGui(curRm, currentInput);
-                        System.out.println(Arrays.toString(ui));
-                        CommandMatch.matchCommand(ui, player);
-                        gameTextArea.setText(currentInput);
-                        System.out.println(Game.getCurrentRoom());
+                        System.out.println(Arrays.toString(ui));  //need to be removed
+                        CommandMatch.guiMatchCommand(ui, player);
+                        System.out.println(Game.getCurrentRoom());  //need to be removed
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
                         updateGameTextArea(getGameCurrentScene());
@@ -99,9 +98,8 @@ public class ControllerMainScene implements Initializable {
                         Room curRm = Game.getCurrentRoom();
                         String[] ui = InputHandler.inputGui(curRm, currentInput);
                         System.out.println(Arrays.toString(ui));
-                        CommandMatch.matchCommand(ui, player);
-                        gameTextArea.setText(currentInput);
-                        System.out.println(Game.getCurrentRoom());
+                        CommandMatch.guiMatchCommand(ui, player);
+                        System.out.println(Game.getCurrentRoom());//needs removal
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
                         updateGameTextArea(getGameCurrentScene());
@@ -368,12 +366,8 @@ public class ControllerMainScene implements Initializable {
                     gameTextArea.setText(getGameCurrentScene() + "\nAlien Appeared....Fight for your life!!");
                     Game.setGameMusic(Music.battleMusic);
                     if (aliens.isExisted()) {
-//                        try {
-//                            Thread.sleep(1500);
-//                        }catch (Exception e){
-//                            e.printStackTrace();
-//                        }
                         Battle battle = new Battle(aliens, player, Game.getCurrentRoom());
+                        battle.fight();
 
                     }
                 }
