@@ -2,7 +2,7 @@ package com.starboard;
 
 import com.starboard.util.ConsoleColors;
 
-class Battle {
+public class Battle {
     private final Room room;
     private final Alien alien;
     private final Player player;

@@ -1,6 +1,6 @@
 package com.starboard;
 
-import com.gui.Main;
+import com.gui.ControllerMainScene;
 import com.starboard.items.Container;
 import com.starboard.items.GameItem;
 import com.starboard.items.HealingItem;
@@ -22,15 +22,16 @@ public class Game {
     private static int alienNumber;
     public static boolean soundOn = true;
 
-    public static void main(String[] args) {
-        //setGameMusic(Music.backgroundMusic);
-//        Prompt.showWelcome();
-//        soundControl();
-//        Prompt.showInstructions();
-//        start();
+   /* public static void main(String[] args) {
+        setGameMusic(Music.backgroundMusic);
+        Prompt.showWelcome();
+        soundControl();
+        Prompt.showInstructions();
+        start();
         init();
         Main.main(args);
-    }
+    }*/
+
 
     public static void init() {
 
@@ -182,7 +183,8 @@ public class Game {
         return updateValue * 2;
     }
 
-    static void aliensSetupInCurrentRoom(Alien aliens) {
+
+    public static void aliensSetupInCurrentRoom(Alien aliens) {
         aliens.setRoom(currentRoom);
         aliens.setExisted(false);
         aliens.setShowUpChance();
@@ -193,6 +195,30 @@ public class Game {
             Prompt.printOneAtATime(ConsoleColors.RED_BOLD_BRIGHT + ".  .  .  .  .  .  .  .  .  .  " + ConsoleColors.RESET, 200);
             Music.alienEntry.play();
             Music.electric.stop();
+            System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "ALIEN APPEARED" + ConsoleColors.RESET + ConsoleColors.RED + " in the " + Game.getCurrentRoom().getName() + ConsoleColors.RESET);
+            aliens.setExisted(true);
+            try {
+                Thread.sleep(2000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Music.alienEntry.stop();
+        }
+    }
+
+    public static void guiAliensSetupInCurrentRoom(Alien aliens) {
+        aliens.setRoom(currentRoom);
+        aliens.setExisted(false);
+        aliens.setShowUpChance();
+        if (aliens.showUp()) {
+            Game.setGameMusic(Music.electric);
+            //ControllerMainScene cms = ControllerMainScene.getInstance();
+            //System.out.println(cms.);
+            //cms.pauseAndDisplayString(15,"Alien Appeared");
+           // cms.oneAtATime(".  .  .  .  .  .  .  .  .  .  ",0.1);
+            //Prompt.printOneAtATime(ConsoleColors.RED_BOLD_BRIGHT + ".  .  .  .  .  .  .  .  .  .  " + ConsoleColors.RESET, 200);
+            Game.setGameMusic(Music.alienEntry);
             System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "ALIEN APPEARED" + ConsoleColors.RESET + ConsoleColors.RED + " in the " + Game.getCurrentRoom().getName() + ConsoleColors.RESET);
             aliens.setExisted(true);
             try {
@@ -251,7 +277,13 @@ public class Game {
         Game.currentRoom = currentRoom;
     }
 
+    //no usage for GUI
     public static int getAlienNumber() {
         return alienNumber;
+    }
+
+    //usage for loading game choice in gui
+    public static void setAlienNumber(int alienNumber) {
+        Game.alienNumber = alienNumber;
     }
 }

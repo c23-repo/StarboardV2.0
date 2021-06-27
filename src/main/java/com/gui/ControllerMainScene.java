@@ -1,12 +1,10 @@
 package com.gui;//package sample;
 
-import com.starboard.Game;
-import com.starboard.InputHandler;
-import com.starboard.Player;
-import com.starboard.Room;
+import com.starboard.*;
 import com.starboard.items.GameItem;
 import com.starboard.items.Container;
 import com.starboard.util.CommandMatch;
+import com.starboard.util.ConsoleColors;
 import javafx.application.Platform;
 import com.starboard.util.Music;
 import javafx.animation.Animation;
@@ -15,6 +13,9 @@ import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -38,6 +39,8 @@ import static com.starboard.util.Parser.aOrAn;
 
 public class ControllerMainScene implements Initializable {
     private final InputSignal inputSignal = new InputSignal();
+    private Service backgroundThread;
+
     @FXML
     TextArea gameTextArea;
     @FXML
@@ -52,6 +55,7 @@ public class ControllerMainScene implements Initializable {
     MenuItem btnQuit;
 
     Player player = new Player();
+    Alien aliens = new Alien(100, Game.getAlienNumber());
     InputHandler inputHandler;
     private String currentInput;
 
@@ -64,6 +68,8 @@ public class ControllerMainScene implements Initializable {
 
     private void runGameThread() {
         setIntroGameTextArea();
+        updateGameTextArea(getGameCurrentScene());
+        updateStatusArea();
 
         EventHandler<ActionEvent> eventHandler =
                 new EventHandler<ActionEvent>() {
@@ -79,8 +85,14 @@ public class ControllerMainScene implements Initializable {
                         System.out.println(Game.getCurrentRoom());
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
-                        updateGameTextArea();
+                        updateGameTextArea(getGameCurrentScene());
                         updateStatusArea();
+                        guiAliensSetupInCurrentRoom(aliens);
+                        //battle mode
+                        if (aliens.isExisted()) {
+                            Battle battle = new Battle(aliens, player, Game.getCurrentRoom());
+                            Game.setGameMusic(Music.battleMusic);
+                        }
                     }
                 };
 
@@ -97,15 +109,19 @@ public class ControllerMainScene implements Initializable {
                         System.out.println(Game.getCurrentRoom());
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
-                        updateGameTextArea();
+                        updateGameTextArea(getGameCurrentScene());
                         updateStatusArea();
+                        guiAliensSetupInCurrentRoom(aliens);
+                        //battle mode
+                        if (aliens.isExisted()) {
+                            Battle battle = new Battle(aliens, player, Game.getCurrentRoom());
+                            Game.setGameMusic(Music.battleMusic);
+                        }
                     }
                 };
 
         getPlayerInput().setOnKeyPressed(enterPressedHandler);
         getBtnUserInput().setOnAction(eventHandler);
-        updateGameTextArea();
-        updateStatusArea();
     }
 
     public void updateStatusArea() {
@@ -169,20 +185,25 @@ public class ControllerMainScene implements Initializable {
     }
 
     private void setIntroGameTextArea() {
-        String path = "resources/welcome/introtext.txt";
         String banner = null;
+        String path = null;
+        if(Game.getAlienNumber()==0)
+            path ="resources/welcome/introTrainingText.txt";
+        else
+            path = "resources/welcome/introtext.txt";
+
         try {
             banner = Files.readString(Paths.get(path));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //Game.getGameMusic().stop();
+
         Game.setGameMusic(Music.keyboard);
         oneAtATime(banner, 0.1);
     }
 
     //typing effect
-    private void oneAtATime(String s, double timeInSeconds) {
+    public void oneAtATime(String s, double timeInSeconds) {
         final IntegerProperty i = new SimpleIntegerProperty(0);
         Timeline timeline = new Timeline();
         String finalBanner = s;
@@ -200,30 +221,56 @@ public class ControllerMainScene implements Initializable {
         timeline.getKeyFrames().add(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-        pauseAndPlay(21);
-        pauseAndDisplay(21);
+        if(Game.getAlienNumber()==0){
+            String trainingHelp = "================== Commands ==================\n"
+                    + "1. Move to linked room: \n"
+                    + "go [linked room name]\n"
+                    + "Example: go bridge\n\n"
+                    + "2. Get an item: \n"
+                    + "get [item name]\n"
+                    + "Example: get key\n"
+                    + "===============================================";
+            pauseAndDisplayString(13,trainingHelp);
+        }
+        String currentScene = getGameCurrentScene();
+        pauseAndDisplayString(21,currentScene);
     }
 
     //plays music after given time
-    private void pauseAndPlay(double timeIntervalInSeconds) {
+    public void pauseAndPlay(double timeIntervalInSeconds) {
         PauseTransition pause = new PauseTransition(Duration.seconds(timeIntervalInSeconds));
-        pause.setOnFinished(event ->
-                Game.setGameMusic(Music.backgroundMusic));
+        pause.setOnFinished(event ->{
+                    Game.setGameMusic(Music.backgroundMusic);
+                    guiAliensSetupInCurrentRoom(aliens);
+                    });
         pause.play();
 
     }
 
-    //pauses text in screen for given time before refreshing
-    private void pauseAndDisplay(double timeIntervalInSeconds) {
+    //pauses text in screen for given time before refreshing and setting the text passed
+    public void pauseAndDisplayString(double timeIntervalInSeconds, String toBeDisplayedAfterTheSetTime) {
         PauseTransition pause = new PauseTransition(Duration.seconds(timeIntervalInSeconds));
-        pause.setOnFinished(event ->
-                updateGameTextArea());
+        pause.setOnFinished(event ->{
+                    gameTextArea.setText(toBeDisplayedAfterTheSetTime);
+
+                    Game.setGameMusic(Music.backgroundMusic);
+                    guiAliensSetupInCurrentRoom(aliens);
+//                    if(!aliens.isExisted())
+//                        guiAliensSetupInCurrentRoom(aliens);
+                });
+
         pause.play();
     }
 
     //displays current scene
-    private void updateGameTextArea() {
+    private void updateGameTextArea(String currentScene) {
+        gameTextArea.setText(currentScene);
+        //Game.guiAliensSetupInCurrentRoom(aliens);
+       // if(aliens.isExisted())
+    }
 
+    //returns String for current scene
+    private String getGameCurrentScene(){
         //Game.setGameMusic(Music.backgroundMusic);
         Room currentRoom = Game.getCurrentRoom();
         StringBuilder currentScene = new StringBuilder();
@@ -255,7 +302,8 @@ public class ControllerMainScene implements Initializable {
             currentScene.append("This room is not linked to any rooms!\n");
         }
         currentScene.append("--------------------------------------------------------------------------------\n");
-        gameTextArea.setText(currentScene.toString());
+
+        return currentScene.toString();
     }
     public ListView<String> getCarriedItems() {
         return carriedItems;
@@ -286,4 +334,139 @@ public class ControllerMainScene implements Initializable {
         Stage stage = (Stage) btnUserInput.getScene().getWindow();
         stage.close();
     }
+
+    public void guiAliensSetupInCurrentRoom(Alien aliens) {
+        aliens.setRoom(Game.getCurrentRoom());
+        aliens.setExisted(false);
+        aliens.setShowUpChance();
+        if (aliens.showUp()) {
+            aliens.setExisted(true);
+
+            backgroundThread = new Service() {
+                @Override
+                protected Task createTask() {
+
+                    return new Task() {
+                        @Override
+                        protected Object call() throws Exception {
+                            Game.setGameMusic(Music.electric);
+                            String str =". . . . . . .";
+                            String toShow ="";
+                            for (char chr : str.toCharArray()) {
+                                toShow +=chr;
+                                updateMessage(toShow);
+                                //gameTextArea.setText(toShow);
+                                try {
+                                    //Thread.sleep(0);
+                                    System.out.println("was here");
+                                    Thread.sleep(500);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                        }
+                            return null;
+                    };
+                };
+            };};
+
+            backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                @Override
+                public void handle(WorkerStateEvent workerStateEvent) {
+                    gameTextArea.textProperty().unbind();
+                    gameTextArea.setText("Alien Appeared");
+
+                    if (aliens.isExisted()) {
+                        Battle battle = new Battle(aliens, player, Game.getCurrentRoom());
+                        Game.setGameMusic(Music.battleMusic);
+                    }
+                    //Music.alienEntry.stop();
+                }
+            });
+
+            gameTextArea.textProperty().bind(backgroundThread.messageProperty());
+            backgroundThread.start();
+            //System.out.println(cms.);
+            //cms.pauseAndDisplayString(15,"Alien Appeared");
+            //oneAtATimeAlienEntry(".  .  .  .  .  .  .  .  .  .  ",0.1);
+            //Prompt.printOneAtATime(ConsoleColors.RED_BOLD_BRIGHT + ".  .  .  .  .  .  .  .  .  .  " + ConsoleColors.RESET, 200);
+
+            System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "ALIEN APPEARED" + ConsoleColors.RESET + ConsoleColors.RED + " in the " + Game.getCurrentRoom().getName() + ConsoleColors.RESET);
+
+//            try {
+//                Thread.sleep(2000);
+//
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+
+        }
+    }
+
+    public void oneAtATimeAlienEntry(String s, double timeInSeconds) {
+        final IntegerProperty i = new SimpleIntegerProperty(0);
+        Timeline timeline = new Timeline();
+        String finalBanner = s;
+        KeyFrame keyFrame = new KeyFrame(
+                Duration.seconds(timeInSeconds),
+                event -> {
+                    if (i.get() > finalBanner.length()) {
+                        timeline.stop();
+                        Game.setGameMusic(Music.alienEntry);
+                    } else {
+                        System.out.println(gameTextArea);
+                        System.out.println(finalBanner);
+                        System.out.println(i);
+                        gameTextArea.setText(finalBanner.substring(0, i.get()));
+                        i.set(i.get() + 1);
+                    }
+                });
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+        if(Game.getAlienNumber()==0){
+            String trainingHelp = "================== Commands ==================\n"
+                    + "1. Move to linked room: \n"
+                    + "go [linked room name]\n"
+                    + "Example: go bridge\n\n"
+                    + "2. Get an item: \n"
+                    + "get [item name]\n"
+                    + "Example: get key\n"
+                    + "===============================================";
+            pauseAndDisplayString(13,trainingHelp);
+        }
+        String currentScene = getGameCurrentScene();
+        pauseAndDisplayString(21,currentScene);
+    }
+//    private static void training() {
+//
+//        Prompt.showMap();
+//        // show commands
+//    Prompt.showCommands();
+//        Player player = new Player();
+//        boolean endTraining = false;
+//        endGame = false;
+//
+//        while (!endTraining) {
+//            Prompt.showStatus(currentRoom);
+//            Prompt.showInventory(player);
+//
+//            String[] parsedInputs = InputHandler.input(currentRoom);
+//
+//            CommandMatch.matchCommand(parsedInputs, player);
+//
+//            if (currentRoom.getName().equals("pod")) {
+//                //backgroundMusic.close();
+//                ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
+//                System.out.println("Congratulations! You successfully finished the training!");
+//                ConsoleColors.reset();
+//                endTraining = true;
+//            }
+//
+//            if (endGame) {
+//                endTraining = true;
+//            }
+//
+//        }
+//    }
+
 }
