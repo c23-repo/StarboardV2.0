@@ -375,58 +375,11 @@ public class ControllerMainScene implements Initializable {
 
             gameTextArea.textProperty().bind(backgroundThread.messageProperty());
             backgroundThread.start();
-            //System.out.println(cms.);
-            //cms.pauseAndDisplayString(15,"Alien Appeared");
-            //oneAtATimeAlienEntry(".  .  .  .  .  .  .  .  .  .  ",0.1);
-            //Prompt.printOneAtATime(ConsoleColors.RED_BOLD_BRIGHT + ".  .  .  .  .  .  .  .  .  .  " + ConsoleColors.RESET, 200);
-
             System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "ALIEN APPEARED" + ConsoleColors.RESET + ConsoleColors.RED + " in the " + Game.getCurrentRoom().getName() + ConsoleColors.RESET);
-
-//            try {
-//                Thread.sleep(2000);
-//
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-
         }
     }
 
-    public void oneAtATimeAlienEntry(String s, double timeInSeconds) {
-        final IntegerProperty i = new SimpleIntegerProperty(0);
-        Timeline timeline = new Timeline();
-        String finalBanner = s;
-        KeyFrame keyFrame = new KeyFrame(
-                Duration.seconds(timeInSeconds),
-                event -> {
-                    if (i.get() > finalBanner.length()) {
-                        timeline.stop();
-                        Game.setGameMusic(Music.alienEntry);
-                    } else {
-                        System.out.println(gameTextArea);
-                        System.out.println(finalBanner);
-                        System.out.println(i);
-                        gameTextArea.setText(finalBanner.substring(0, i.get()));
-                        i.set(i.get() + 1);
-                    }
-                });
-        timeline.getKeyFrames().add(keyFrame);
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
-        if(Game.getAlienNumber()==0){
-            String trainingHelp = "================== Commands ==================\n"
-                    + "1. Move to linked room: \n"
-                    + "go [linked room name]\n"
-                    + "Example: go bridge\n\n"
-                    + "2. Get an item: \n"
-                    + "get [item name]\n"
-                    + "Example: get key\n"
-                    + "===============================================";
-            pauseAndDisplayString(13,trainingHelp);
-        }
-        String currentScene = getGameCurrentScene();
-        pauseAndDisplayString(21,currentScene);
-    }
+
 //    private static void training() {
 //
 //        Prompt.showMap();
