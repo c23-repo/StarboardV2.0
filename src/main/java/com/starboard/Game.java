@@ -207,30 +207,6 @@ public class Game {
         }
     }
 
-    public static void guiAliensSetupInCurrentRoom(Alien aliens) {
-        aliens.setRoom(currentRoom);
-        aliens.setExisted(false);
-        aliens.setShowUpChance();
-        if (aliens.showUp()) {
-            Game.setGameMusic(Music.electric);
-            //ControllerMainScene cms = ControllerMainScene.getInstance();
-            //System.out.println(cms.);
-            //cms.pauseAndDisplayString(15,"Alien Appeared");
-           // cms.oneAtATime(".  .  .  .  .  .  .  .  .  .  ",0.1);
-            //Prompt.printOneAtATime(ConsoleColors.RED_BOLD_BRIGHT + ".  .  .  .  .  .  .  .  .  .  " + ConsoleColors.RESET, 200);
-            Game.setGameMusic(Music.alienEntry);
-            System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "ALIEN APPEARED" + ConsoleColors.RESET + ConsoleColors.RED + " in the " + Game.getCurrentRoom().getName() + ConsoleColors.RESET);
-            aliens.setExisted(true);
-            try {
-                Thread.sleep(2000);
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            Music.alienEntry.stop();
-        }
-    }
-
     public static void soundControl() {
         String soundChoice;
         if (isSoundOn())

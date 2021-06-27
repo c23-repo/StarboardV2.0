@@ -369,7 +369,6 @@ public class ControllerMainScene implements Initializable {
                         Battle battle = new Battle(aliens, player, Game.getCurrentRoom());
                         Game.setGameMusic(Music.battleMusic);
                     }
-                    //Music.alienEntry.stop();
                 }
             });
 
