@@ -31,7 +31,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -179,7 +178,6 @@ public class ControllerMainScene implements Initializable {
         }
         //Game.getGameMusic().stop();
         Game.setGameMusic(Music.keyboard);
-        pauseAndPlay(17.6);
         oneAtATime(banner, 0.1);
     }
 
@@ -193,6 +191,7 @@ public class ControllerMainScene implements Initializable {
                 event -> {
                     if (i.get() > finalBanner.length()) {
                         timeline.stop();
+                        Game.getGameMusic().stop();
                     } else {
                         gameTextArea.setText(finalBanner.substring(0, i.get()));
                         i.set(i.get() + 1);
@@ -201,6 +200,7 @@ public class ControllerMainScene implements Initializable {
         timeline.getKeyFrames().add(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+        pauseAndPlay(21);
         pauseAndDisplay(21);
     }
 

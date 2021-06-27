@@ -48,7 +48,7 @@ public class ControllerStartScene implements Initializable {
             Game.getGameMusic().stop();
         } else {
             Game.soundOn = true;
-            Game.getGameMusic().play();
+            Game.getGameMusic().loop();
         }
     }
 
