@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleButton?>
@@ -10,11 +9,8 @@
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
@@ -25,148 +21,126 @@
 
 <BorderPane id="BorderPane" fx:id="introScene" prefHeight="507.0" prefWidth="882.0" style="-fx-background-color: transparent;" styleClass="welcomebodybg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.ControllerStartScene">
    <top>
-      <GridPane prefHeight="502.0" prefWidth="868.0" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints maxWidth="327.0" minWidth="170.0" prefWidth="170.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="0.0" prefWidth="221.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="0.0" prefWidth="155.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="377.0" minWidth="10.0" prefWidth="329.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="348.0" minHeight="0.0" prefHeight="139.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="325.0" minHeight="10.0" prefHeight="325.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="144.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <Pane prefHeight="45.0" prefWidth="250.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="BOTTOM_RIGHT" prefHeight="55.0" prefWidth="270.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Text layoutX="36.0" layoutY="44.0" lineSpacing="10.0" strokeType="OUTSIDE" strokeWidth="2.0" text="STARBOARD II" wrappingWidth="569.22900390625">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.8799999952316284" green="0.4653942883014679" blue="0.026399999856948853" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.8799999952316284" green="0.09956571459770203" blue="0.026399999856948853" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </RadialGradient>
+               </fill>
+               <stroke>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.8799999952316284" green="0.4653942883014679" blue="0.026399999856948853" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.9342105388641357" green="0.09767401963472366" blue="0.02162524312734604" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Text>
+         </children>
+      </Pane>
+   </top>
+   <center>
+      <TitledPane fx:id="choiceInformation" alignment="CENTER" blendMode="SRC_ATOP" cacheShape="false" collapsible="false" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="330.0" prefWidth="398.0" style="-fx-background-color: #4d6165#4d6165; -fx-border-image-slice: right;" text="    CHOOSE DIFFICULTY" textAlignment="CENTER" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <content>
+            <VBox alignment="CENTER" blendMode="SRC_ATOP" focusTraversable="true" prefHeight="347.0" prefWidth="451.0" spacing="20.0" style="-fx-border-width: 3; -fx-background-color: #323343#323343;">
+               <padding>
+                  <Insets bottom="10" left="10" right="10" />
+               </padding>
                <children>
-                  <Label prefHeight="36.0" prefWidth="122.0" style="-fx-background-color: #dc6851#dc6851;" text="SOUND" textFill="#050505">
+                  <RadioButton fx:id="training" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="29.0" prefWidth="222.0" text="    Training Mode" textFill="#ac6ab9">
                      <font>
-                        <Font size="30.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
-                  </Label>
-                  <ToggleButton fx:id="onButton1" mnemonicParsing="false" onAction="#guiSoundControlToggle" prefHeight="37.0" prefWidth="95.0" text="ON/OFF">
                      <toggleGroup>
-                        <ToggleGroup fx:id="SOUND1" />
+                        <ToggleGroup fx:id="Difficulty" />
                      </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="easy" mnemonicParsing="false" prefHeight="32.0" prefWidth="225.0" text="     Easy" textFill="#ac6ab9" toggleGroup="$Difficulty">
                      <font>
                         <Font size="18.0" />
                      </font>
-                  </ToggleButton>
-               </children>
-            </HBox>
-            <TitledPane fx:id="choiceInformation" alignment="CENTER" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="307.0" prefWidth="332.0" style="-fx-background-color: #4d6165#4d6165;" text="    CHOOSE DIFFICULTY" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <content>
-                  <VBox alignment="CENTER" blendMode="SRC_ATOP" focusTraversable="true" prefHeight="316.0" prefWidth="346.0" spacing="20.0" style="-fx-border-width: 3; -fx-background-color: #323343#323343;">
-                     <padding>
-                        <Insets bottom="10" left="10" right="10" />
-                     </padding>
-                     <children>
-                        <RadioButton fx:id="training" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="32.0" prefWidth="225.0" text="    Training Mode" textFill="#ac6ab9">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <toggleGroup>
-                              <ToggleGroup fx:id="Difficulty" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="easy" mnemonicParsing="false" prefHeight="32.0" prefWidth="225.0" text="     Easy" textFill="#ac6ab9" toggleGroup="$Difficulty">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </RadioButton>
-                        <RadioButton fx:id="intermediate" mnemonicParsing="false" prefHeight="32.0" prefWidth="225.0" text="    Intermediate" textFill="#ac6ab9" toggleGroup="$Difficulty">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </RadioButton>
-                        <RadioButton fx:id="hard" mnemonicParsing="false" prefHeight="32.0" prefWidth="225.0" text="    Hard" textFill="#ac6ab9" toggleGroup="$Difficulty">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </RadioButton>
-                        <RadioButton fx:id="hell" mnemonicParsing="false" prefHeight="32.0" prefWidth="225.0" text="    Hell" textFill="#ac6ab9" toggleGroup="$Difficulty">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </RadioButton>
-                        <HBox>
-                           <children>
-                              <Button fx:id="btnNewGame1" focusTraversable="false" onAction="#loadMainGame" prefHeight="34.0" prefWidth="123.0" text="START" textFill="#d72710" underline="true">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                                 <effect>
-                                    <Bloom threshold="0.65">
-                                       <input>
-                                          <Glow />
-                                       </input>
-                                    </Bloom>
-                                 </effect>
-                              </Button>
-                              <Button fx:id="btnExitGame" alignment="CENTER" focusTraversable="false" onAction="#handleCloseButtonAction" prefHeight="27.0" prefWidth="84.0" text="EXIT" textFill="#cd1313">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                                 <effect>
-                                    <Bloom threshold="0.65">
-                                       <input>
-                                          <Glow />
-                                       </input>
-                                    </Bloom>
-                                 </effect>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </content>
-            </TitledPane>
-            <Pane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Text layoutX="14.0" layoutY="73.0" lineSpacing="10.0" strokeType="OUTSIDE" strokeWidth="2.0" text="STARBOARD II" wrappingWidth="539.22900390625">
+                  </RadioButton>
+                  <RadioButton fx:id="intermediate" mnemonicParsing="false" prefHeight="26.0" prefWidth="226.0" text="    Intermediate" textFill="#ac6ab9" toggleGroup="$Difficulty">
                      <font>
-                        <Font size="36.0" />
+                        <Font size="18.0" />
                      </font>
-                     <fill>
-                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color red="0.8799999952316284" green="0.4653942883014679" blue="0.026399999856948853" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.8799999952316284" green="0.09956571459770203" blue="0.026399999856948853" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </RadialGradient>
-                     </fill>
-                     <stroke>
-                        <LinearGradient endX="1.0" endY="1.0">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color red="0.8799999952316284" green="0.4653942883014679" blue="0.026399999856948853" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.9342105388641357" green="0.09767401963472366" blue="0.02162524312734604" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </stroke>
-                  </Text>
+                  </RadioButton>
+                  <RadioButton fx:id="hard" mnemonicParsing="false" prefHeight="26.0" prefWidth="230.0" text="    Hard" textFill="#ac6ab9" toggleGroup="$Difficulty">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="hell" mnemonicParsing="false" prefHeight="27.0" prefWidth="231.0" text="    Hell" textFill="#ac6ab9" toggleGroup="$Difficulty">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </RadioButton>
+                  <HBox>
+                     <children>
+                        <Button fx:id="btnNewGame1" focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#loadMainGame" prefHeight="58.0" prefWidth="117.0" text="START" textAlignment="RIGHT" textFill="#d72710" underline="true">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <effect>
+                              <Bloom threshold="0.65">
+                                 <input>
+                                    <Glow />
+                                 </input>
+                              </Bloom>
+                           </effect>
+                        </Button>
+                        <Button fx:id="btnExitGame" alignment="CENTER" focusTraversable="false" onAction="#handleCloseButtonAction" prefHeight="58.0" prefWidth="101.0" text="EXIT" textFill="#cd1313">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <effect>
+                              <Bloom threshold="0.65">
+                                 <input>
+                                    <Glow />
+                                 </input>
+                              </Bloom>
+                           </effect>
+                        </Button>
+                        <ToggleButton fx:id="onButton1" mnemonicParsing="false" onAction="#guiSoundControlToggle" prefHeight="56.0" prefWidth="154.0" text="SOUND ON/OFF">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="SOUND1" />
+                           </toggleGroup>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </ToggleButton>
+                     </children>
+                  </HBox>
                </children>
-            </Pane>
-         </children>
-      </GridPane>
-   </top>
+            </VBox>
+         </content>
+      </TitledPane>
+   </center>
 </BorderPane>
