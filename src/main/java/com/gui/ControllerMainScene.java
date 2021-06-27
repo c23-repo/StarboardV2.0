@@ -230,7 +230,6 @@ public class ControllerMainScene implements Initializable {
     public void pauseAndPlay(double timeIntervalInSeconds) {
         PauseTransition pause = new PauseTransition(Duration.seconds(timeIntervalInSeconds));
         pause.setOnFinished(event ->{
-                    Game.setGameMusic(Music.backgroundMusic);
                     guiAliensSetupInCurrentRoom(aliens);
                     });
         pause.play();
@@ -242,11 +241,8 @@ public class ControllerMainScene implements Initializable {
         PauseTransition pause = new PauseTransition(Duration.seconds(timeIntervalInSeconds));
         pause.setOnFinished(event ->{
                     gameTextArea.setText(toBeDisplayedAfterTheSetTime);
-
                     Game.setGameMusic(Music.backgroundMusic);
-                    guiAliensSetupInCurrentRoom(aliens);
-//                    if(!aliens.isExisted())
-//                        guiAliensSetupInCurrentRoom(aliens);
+                    pauseAndPlay(5);
                 });
 
         pause.play();
@@ -255,8 +251,6 @@ public class ControllerMainScene implements Initializable {
     //displays current scene
     private void updateGameTextArea(String currentScene) {
         gameTextArea.setText(currentScene);
-        //Game.guiAliensSetupInCurrentRoom(aliens);
-       // if(aliens.isExisted())
     }
 
     //returns String for current scene
@@ -331,7 +325,6 @@ public class ControllerMainScene implements Initializable {
         aliens.setShowUpChance();
         if (aliens.showUp()) {
             aliens.setExisted(true);
-
             backgroundThread = new Service() {
                 @Override
                 protected Task createTask() {
@@ -340,21 +333,28 @@ public class ControllerMainScene implements Initializable {
                         @Override
                         protected Object call() throws Exception {
                             Game.setGameMusic(Music.electric);
-                            String str =". . . . . . .";
+                            String currentScene = getGameCurrentScene();
+                            String str =". . . . . . . .";
                             String toShow ="";
                             for (char chr : str.toCharArray()) {
                                 toShow +=chr;
-                                updateMessage(toShow);
-                                //gameTextArea.setText(toShow);
+                                updateMessage(currentScene+toShow);
                                 try {
-                                    //Thread.sleep(0);
-                                    System.out.println("was here");
                                     Thread.sleep(500);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
                         }
-                            return null;
+                        Game.setGameMusic(Music.alienEntry);
+                        gameTextArea.textProperty().unbind();
+                        gameTextArea.setText(getGameCurrentScene() + "\nAlien Appeared.....!!");
+                        try {
+                            Thread.sleep(2500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        return null;
                     };
                 };
             };};
@@ -363,11 +363,18 @@ public class ControllerMainScene implements Initializable {
                 @Override
                 public void handle(WorkerStateEvent workerStateEvent) {
                     gameTextArea.textProperty().unbind();
-                    gameTextArea.setText("Alien Appeared");
+                    gameTextArea.setText(getGameCurrentScene() + "\nAlien Appeared....");
 
+                    gameTextArea.setText(getGameCurrentScene() + "\nAlien Appeared....Fight for your life!!");
+                    Game.setGameMusic(Music.battleMusic);
                     if (aliens.isExisted()) {
+//                        try {
+//                            Thread.sleep(1500);
+//                        }catch (Exception e){
+//                            e.printStackTrace();
+//                        }
                         Battle battle = new Battle(aliens, player, Game.getCurrentRoom());
-                        Game.setGameMusic(Music.battleMusic);
+
                     }
                 }
             });
