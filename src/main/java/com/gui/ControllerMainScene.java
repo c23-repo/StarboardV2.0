@@ -4,16 +4,15 @@ import com.starboard.Game;
 import com.starboard.InputHandler;
 import com.starboard.Player;
 import com.starboard.Room;
-import com.starboard.items.GameItem;
 import com.starboard.items.Container;
+import com.starboard.items.GameItem;
 import com.starboard.util.CommandMatch;
-import javafx.application.Platform;
 import com.starboard.util.Music;
-import com.starboard.util.Prompt;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -23,19 +22,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 import static com.starboard.util.Parser.aOrAn;
 
@@ -121,12 +115,9 @@ public class ControllerMainScene implements Initializable {
         for (GameItem item : player.getInventory().values()) {
             items.add(item.toString());
         }
-        String map = Game.getCurrentRoom().getName().toLowerCase() + ".jpg";
-        System.out.println(map);
 
         carriedItems.getItems().setAll(String.valueOf(items));
         carriedItems.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        System.out.println(items);
 
         // clear item in the list view
         Platform.runLater(
@@ -140,6 +131,7 @@ public class ControllerMainScene implements Initializable {
                         }
                     }
                 });
+
         // add new carried items to items list view
         Platform.runLater(
                 new Runnable() {
@@ -154,6 +146,7 @@ public class ControllerMainScene implements Initializable {
                         }
                     }
                 });
+
         Platform.runLater(
                 new Runnable() {
                     @Override
@@ -167,7 +160,7 @@ public class ControllerMainScene implements Initializable {
                 new Runnable() {
                     @Override
                     public void run() {
-                  }
+                    }
                 });
     }
 
@@ -213,7 +206,6 @@ public class ControllerMainScene implements Initializable {
         pause.setOnFinished(event ->
                 Game.setGameMusic(Music.backgroundMusic));
         pause.play();
-
     }
 
     //pauses text in screen for given time before refreshing
@@ -277,8 +269,6 @@ public class ControllerMainScene implements Initializable {
         return playerRoom;
     }
 
-
-
     public Button getBtnUserInput() {
         return btnUserInput;
     }
@@ -286,7 +276,6 @@ public class ControllerMainScene implements Initializable {
     TextArea getGameTextArea() {
         return gameTextArea;
     }
-
 
     public void callStartSceneSoundControl(ActionEvent event) throws IOException {
         css.guiSoundControlToggle(event);
