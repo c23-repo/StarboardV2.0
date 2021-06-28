@@ -43,7 +43,6 @@ import java.util.*;
 import static com.starboard.util.Parser.aOrAn;
 
 public class ControllerMainScene implements Initializable {
-    private final InputSignal inputSignal = new InputSignal();
     private Service backgroundThread;
     GuiBattle guiBattle;
 
@@ -217,7 +216,7 @@ public class ControllerMainScene implements Initializable {
                 new Runnable() {
                     @Override
                     public void run() {
-                        getPlayerHealth().setText(String.valueOf(player.getHp()));
+                        getPlayerHealth().setText(String.valueOf(guiPlayer.getHp()));
                         getPlayerRoom().setText(String.valueOf(Game.getCurrentRoom().getName().toUpperCase()));
                     }
                 });
@@ -390,7 +389,7 @@ public class ControllerMainScene implements Initializable {
         // TODO: Make the Item Key allUpper or set a String attribute only for name display
         String weightValue = item instanceof Weapon ? String.valueOf((item).getWeight()) : "n/a";
 
-        return item.getName() + " | Heal: "  + healValue + " | Dmg: " + damageValue + " | Qty: " + item.getQuantity() + " | Wt.: " + weightValue + " | Total Ammo: " + ammoValue;
+        return item.getName() + " | Heal: "  + healValue + " | Dmg: " + damageValue + " | Qty: " + item.getQuantity() + " | Wt.: " + weightValue + " | Ammo: " + ammoValue + " | Desc: " + item.getDescription();
     }
 
     public void guiAliensSetupInCurrentRoom(GuiAlien aliens) {
