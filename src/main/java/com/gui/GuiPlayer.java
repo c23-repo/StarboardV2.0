@@ -1,10 +1,10 @@
-package com.starboard;
+package com.gui;
 
+import com.starboard.Battle;
 import com.starboard.items.GameItem;
 import com.starboard.items.HealingItem;
 import com.starboard.items.Usable;
 import com.starboard.items.Weapon;
-import com.starboard.util.CommandMatch;
 import com.starboard.util.ConsoleColors;
 import com.starboard.util.Prompt;
 import com.starboard.util.Sound;
@@ -14,53 +14,56 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Player {
+public class GuiPlayer extends com.starboard.Player {
     private final double inventoryMax = 14.0;
     private final Map<String, GameItem> inventory = new HashMap<>(5);
     List<String> openedContainers = new ArrayList<>(); // package-private
     private int maxHp = 100;
     private int hp = maxHp;
     private double inventoryWeight = 0; // This is the weight in kilograms
-    private Weapon equippedWeapon = new Weapon("fist", 8);
+    private Weapon equippedWeapon = new Weapon("fist", 45);
 
     // Business
-    public void attack(Alien alien, String weapon) {
-        System.out.println("Please use the weapon in your inventory, otherwise you will use your fist.");
+    public void attack(GuiAlien guiAlien, String weapon) {
+        //System.out.println("Please use the weapon in your inventory, otherwise you will use your fist.");
+        //GuiBattle.battleStatus.append("\nPlease use the weapon in your inventory, otherwise you will use your fist.");
         //Prompt.showBattleStatus(alien, this);
-        String[] battleCommandInput = InputHandler.input(Game.getCurrentRoom());
-        while (!battleCommandInput[0].equals("use") || battleCommandInput[1].equals("map")) {
-            //you can only use "use" or "help" or "quit" or "sound" command.
-            if (battleCommandInput[0].equals("sound")) {
-                Game.soundControl();
-            } else if (battleCommandInput[0].equals("quit")) {
-                this.hp = 0; //kill the player to get out of the while loop in battle.fight
-                alien.setHp(0);
-                Game.endGame = true;
-                System.out.println("You've quit the game.......Thank you for playing Starboard !!");
-                break;
-            } else if (battleCommandInput[0].equals("help")) {
-                Prompt.showInstructions();
-                Prompt.showStatus(Game.getCurrentRoom());
-                Prompt.showInventory(this);
-                Prompt.showBattleStatus(alien, this);
-                System.out.println("\n" + ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien Present" + ConsoleColors.RESET + ConsoleColors.RED_BOLD + " Fight for your life!" + ConsoleColors.RESET);
-                System.out.println("Please use the weapon in your inventory, otherwise you will use your fist.");
-            } else if (!battleCommandInput[0].equals("use")) {
-                System.out.println("You cannot leave the room nor take or drop items at the moment. You gotta fight the alien!");
-            } else {
-                System.out.println("You don't have time to look at your map now.You gotta fight the alien!");
-            }
-            battleCommandInput = InputHandler.input(Game.getCurrentRoom());
-        }
+//        String[] battleCommandInput = InputHandler.input(Game.getCurrentRoom());
+//        while (!battleCommandInput[0].equals("use") || battleCommandInput[1].equals("map")) {
+//            //you can only use "use" or "help" or "quit" or "sound" command.
+//            if (battleCommandInput[0].equals("sound")) {
+//                Game.soundControl();
+//            } else if (battleCommandInput[0].equals("quit")) {
+//                this.hp = 0; //kill the player to get out of the while loop in battle.fight
+//                alien.setHp(0);
+//                Game.endGame = true;
+//                System.out.println("You've quit the game.......Thank you for playing Starboard !!");
+//                break;
+//            } else if (battleCommandInput[0].equals("help")) {
+//                Prompt.showInstructions();
+//                Prompt.showStatus(Game.getCurrentRoom());
+//                Prompt.showInventory(this);
+//                Prompt.showBattleStatus(alien, this);
+//                System.out.println("\n" + ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien Present" + ConsoleColors.RESET + ConsoleColors.RED_BOLD + " Fight for your life!" + ConsoleColors.RESET);
+//                System.out.println("Please use the weapon in your inventory, otherwise you will use your fist.");
+//            } else if (!battleCommandInput[0].equals("use")) {
+//                System.out.println("You cannot leave the room nor take or drop items at the moment. You gotta fight the alien!");
+//            } else {
+//                System.out.println("You don't have time to look at your map now.You gotta fight the alien!");
+//            }
+//            battleCommandInput = InputHandler.input(Game.getCurrentRoom());
+//        }
 
-        if (this.hp > 0) {  //player has not quit the game
-            CommandMatch.matchCommand(battleCommandInput, this);
+        //if (this.hp > 0)
+        {  //player has not quit the game
+//            CommandMatch.matchCommand(battleCommandInput, this);
 
-            GameItem item = getInventory().get(battleCommandInput[1]);
+            GameItem item = getInventory().get(weapon);
             if (item instanceof Weapon) {
                 //equip with weapon to attack
                 setEquippedWeapon((Weapon) item);
-                System.out.println("You are attacking the alien with " + getEquippedWeapon().getName() + ".");
+                //System.out.println("You are attacking the alien with " + getEquippedWeapon().getName() + ".");
+                GuiBattle.battleStatus.append("\nYou are attacking the alien with " + getEquippedWeapon().getName() + ".");
                 if (item.getName().equals("m4")) {
                     Sound.play(4); // index 4 is file path for m4 sound file
                     Sound.play(7); // index 7 is file path for alien scream sound file
@@ -71,23 +74,25 @@ public class Player {
                     Sound.play(3); // index 3 is file path for player attack sound file
                     Sound.play(7); // index 7 is file path for alien scream sound file
                 }
-                alien.setHp(alien.getHp() + getEquippedWeapon().getDamage());
+                guiAlien.setHp(guiAlien.getHp() + getEquippedWeapon().getDamage());
                 //mimic attacking
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Prompt.showBattleStatus(alien, this);
+                Prompt.showBattleStatus(guiAlien, this);
             } else if (item instanceof HealingItem) {
                 //use healing item to recover
+                this.use(item);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 System.out.println("Your hp is recovered to: " + getHp());
-                Prompt.showBattleStatus(alien, this);
+                GuiBattle.battleStatus.append("\nYour hp is recovered to: " + getHp());
+                Prompt.showBattleStatus(guiAlien, this);
             } else {
                 //you are default to use fist
                 try {
@@ -96,10 +101,11 @@ public class Player {
                     e.printStackTrace();
                 }
                 System.out.println("You punched alien with your fist");
-                alien.setHp(alien.getHp() - 30);
+                GuiBattle.battleStatus.append("\n\nYou punched alien with your fist");
+                guiAlien.setHp(guiAlien.getHp() - equippedWeapon.getDamage());
                 Sound.play(3); // index 3 is file path for player attack sound file
                 Sound.play(7); // index 7 is file path for alien scream sound file
-                Prompt.showBattleStatus(alien, this);
+                Prompt.guiShowBattleStatus(guiAlien, this);
             }
         }
     }
@@ -164,7 +170,8 @@ public class Player {
             decreaseAmmo(item);
         } catch (ClassCastException e) {
             ConsoleColors.changeTo(ConsoleColors.RED_BACKGROUND_BRIGHT);
-            System.out.printf("Can't use %s.%n", item.getName() + ConsoleColors.RESET);
+            //System.out.printf("Can't use %s.%n", item.getName() + ConsoleColors.RESET);
+            GuiBattle.battleStatus.append("\nCan't use %s.%n" + item.getName());
         }
     }
 

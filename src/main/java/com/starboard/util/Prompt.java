@@ -1,5 +1,8 @@
 package com.starboard.util;
 
+import com.gui.GuiAlien;
+import com.gui.GuiBattle;
+import com.gui.GuiPlayer;
 import com.starboard.*;
 import com.starboard.items.Container;
 import com.starboard.items.GameItem;
@@ -77,11 +80,12 @@ public class Prompt {
         }
     }
 
-    public static void showMap() {
+    public static StringBuilder showMap() {
         File file = new File("resources/spaceship.txt");
+        StringBuilder map = null;
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
-            StringBuilder map = new StringBuilder();
+            map = new StringBuilder();
             String line;
             String[] roomName = Game.getCurrentRoom().getName().toUpperCase().split(" ", 2);
             while ((line = br.readLine()) != null) {
@@ -107,6 +111,8 @@ public class Prompt {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        return map;
     }
 
     public static void showInventory(Player player) {
@@ -235,5 +241,12 @@ public class Prompt {
         System.out.printf("║%7s%10s  ║%n", "You", player.getHp());
         System.out.println("╚═══════════════════╝");
         ConsoleColors.reset();
+    }
+
+    public static void guiShowBattleStatus(GuiAlien guiAlien, GuiPlayer guiPlayer) {
+        GuiBattle.battleStatus.append("\n╔════════HP═════════╗");
+        GuiBattle.battleStatus.append("\n              Alien                " + guiAlien.getHp());
+        GuiBattle.battleStatus.append("\n                You                 " + guiPlayer.getHp());
+        GuiBattle.battleStatus.append("\n╚═══════════════════╝");
     }
 }
