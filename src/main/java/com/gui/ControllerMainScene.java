@@ -44,6 +44,7 @@ import static com.starboard.util.Parser.aOrAn;
 
 public class ControllerMainScene implements Initializable {
     private Service backgroundThread;
+    public Room currentRoom = Game.getCurrentRoom();
     GuiBattle guiBattle;
 
 
@@ -91,18 +92,13 @@ public class ControllerMainScene implements Initializable {
                         currentInput = getPlayerInput().getText();
                         Room curRm = Game.getCurrentRoom();
                         String[] ui = InputHandler.inputGui(curRm, currentInput);
-                        System.out.println(Arrays.toString(ui));
                         CommandMatch.guiMatchCommand(ui, guiPlayer);
-                        System.out.println(Game.getCurrentRoom());//needs removal
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
                         if(!aliens.isExisted()){
                             updateStatusArea();
                             updateGameTextArea(getGameCurrentScene());
                             guiAliensSetupInCurrentRoom(aliens);
-                        }
-                        else if(guiBattle.isWinning()){
-                            pauseAndDisplayString(5,getGameCurrentScene());
                         }
                         else
                         {
@@ -118,10 +114,11 @@ public class ControllerMainScene implements Initializable {
                                     gameTextArea.setText(GuiBattle.battleStatus.toString());
                                     GuiBattle.battleStatus.setLength(0);
                                     pauseAndDisplayString(7,getGameCurrentScene());
-                                    //updateGameTextArea(getGameCurrentScene());
                                 }
                                 GuiBattle.battleStatus.setLength(0);
                             }
+                            else
+                                gameTextArea.setText("Can't do that when the alien is present.... you need to fight!!" +"\n\nPlease use the weapon in your inventory, otherwise you will use your fist.");
 
                         }
                     }
@@ -136,16 +133,12 @@ public class ControllerMainScene implements Initializable {
                         String[] ui = InputHandler.inputGui(curRm, currentInput);
                         System.out.println(Arrays.toString(ui));
                         CommandMatch.guiMatchCommand(ui, guiPlayer);
-                        System.out.println(Game.getCurrentRoom());//needs removal
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
                         if(!aliens.isExisted()){
                             updateStatusArea();
                             updateGameTextArea(getGameCurrentScene());
                             guiAliensSetupInCurrentRoom(aliens);
-                        }
-                        else if(guiBattle.isWinning()){
-                            pauseAndDisplayString(5,getGameCurrentScene());
                         }
                         else
                             {
@@ -161,11 +154,11 @@ public class ControllerMainScene implements Initializable {
                                     gameTextArea.setText(GuiBattle.battleStatus.toString());
                                     GuiBattle.battleStatus.setLength(0);
                                     pauseAndDisplayString(5,getGameCurrentScene());
-                                    //updateGameTextArea(getGameCurrentScene());
                                 }
                                 GuiBattle.battleStatus.setLength(0);
                             }
-
+                            else
+                                gameTextArea.setText("Can't do that when the alien is present.... you need to fight!!" + "\n\nPlease use the weapon in your inventory, otherwise you will use your fist.");
                         }
 
                     }
@@ -182,7 +175,6 @@ public class ControllerMainScene implements Initializable {
 
         carriedItems.getItems().setAll(String.valueOf(items));
         carriedItems.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
 
         // clear item in the list view
         Platform.runLater(
@@ -312,7 +304,7 @@ public class ControllerMainScene implements Initializable {
         //Game.setGameMusic(Music.backgroundMusic);
         Room currentRoom = Game.getCurrentRoom();
         StringBuilder currentScene = new StringBuilder();
-        currentScene.append("------------------------------- status ----------------------------------------\n");
+        currentScene.append("------------------------- status -----------------------------------\n");
         currentScene.append("Location: You are in the " + currentRoom.getName() + "\n");
         currentScene.append("Description: " + currentRoom.getDescription() + "\n");
 
@@ -339,7 +331,7 @@ public class ControllerMainScene implements Initializable {
         } else {
             currentScene.append("This room is not linked to any rooms!\n");
         }
-        currentScene.append("--------------------------------------------------------------------------------\n");
+        currentScene.append("-------------------------------------------------------------------\n");
 
         return currentScene.toString();
     }
@@ -393,98 +385,67 @@ public class ControllerMainScene implements Initializable {
     }
 
     public void guiAliensSetupInCurrentRoom(GuiAlien aliens) {
-        aliens.setRoom(Game.getCurrentRoom());
-        aliens.setExisted(false);
-        aliens.setShowUpChance();
-        if (aliens.showUp()) {
-            aliens.setExisted(true);
-            backgroundThread = new Service() {
-                @Override
-                protected Task createTask() {
+        if(Game.getCurrentRoom()!=currentRoom){// so that the alien would not appear if you are in the same room
+            currentRoom = Game.getCurrentRoom();//handles aline occrung if you are in the same room
+            aliens.setRoom(Game.getCurrentRoom());
+            aliens.setExisted(false);
+            aliens.setShowUpChance();
+            if (aliens.showUp()) {
+                aliens.setExisted(true);
+                backgroundThread = new Service() {
+                    @Override
+                    protected Task createTask() {
 
-                    return new Task() {
-                        @Override
-                        protected Object call() throws Exception {
-                            Game.setGameMusic(Music.electric);
-                            String currentScene = getGameCurrentScene();
-                            String str =". . . . . . . .";
-                            String toShow ="";
-                            for (char chr : str.toCharArray()) {
-                                toShow +=chr;
-                                updateMessage(currentScene+toShow);
-                                try {
-                                    Thread.sleep(500);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                        }
-                        Game.setGameMusic(Music.alienEntry);
-                        gameTextArea.textProperty().unbind();
-                        gameTextArea.setText(getGameCurrentScene() + "\nAlien Appeared.....!!");
-                        try {
-                            Thread.sleep(2500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        return new Task() {
+                            @Override
+                            protected Object call() throws Exception {
+                                Game.setGameMusic(Music.electric);
+                                String currentScene = getGameCurrentScene();
+                                String str =". . . . . . . .";
+                                String toShow ="";
+                                for (char chr : str.toCharArray()) {
+                                    toShow +=chr;
+                                    updateMessage(currentScene+toShow);
+                                    try {
+                                        Thread.sleep(500);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                            }
+                            Game.setGameMusic(Music.alienEntry);
+                            gameTextArea.textProperty().unbind();
+                            gameTextArea.setText(getGameCurrentScene() + "\nAlien Appeared.....!!");
+                            try {
+                                Thread.sleep(2500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
-                        return null;
+                            return null;
+                        };
                     };
-                };
-            };};
+                };};
 
-            backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-                @Override
-                public void handle(WorkerStateEvent workerStateEvent) {
-                    gameTextArea.textProperty().unbind();
-                    gameTextArea.setText(getGameCurrentScene() + "\nAlien Appeared....");
+                backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                    @Override
+                    public void handle(WorkerStateEvent workerStateEvent) {
+                        gameTextArea.textProperty().unbind();
+                        gameTextArea.setText(getGameCurrentScene() + "\nAlien Appeared....");
 
-                    gameTextArea.setText(getGameCurrentScene() + "\nAlien Appeared....Fight for your life!!");
-                    Game.setGameMusic(Music.battleMusic);
-                    if (aliens.isExisted()) {
-                        guiBattle = new GuiBattle(aliens, guiPlayer, Game.getCurrentRoom());
-                        //battle.fight();
+                        gameTextArea.setText(getGameCurrentScene() + "\nAlien Appeared....Fight for your life!!");
+                        Game.setGameMusic(Music.battleMusic);
+                        if (aliens.isExisted()) {
+                            guiBattle = new GuiBattle(aliens, guiPlayer, Game.getCurrentRoom());
+                            //battle.fight();
 
+                        }
                     }
-                }
-            });
+                });
 
-            gameTextArea.textProperty().bind(backgroundThread.messageProperty());
-            backgroundThread.start();
-            System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "ALIEN APPEARED" + ConsoleColors.RESET + ConsoleColors.RED + " in the " + Game.getCurrentRoom().getName() + ConsoleColors.RESET);
-        }
+                gameTextArea.textProperty().bind(backgroundThread.messageProperty());
+                backgroundThread.start();
+            }
     }
-
-
-//    private static void training() {
-//
-//        Prompt.showMap();
-//        // show commands
-//    Prompt.showCommands();
-//        Player player = new Player();
-//        boolean endTraining = false;
-//        endGame = false;
-//
-//        while (!endTraining) {
-//            Prompt.showStatus(currentRoom);
-//            Prompt.showInventory(player);
-//
-//            String[] parsedInputs = InputHandler.input(currentRoom);
-//
-//            CommandMatch.matchCommand(parsedInputs, player);
-//
-//            if (currentRoom.getName().equals("pod")) {
-//                //backgroundMusic.close();
-//                ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
-//                System.out.println("Congratulations! You successfully finished the training!");
-//                ConsoleColors.reset();
-//                endTraining = true;
-//            }
-//
-//            if (endGame) {
-//                endTraining = true;
-//            }
-//
-//        }
-//    }
+    }
 
 }
