@@ -47,7 +47,7 @@ import java.util.List;
 import static com.starboard.util.Parser.aOrAn;
 
 public class ControllerMainScene implements Initializable {
-    private final InputSignal inputSignal = new InputSignal();
+
     @FXML
     public TextArea myImageView;
     @FXML
@@ -178,27 +178,6 @@ public class ControllerMainScene implements Initializable {
                 });
     }
 
-    public String getInput() {
-        waitInput();
-        return currentInput;
-    }
-
-    public void notifyInput() {
-        synchronized (inputSignal) {
-            inputSignal.notify();
-        }
-    }
-
-    public void waitInput() {
-        synchronized (inputSignal) {
-            try {
-                inputSignal.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     private void setIntroGameTextArea() {
         String path = "resources/welcome/introtext.txt";
         String banner = null;
@@ -318,9 +297,6 @@ public class ControllerMainScene implements Initializable {
 
     }
 
-    public static class InputSignal {
-
-    }
 
     public void callStartSceneSoundControl(ActionEvent event) throws IOException {
         css.guiSoundControlToggle(event);
