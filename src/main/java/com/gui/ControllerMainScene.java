@@ -304,7 +304,7 @@ public class ControllerMainScene implements Initializable {
         //Game.setGameMusic(Music.backgroundMusic);
         Room currentRoom = Game.getCurrentRoom();
         StringBuilder currentScene = new StringBuilder();
-        currentScene.append("------------------------------- status ----------------------------------------\n");
+        currentScene.append("------------------------- status -----------------------------------\n");
         currentScene.append("Location: You are in the " + currentRoom.getName() + "\n");
         currentScene.append("Description: " + currentRoom.getDescription() + "\n");
 
@@ -331,7 +331,7 @@ public class ControllerMainScene implements Initializable {
         } else {
             currentScene.append("This room is not linked to any rooms!\n");
         }
-        currentScene.append("--------------------------------------------------------------------------------\n");
+        currentScene.append("-------------------------------------------------------------------\n");
 
         return currentScene.toString();
     }
