@@ -36,7 +36,8 @@
             <padding>
                 <Insets bottom="10" left="10" right="10"/>
             </padding>
-            <Button fx:id="btnNewGame" onAction="#loadChooseDifficulty" prefHeight="45.0" prefWidth="172.0" text="NEW GAME"
+            <Button fx:id="btnNewGame" onAction="#loadChooseDifficulty" prefHeight="45.0" prefWidth="172.0"
+                    text="NEW GAME"
                     textFill="#0c0a0a" underline="true">
                 <font>
                     <Font size="24.0"/>

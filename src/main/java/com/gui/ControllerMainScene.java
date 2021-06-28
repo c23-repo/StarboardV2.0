@@ -1,19 +1,13 @@
 package com.gui;//package sample;
 
-import com.starboard.*;
-import com.starboard.items.GameItem;
 import com.starboard.Game;
 import com.starboard.InputHandler;
-import com.starboard.Player;
 import com.starboard.Room;
 import com.starboard.items.Container;
 import com.starboard.items.GameItem;
 import com.starboard.items.HealingItem;
 import com.starboard.items.Weapon;
 import com.starboard.util.CommandMatch;
-import com.starboard.util.ConsoleColors;
-import javafx.application.Platform;
-import com.starboard.util.ConsoleColors;
 import com.starboard.util.Music;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -29,11 +23,15 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -43,17 +41,10 @@ import java.util.*;
 import static com.starboard.util.Parser.aOrAn;
 
 public class ControllerMainScene implements Initializable {
-    private Service backgroundThread;
     public Room currentRoom = Game.getCurrentRoom();
-    GuiBattle guiBattle;
-
-
     @FXML
     public TextArea myImageView;
-    @FXML
-    private TextField playerRoom;
-    @FXML
-    private TextField playerHealth;
+    GuiBattle guiBattle;
     @FXML
     TextArea gameTextArea;
     @FXML
@@ -64,7 +55,6 @@ public class ControllerMainScene implements Initializable {
     MenuItem btnNewGame;
     @FXML
     MenuItem btnQuit;
-
     GuiPlayer guiPlayer = new GuiPlayer();
     GuiAlien aliens = new GuiAlien(100, Game.getAlienNumber());
     InputHandler inputHandler;
@@ -103,26 +93,23 @@ public class ControllerMainScene implements Initializable {
                             updateStatusArea();
                             updateGameTextArea(getGameCurrentScene());
                             guiAliensSetupInCurrentRoom(aliens);
-                        }
-                        else
-                        {
+                        } else {
                             updateStatusArea();
-                            if(ui[0].equalsIgnoreCase("use")){
+                            if (ui[0].equalsIgnoreCase("use")) {
                                 System.out.println(guiBattle);
                                 guiBattle.fight(ui[1]);
-                                if(!guiBattle.escaped)
-                                    gameTextArea.setText(GuiBattle.battleStatus.toString() +"\n\nAlien Present ...... Fight for your Life! \n\nPlease use the weapon in your inventory, otherwise you will use your fist.");
+                                if (!guiBattle.escaped)
+                                    gameTextArea.setText(GuiBattle.battleStatus.toString() + "\n\nAlien Present ...... Fight for your Life! \n\nPlease use the weapon in your inventory, otherwise you will use your fist.");
                                 else
                                     gameTextArea.setText(GuiBattle.battleStatus.toString());
-                                if(!aliens.isExisted()){
+                                if (!aliens.isExisted()) {
                                     gameTextArea.setText(GuiBattle.battleStatus.toString());
                                     GuiBattle.battleStatus.setLength(0);
-                                    pauseAndDisplayString(7,getGameCurrentScene());
+                                    pauseAndDisplayString(7, getGameCurrentScene());
                                 }
                                 GuiBattle.battleStatus.setLength(0);
-                            }
-                            else
-                                gameTextArea.setText("Can't do that when the alien is present.... you need to fight!!" +"\n\nPlease use the weapon in your inventory, otherwise you will use your fist.");
+                            } else
+                                gameTextArea.setText("Can't do that when the alien is present.... you need to fight!!" + "\n\nPlease use the weapon in your inventory, otherwise you will use your fist.");
 
                         }
                     }
@@ -139,29 +126,26 @@ public class ControllerMainScene implements Initializable {
                         CommandMatch.guiMatchCommand(ui, guiPlayer);
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
-                        if(!aliens.isExisted()){
+                        if (!aliens.isExisted()) {
                             updateStatusArea();
                             updateGameTextArea(getGameCurrentScene());
                             guiAliensSetupInCurrentRoom(aliens);
-                        }
-                        else
-                            {
+                        } else {
                             updateStatusArea();
-                            if(ui[0].equalsIgnoreCase("use")){
+                            if (ui[0].equalsIgnoreCase("use")) {
                                 System.out.println(guiBattle);
                                 guiBattle.fight(ui[1]);
-                                if(!guiBattle.escaped)
-                                    gameTextArea.setText(GuiBattle.battleStatus.toString() +"\n\nAlien Present ...... Fight for your Life! \n\nPlease use the weapon in your inventory, otherwise you will use your fist.");
+                                if (!guiBattle.escaped)
+                                    gameTextArea.setText(GuiBattle.battleStatus.toString() + "\n\nAlien Present ...... Fight for your Life! \n\nPlease use the weapon in your inventory, otherwise you will use your fist.");
                                 else
                                     gameTextArea.setText(GuiBattle.battleStatus.toString());
-                                if(!aliens.isExisted()){
+                                if (!aliens.isExisted()) {
                                     gameTextArea.setText(GuiBattle.battleStatus.toString());
                                     GuiBattle.battleStatus.setLength(0);
-                                    pauseAndDisplayString(5,getGameCurrentScene());
+                                    pauseAndDisplayString(5, getGameCurrentScene());
                                 }
                                 GuiBattle.battleStatus.setLength(0);
-                            }
-                            else
+                            } else
                                 gameTextArea.setText("Can't do that when the alien is present.... you need to fight!!" + "\n\nPlease use the weapon in your inventory, otherwise you will use your fist.");
                         }
 
@@ -344,7 +328,7 @@ public class ControllerMainScene implements Initializable {
 
     private String loadChooseLevel(Room currentRoom) {
         StringBuilder currentScene = new StringBuilder();
-        if (guiPlayer.isKilled()){
+        if (guiPlayer.isKilled()) {
             currentScene.append("\t\t\tGAME OVER!\n");
             currentScene.append("\t\tClick on quit to start a New Game\n");
         } else if (!guiPlayer.isKilled() && currentRoom.equals("pod")) {
@@ -405,7 +389,7 @@ public class ControllerMainScene implements Initializable {
     }
 
     public void guiAliensSetupInCurrentRoom(GuiAlien aliens) {
-        if(Game.getCurrentRoom()!=currentRoom){// so that the alien would not appear if you are in the same room
+        if (Game.getCurrentRoom() != currentRoom) {// so that the alien would not appear if you are in the same room
             currentRoom = Game.getCurrentRoom();//handles aline occrung if you are in the same room
             aliens.setRoom(Game.getCurrentRoom());
             aliens.setExisted(false);
@@ -421,30 +405,35 @@ public class ControllerMainScene implements Initializable {
                             protected Object call() throws Exception {
                                 Game.setGameMusic(Music.electric);
                                 String currentScene = getGameCurrentScene();
-                                String str =". . . . . . . .";
-                                String toShow ="";
+                                String str = ". . . . . . . .";
+                                String toShow = "";
                                 for (char chr : str.toCharArray()) {
-                                    toShow +=chr;
-                                    updateMessage(currentScene+toShow);
+                                    toShow += chr;
+                                    updateMessage(currentScene + toShow);
                                     try {
                                         Thread.sleep(500);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
-                            }
-                            Game.setGameMusic(Music.alienEntry);
-                            gameTextArea.textProperty().unbind();
-                            gameTextArea.setText(getGameCurrentScene() + "\nAlien Appeared.....!!");
-                            try {
-                                Thread.sleep(2500);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+                                }
+                                Game.setGameMusic(Music.alienEntry);
+                                gameTextArea.textProperty().unbind();
+                                gameTextArea.setText(getGameCurrentScene() + "\nAlien Appeared.....!!");
+                                try {
+                                    Thread.sleep(2500);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                                return null;
                             }
 
-                            return null;
+                            ;
                         };
-                    };
-                };};
+                    }
+
+                    ;
+                };
 
                 backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                     @Override
@@ -465,7 +454,7 @@ public class ControllerMainScene implements Initializable {
                 gameTextArea.textProperty().bind(backgroundThread.messageProperty());
                 backgroundThread.start();
             }
-    }
+        }
     }
 
     @FXML
