@@ -4,15 +4,15 @@ import com.starboard.Game;
 import com.starboard.InputHandler;
 import com.starboard.Player;
 import com.starboard.Room;
-import com.starboard.items.GameItem;
 import com.starboard.items.Container;
+import com.starboard.items.GameItem;
 import com.starboard.util.CommandMatch;
-import javafx.application.Platform;
 import com.starboard.util.Music;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -25,21 +25,22 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static com.starboard.util.Parser.aOrAn;
 
 public class ControllerMainScene implements Initializable {
     private final InputSignal inputSignal = new InputSignal();
+
+    @FXML
+    private TextField playerRoom;
+    @FXML
+    private TextField playerHealth;
     @FXML
     TextArea gameTextArea;
     @FXML
@@ -50,7 +51,6 @@ public class ControllerMainScene implements Initializable {
     Button btnNewGame;
     @FXML
     private ListView carriedItems;
-
     @FXML
     MenuItem btnQuit;
 
@@ -144,26 +144,22 @@ public class ControllerMainScene implements Initializable {
                     public void run() {
                         try {
                             for (GameItem item : player.getInventory().values()) {
-                                getCarriedItems().getItems().addAll(item.toString());
+                                getCarriedItems().getItems().addAll(item.toString().toUpperCase());
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 });
+        Platform.runLater(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        getPlayerHealth().setText(String.valueOf(player.getHp()));
+                        getPlayerRoom().setText(String.valueOf(Game.getCurrentRoom().getName().toUpperCase()));
+                    }
+                });
     }
-
-//    public void showItemArea(){
-//        GameItem item = (GameItem) carriedItems.getSelectionModel().getSelectedItem();
-//        System.out.println("Selected Carried Item" + item);
-//        Platform.runLater(
-//                new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        System.out.println("Selected Carried Item" + item);
-//                    }
-//                });
-//    }
 
     public String getInput() {
         waitInput();
@@ -274,6 +270,7 @@ public class ControllerMainScene implements Initializable {
         currentScene.append("--------------------------------------------------------------------------------\n");
         gameTextArea.setText(currentScene.toString());
     }
+
     public ListView<String> getCarriedItems() {
         return carriedItems;
     }
@@ -281,6 +278,16 @@ public class ControllerMainScene implements Initializable {
     public TextField getPlayerInput() {
         return playerInput;
     }
+
+    public TextField getPlayerHealth() {
+        return playerHealth;
+    }
+
+    public TextField getPlayerRoom() {
+        return playerRoom;
+    }
+
+
 
     public Button getBtnUserInput() {
         return btnUserInput;

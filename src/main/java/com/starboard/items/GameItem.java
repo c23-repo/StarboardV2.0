@@ -169,6 +169,4 @@ public abstract class GameItem implements Cloneable {
         return
                name + " | " + "Dmg: " + damage + " | " + "Qty: " + quantity + " | " + " Wgt: " + weight + " | " + " Max Ammo/Total: " + maxAmmo + "/" + totalAmmo;
     }
-    //item.getName().toUpperCase(), item.getQuantity(), "", healValue,
-    //                    "", damageValue, "", ammoValue, "", weightValue, item.getDescription());
 }
