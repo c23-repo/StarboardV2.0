@@ -1,5 +1,6 @@
 package com.starboard.util;
 
+import com.starboard.Alien;
 import com.starboard.Game;
 import com.starboard.Player;
 
@@ -58,6 +59,32 @@ public class CommandMatch {
                     System.out.println("You've quit the game.......Thank you for playing Starboard !!");
                 break;
         }
+    }
+
+    public static void guiMatchCommand(String[] command, Player player) {
+        String action = command[0];
+        String subject = command[1];
+
+        switch (action) {
+            case "get":
+                take(subject, player);
+                break;
+            case "drop":
+                drop(subject, player);
+                break;
+            case "go":
+                goToRoom(subject);
+                break;
+            case "open":
+                openContainer(subject, player);
+                break;
+            case "use":
+                use(subject, player);
+                break;
+
+
+        }
+
     }
 
     /* Player takes a GameItem with a name that matches
