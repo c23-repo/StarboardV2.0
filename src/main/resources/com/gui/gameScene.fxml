@@ -55,7 +55,7 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-                <ListView fx:id="carriedItems" onMouseClicked="#updateStatusArea">
+                <ListView fx:id="carriedItems" onMouseClicked="#updateStatusArea" prefHeight="203.0" prefWidth="500.0">
                     <effect>
                         <InnerShadow />
                     </effect>

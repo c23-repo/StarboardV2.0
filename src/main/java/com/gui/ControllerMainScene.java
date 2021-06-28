@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
@@ -49,6 +50,7 @@ public class ControllerMainScene implements Initializable {
     Button btnNewGame;
     @FXML
     private ListView carriedItems;
+
     @FXML
     MenuItem btnQuit;
 
@@ -111,14 +113,17 @@ public class ControllerMainScene implements Initializable {
 
     public void updateStatusArea() {
         List<String> items = new ArrayList<>();
+        items.add("0ne");
+        items.add("Two");
+        items.add("Three");
+        System.out.println(items.toString());
         for (GameItem item : player.getInventory().values()) {
-            items.add(item.getName());
+            items.add(item.toString());
         }
 
         carriedItems.getItems().setAll(String.valueOf(items));
         carriedItems.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         System.out.println(items);
-        System.out.println(carriedItems.getItems().toString());
 
         // clear item in the list view
         Platform.runLater(
@@ -139,7 +144,7 @@ public class ControllerMainScene implements Initializable {
                     public void run() {
                         try {
                             for (GameItem item : player.getInventory().values()) {
-                                getCarriedItems().getItems().addAll(item.getName());
+                                getCarriedItems().getItems().addAll(item.toString());
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -147,6 +152,18 @@ public class ControllerMainScene implements Initializable {
                     }
                 });
     }
+
+//    public void showItemArea(){
+//        GameItem item = (GameItem) carriedItems.getSelectionModel().getSelectedItem();
+//        System.out.println("Selected Carried Item" + item);
+//        Platform.runLater(
+//                new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        System.out.println("Selected Carried Item" + item);
+//                    }
+//                });
+//    }
 
     public String getInput() {
         waitInput();
@@ -271,6 +288,10 @@ public class ControllerMainScene implements Initializable {
 
     TextArea getGameTextArea() {
         return gameTextArea;
+    }
+
+    public void showItemDetails(MouseEvent mouseEvent) {
+
     }
 
     public static class InputSignal {
