@@ -3,6 +3,11 @@
     -fx-background-size: cover;
 }
 
+.mapbg{
+    -fx-background-image: url("bridge.jpg");
+    -fx-background-size: cover;
+}
+
 .welcomebodybg{
     -fx-background-image: url("welcomeSpaceship.jpeg");
     -fx-background-size: cover;

@@ -80,11 +80,12 @@ public class Prompt {
         }
     }
 
-    public static void showMap() {
+    public static StringBuilder showMap() {
         File file = new File("resources/spaceship.txt");
+        StringBuilder map = null;
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
-            StringBuilder map = new StringBuilder();
+            map = new StringBuilder();
             String line;
             String[] roomName = Game.getCurrentRoom().getName().toUpperCase().split(" ", 2);
             while ((line = br.readLine()) != null) {
@@ -110,6 +111,8 @@ public class Prompt {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        return map;
     }
 
     public static void showInventory(Player player) {

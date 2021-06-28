@@ -273,6 +273,7 @@ public class Player {
             if (craftItem.getName().equals("m4")){
                 craftItem.setBaseDamage(craftItem.getBaseDamage() + item.getDamage());
                 craftItem.setWeight(craftItem.getWeight() + item.getWeight());
+                craftItem.setDescription("M4 with Bayonet");
                 if (!inventory.containsKey("magazine")){
                     craftItem.setDamage(craftItem.getBaseDamage());
                 }
@@ -280,6 +281,7 @@ public class Player {
             } else {
                 item.setBaseDamage(craftItem.getBaseDamage() + item.getDamage());
                 item.setWeight(craftItem.getWeight() + item.getWeight());
+                item.setDescription("M4 with Bayonet");
                 if (!inventory.containsKey("magazine")){
                     item.setDamage(item.getBaseDamage());
                 }

@@ -2,15 +2,24 @@ package com.gui;//package sample;
 
 import com.starboard.*;
 import com.starboard.items.GameItem;
+import com.starboard.Game;
+import com.starboard.InputHandler;
+import com.starboard.Player;
+import com.starboard.Room;
 import com.starboard.items.Container;
+import com.starboard.items.GameItem;
+import com.starboard.items.HealingItem;
+import com.starboard.items.Weapon;
 import com.starboard.util.CommandMatch;
 import com.starboard.util.ConsoleColors;
 import javafx.application.Platform;
+import com.starboard.util.ConsoleColors;
 import com.starboard.util.Music;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.concurrent.Service;
@@ -29,20 +38,22 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static com.starboard.util.Parser.aOrAn;
 
 public class ControllerMainScene implements Initializable {
-    private final InputSignal inputSignal = new InputSignal();
     private Service backgroundThread;
     public Room currentRoom = Game.getCurrentRoom();
     GuiBattle guiBattle;
 
+
+    @FXML
+    public TextArea myImageView;
+    @FXML
+    private TextField playerRoom;
+    @FXML
+    private TextField playerHealth;
     @FXML
     TextArea gameTextArea;
     @FXML
@@ -152,7 +163,6 @@ public class ControllerMainScene implements Initializable {
 
                     }
                 };
-
         getPlayerInput().setOnKeyPressed(enterPressedHandler);
         getBtnUserInput().setOnAction(eventHandler);
     }
@@ -160,12 +170,11 @@ public class ControllerMainScene implements Initializable {
     public void updateStatusArea() {
         List<String> items = new ArrayList<>();
         for (GameItem item : guiPlayer.getInventory().values()) {
-            items.add(item.getName());
+            items.add(toItemString(item));
         }
 
         carriedItems.getItems().setAll(String.valueOf(items));
         carriedItems.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        System.out.println(carriedItems.getItems().toString());
 
         // clear item in the list view
         Platform.runLater(
@@ -179,6 +188,7 @@ public class ControllerMainScene implements Initializable {
                         }
                     }
                 });
+
         // add new carried items to items list view
         Platform.runLater(
                 new Runnable() {
@@ -186,34 +196,29 @@ public class ControllerMainScene implements Initializable {
                     public void run() {
                         try {
                             for (GameItem item : guiPlayer.getInventory().values()) {
-                                getCarriedItems().getItems().addAll(item.getName());
+                                getCarriedItems().getItems().addAll(toItemString(item).toUpperCase());
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 });
-    }
 
-    public String getInput() {
-        waitInput();
-        return currentInput;
-    }
+        Platform.runLater(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        getPlayerHealth().setText(String.valueOf(guiPlayer.getHp()));
+                        getPlayerRoom().setText(String.valueOf(Game.getCurrentRoom().getName().toUpperCase()));
+                    }
+                });
 
-    public void notifyInput() {
-        synchronized (inputSignal) {
-            inputSignal.notify();
-        }
-    }
-
-    public void waitInput() {
-        synchronized (inputSignal) {
-            try {
-                inputSignal.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        Platform.runLater(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                });
     }
 
     private void setIntroGameTextArea() {
@@ -275,7 +280,6 @@ public class ControllerMainScene implements Initializable {
                     guiAliensSetupInCurrentRoom(aliens);
                     });
         pause.play();
-
     }
 
     //pauses text in screen for given time before refreshing and setting the text passed
@@ -331,12 +335,21 @@ public class ControllerMainScene implements Initializable {
 
         return currentScene.toString();
     }
+
     public ListView<String> getCarriedItems() {
         return carriedItems;
     }
 
     public TextField getPlayerInput() {
         return playerInput;
+    }
+
+    public TextField getPlayerHealth() {
+        return playerHealth;
+    }
+
+    public TextField getPlayerRoom() {
+        return playerRoom;
     }
 
     public Button getBtnUserInput() {
@@ -347,10 +360,6 @@ public class ControllerMainScene implements Initializable {
         return gameTextArea;
     }
 
-    public static class InputSignal {
-
-    }
-
     public void callStartSceneSoundControl(ActionEvent event) throws IOException {
         css.guiSoundControlToggle(event);
     }
@@ -359,6 +368,20 @@ public class ControllerMainScene implements Initializable {
     public void handleCloseButtonAction(ActionEvent event) {
         Stage stage = (Stage) btnUserInput.getScene().getWindow();
         stage.close();
+    }
+
+    public String toItemString(GameItem item) {
+        // if the item is a healingItem, display its healValue
+        String healValue = item instanceof HealingItem ? String.valueOf(((HealingItem) item).getHealValue()) : "n/a";
+        // if the item is a weapon, display its damageValue
+        String damageValue = item instanceof Weapon ? String.valueOf(item.getDamage()): "n/a";
+        // if the item is a weapon, display its ammoCount
+        String ammoValue = (item instanceof Weapon && item.isNeedsAmmo()) ? String.valueOf(item.getTotalAmmo()) : "n/a";
+        // this displays the weight of the game item
+        // TODO: Make the Item Key allUpper or set a String attribute only for name display
+        String weightValue = item instanceof Weapon ? String.valueOf((item).getWeight()) : "n/a";
+
+        return item.getName() + " | Heal: "  + healValue + " | Dmg: " + damageValue + " | Qty: " + item.getQuantity() + " | Wt.: " + weightValue + " | Ammo: " + ammoValue + " | Desc: " + item.getDescription();
     }
 
     public void guiAliensSetupInCurrentRoom(GuiAlien aliens) {
