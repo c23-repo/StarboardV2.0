@@ -1,6 +1,6 @@
 package com.gui;
 
-import com.starboard.Alien;
+import com.starboard.Battle;
 import com.starboard.items.GameItem;
 import com.starboard.items.HealingItem;
 import com.starboard.items.Usable;
@@ -24,8 +24,9 @@ public class GuiPlayer extends com.starboard.Player {
     private Weapon equippedWeapon = new Weapon("fist", 45);
 
     // Business
-    public void attack(Alien alien, String weapon) {
-        System.out.println("Please use the weapon in your inventory, otherwise you will use your fist.");
+    public void attack(GuiAlien guiAlien, String weapon) {
+        //System.out.println("Please use the weapon in your inventory, otherwise you will use your fist.");
+        //GuiBattle.battleStatus.append("\nPlease use the weapon in your inventory, otherwise you will use your fist.");
         //Prompt.showBattleStatus(alien, this);
 //        String[] battleCommandInput = InputHandler.input(Game.getCurrentRoom());
 //        while (!battleCommandInput[0].equals("use") || battleCommandInput[1].equals("map")) {
@@ -61,7 +62,8 @@ public class GuiPlayer extends com.starboard.Player {
             if (item instanceof Weapon) {
                 //equip with weapon to attack
                 setEquippedWeapon((Weapon) item);
-                System.out.println("You are attacking the alien with " + getEquippedWeapon().getName() + ".");
+                //System.out.println("You are attacking the alien with " + getEquippedWeapon().getName() + ".");
+                GuiBattle.battleStatus.append("\nYou are attacking the alien with " + getEquippedWeapon().getName() + ".");
                 if (item.getName().equals("m4")) {
                     Sound.play(4); // index 4 is file path for m4 sound file
                     Sound.play(7); // index 7 is file path for alien scream sound file
@@ -72,14 +74,14 @@ public class GuiPlayer extends com.starboard.Player {
                     Sound.play(3); // index 3 is file path for player attack sound file
                     Sound.play(7); // index 7 is file path for alien scream sound file
                 }
-                alien.setHp(alien.getHp() + getEquippedWeapon().getDamage());
+                guiAlien.setHp(guiAlien.getHp() + getEquippedWeapon().getDamage());
                 //mimic attacking
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Prompt.showBattleStatus(alien, this);
+                Prompt.showBattleStatus(guiAlien, this);
             } else if (item instanceof HealingItem) {
                 //use healing item to recover
                 this.use(item);
@@ -89,7 +91,8 @@ public class GuiPlayer extends com.starboard.Player {
                     e.printStackTrace();
                 }
                 System.out.println("Your hp is recovered to: " + getHp());
-                Prompt.showBattleStatus(alien, this);
+                GuiBattle.battleStatus.append("\nYour hp is recovered to: " + getHp());
+                Prompt.showBattleStatus(guiAlien, this);
             } else {
                 //you are default to use fist
                 try {
@@ -98,10 +101,11 @@ public class GuiPlayer extends com.starboard.Player {
                     e.printStackTrace();
                 }
                 System.out.println("You punched alien with your fist");
-                alien.setHp(alien.getHp() - equippedWeapon.getDamage());
+                GuiBattle.battleStatus.append("\n\nYou punched alien with your fist");
+                guiAlien.setHp(guiAlien.getHp() - equippedWeapon.getDamage());
                 Sound.play(3); // index 3 is file path for player attack sound file
                 Sound.play(7); // index 7 is file path for alien scream sound file
-                Prompt.showBattleStatus(alien, this);
+                Prompt.guiShowBattleStatus(guiAlien, this);
             }
         }
     }
@@ -166,7 +170,8 @@ public class GuiPlayer extends com.starboard.Player {
             decreaseAmmo(item);
         } catch (ClassCastException e) {
             ConsoleColors.changeTo(ConsoleColors.RED_BACKGROUND_BRIGHT);
-            System.out.printf("Can't use %s.%n", item.getName() + ConsoleColors.RESET);
+            //System.out.printf("Can't use %s.%n", item.getName() + ConsoleColors.RESET);
+            GuiBattle.battleStatus.append("\nCan't use %s.%n" + item.getName());
         }
     }
 

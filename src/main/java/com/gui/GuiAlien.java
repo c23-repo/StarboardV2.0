@@ -1,5 +1,6 @@
 package com.gui;
 
+import com.starboard.Battle;
 import com.starboard.Player;
 import com.starboard.Room;
 import com.starboard.items.Weapon;
@@ -21,21 +22,18 @@ public class GuiAlien extends com.starboard.Alien {
         super(hp, number);
     }
 
-    public void attack(Player player) {
-        System.out.print("Alien is attacking");
+    public void attack(GuiPlayer guiPlayer) {
+        //System.out.print("Alien is attacking");
+        GuiBattle.battleStatus.append("\n\nAlien is attacking");
         Sound.play(8); // index 8 is file path for alien attack sound file
-        player.changeHp(getEquippedWeapon().getDamage());
+        guiPlayer.changeHp(getEquippedWeapon().getDamage());
         //mimic attacking
-        Prompt.printOneAtATime(" . . . ", 300);
-        System.out.println("\nAlien finished attacking.");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        //System.out.println("\nAlien finished attacking.");
+        GuiBattle.battleStatus.append("\nAlien finished attacking.");
+
 //        System.out.println("Your hp decreased " + (-getEquippedWeapon().getDamage()));
 //        System.out.println("You have " + player.getHp() + " hp left.");
-        Prompt.showBattleStatus(this, player);
+        Prompt.guiShowBattleStatus(this, guiPlayer);
 
     }
 //    public double attackHitChance() {

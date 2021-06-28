@@ -1,5 +1,8 @@
 package com.starboard.util;
 
+import com.gui.GuiAlien;
+import com.gui.GuiBattle;
+import com.gui.GuiPlayer;
 import com.starboard.*;
 import com.starboard.items.Container;
 import com.starboard.items.GameItem;
@@ -235,5 +238,12 @@ public class Prompt {
         System.out.printf("║%7s%10s  ║%n", "You", player.getHp());
         System.out.println("╚═══════════════════╝");
         ConsoleColors.reset();
+    }
+
+    public static void guiShowBattleStatus(GuiAlien guiAlien, GuiPlayer guiPlayer) {
+        GuiBattle.battleStatus.append("\n╔════════HP═════════╗");
+        GuiBattle.battleStatus.append("\n              Alien                " + guiAlien.getHp());
+        GuiBattle.battleStatus.append("\n                You                 " + guiPlayer.getHp());
+        GuiBattle.battleStatus.append("\n╚═══════════════════╝");
     }
 }

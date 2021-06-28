@@ -77,28 +77,41 @@ public class ControllerMainScene implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         System.out.println(Game.getCurrentRoom());
-                        currentInput = getPlayerInput().getText().trim();
+                        currentInput = getPlayerInput().getText();
                         Room curRm = Game.getCurrentRoom();
                         String[] ui = InputHandler.inputGui(curRm, currentInput);
-                        System.out.println(Arrays.toString(ui));  //need to be removed
+                        System.out.println(Arrays.toString(ui));
                         CommandMatch.guiMatchCommand(ui, guiPlayer);
-                        System.out.println(Game.getCurrentRoom());  //need to be removed
+                        System.out.println(Game.getCurrentRoom());//needs removal
                         getPlayerInput().clear();
                         getPlayerInput().requestFocus();
                         if(!aliens.isExisted()){
-                            updateGameTextArea(getGameCurrentScene());
                             updateStatusArea();
+                            updateGameTextArea(getGameCurrentScene());
                             guiAliensSetupInCurrentRoom(aliens);
                         }
-                        else{
-                            gameTextArea.setText("Alien Present ...... Fight for your Life! Please use the weapon in your inventory, otherwise you will use your fist.");
+                        else if(guiBattle.isWinning()){
+                            pauseAndDisplayString(5,getGameCurrentScene());
+                        }
+                        else
+                        {
                             updateStatusArea();
-                            if(ui[0].equalsIgnoreCase("use"))
+                            if(ui[0].equalsIgnoreCase("use")){
+                                System.out.println(guiBattle);
                                 guiBattle.fight(ui[1]);
-                            if(!aliens.isExisted()){
-                                updateGameTextArea(getGameCurrentScene());
-                                updateStatusArea();
+                                if(!guiBattle.escaped)
+                                    gameTextArea.setText(GuiBattle.battleStatus.toString() +"\n\nAlien Present ...... Fight for your Life! \n\nPlease use the weapon in your inventory, otherwise you will use your fist.");
+                                else
+                                    gameTextArea.setText(GuiBattle.battleStatus.toString());
+                                if(!aliens.isExisted()){
+                                    gameTextArea.setText(GuiBattle.battleStatus.toString());
+                                    GuiBattle.battleStatus.setLength(0);
+                                    pauseAndDisplayString(7,getGameCurrentScene());
+                                    //updateGameTextArea(getGameCurrentScene());
+                                }
+                                GuiBattle.battleStatus.setLength(0);
                             }
+
                         }
                     }
                 };
@@ -120,17 +133,26 @@ public class ControllerMainScene implements Initializable {
                             updateGameTextArea(getGameCurrentScene());
                             guiAliensSetupInCurrentRoom(aliens);
                         }
-                        else{
+                        else if(guiBattle.isWinning()){
+                            pauseAndDisplayString(5,getGameCurrentScene());
+                        }
+                        else
+                            {
                             updateStatusArea();
                             if(ui[0].equalsIgnoreCase("use")){
                                 System.out.println(guiBattle);
                                 guiBattle.fight(ui[1]);
                                 if(!guiBattle.escaped)
-                                    gameTextArea.setText("Alien Present ...... Fight for your Life! Please use the weapon in your inventory, otherwise you will use your fist.");
+                                    gameTextArea.setText(GuiBattle.battleStatus.toString() +"\n\nAlien Present ...... Fight for your Life! \n\nPlease use the weapon in your inventory, otherwise you will use your fist.");
+                                else
+                                    gameTextArea.setText(GuiBattle.battleStatus.toString());
                                 if(!aliens.isExisted()){
-                                    updateGameTextArea(getGameCurrentScene());
-                                    updateStatusArea();
+                                    gameTextArea.setText(GuiBattle.battleStatus.toString());
+                                    GuiBattle.battleStatus.setLength(0);
+                                    pauseAndDisplayString(5,getGameCurrentScene());
+                                    //updateGameTextArea(getGameCurrentScene());
                                 }
+                                GuiBattle.battleStatus.setLength(0);
                             }
 
                         }
