@@ -9,6 +9,7 @@ import com.starboard.items.Container;
 import com.starboard.util.CommandMatch;
 import javafx.application.Platform;
 import com.starboard.util.Music;
+import com.starboard.util.Prompt;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -22,14 +23,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -37,7 +40,13 @@ import java.util.ResourceBundle;
 import static com.starboard.util.Parser.aOrAn;
 
 public class ControllerMainScene implements Initializable {
-    private final InputSignal inputSignal = new InputSignal();
+
+    @FXML
+    public TextArea myImageView;
+    @FXML
+    private TextField playerRoom;
+    @FXML
+    private TextField playerHealth;
     @FXML
     TextArea gameTextArea;
     @FXML
@@ -101,7 +110,6 @@ public class ControllerMainScene implements Initializable {
                         updateStatusArea();
                     }
                 };
-
         getPlayerInput().setOnKeyPressed(enterPressedHandler);
         getBtnUserInput().setOnAction(eventHandler);
         updateGameTextArea();
@@ -111,13 +119,14 @@ public class ControllerMainScene implements Initializable {
     public void updateStatusArea() {
         List<String> items = new ArrayList<>();
         for (GameItem item : player.getInventory().values()) {
-            items.add(item.getName());
+            items.add(item.toString());
         }
+        String map = Game.getCurrentRoom().getName().toLowerCase() + ".jpg";
+        System.out.println(map);
 
         carriedItems.getItems().setAll(String.valueOf(items));
         carriedItems.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         System.out.println(items);
-        System.out.println(carriedItems.getItems().toString());
 
         // clear item in the list view
         Platform.runLater(
@@ -138,34 +147,28 @@ public class ControllerMainScene implements Initializable {
                     public void run() {
                         try {
                             for (GameItem item : player.getInventory().values()) {
-                                getCarriedItems().getItems().addAll(item.getName());
+                                getCarriedItems().getItems().addAll(item.toString().toUpperCase());
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 });
-    }
+        Platform.runLater(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        getPlayerHealth().setText(String.valueOf(player.getHp()));
+                        getPlayerRoom().setText(String.valueOf(Game.getCurrentRoom().getName().toUpperCase()));
+                    }
+                });
 
-    public String getInput() {
-        waitInput();
-        return currentInput;
-    }
-
-    public void notifyInput() {
-        synchronized (inputSignal) {
-            inputSignal.notify();
-        }
-    }
-
-    public void waitInput() {
-        synchronized (inputSignal) {
-            try {
-                inputSignal.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        Platform.runLater(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                  }
+                });
     }
 
     private void setIntroGameTextArea() {
@@ -257,6 +260,7 @@ public class ControllerMainScene implements Initializable {
         currentScene.append("--------------------------------------------------------------------------------\n");
         gameTextArea.setText(currentScene.toString());
     }
+
     public ListView<String> getCarriedItems() {
         return carriedItems;
     }
@@ -264,6 +268,16 @@ public class ControllerMainScene implements Initializable {
     public TextField getPlayerInput() {
         return playerInput;
     }
+
+    public TextField getPlayerHealth() {
+        return playerHealth;
+    }
+
+    public TextField getPlayerRoom() {
+        return playerRoom;
+    }
+
+
 
     public Button getBtnUserInput() {
         return btnUserInput;
@@ -273,9 +287,6 @@ public class ControllerMainScene implements Initializable {
         return gameTextArea;
     }
 
-    public static class InputSignal {
-
-    }
 
     public void callStartSceneSoundControl(ActionEvent event) throws IOException {
         css.guiSoundControlToggle(event);

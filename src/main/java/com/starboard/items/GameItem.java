@@ -166,14 +166,7 @@ public abstract class GameItem implements Cloneable {
 
     @Override
     public String toString() {
-        return "GameItem{" +
-                "name='" + name + '\'' +
-                ", damage=" + damage +
-                ", description='" + description + '\'' +
-                ", quantity=" + quantity +
-                ", weight=" + weight +
-                ", maxAmmo=" + maxAmmo +
-                ", totalAmmo=" + totalAmmo +
-                '}';
+        return
+               name + " | " + "Dmg: " + damage + " | " + "Qty: " + quantity + " | " + " Wgt: " + weight + " | " + " Max Ammo/Total: " + maxAmmo + "/" + totalAmmo;
     }
 }
