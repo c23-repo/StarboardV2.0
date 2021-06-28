@@ -39,7 +39,7 @@ public class InputHandler {
 
         parser.parse(input);
         String[] command = new String[2];
-        if (parser.getParseStatus()){
+        if (parser.getParseStatus()) {
             command[0] = parser.getFirstCommand();
             command[1] = parser.getSecondCommand();
         }

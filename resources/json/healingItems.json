@@ -4,7 +4,7 @@
     "healValue": 30,
     "description": "This is a small potion.",
     "quantity": 1,
-    "weight": 0.000001
+    "weight": 0.15
   },
   {
     "name": "apple",
@@ -18,7 +18,7 @@
     "healValue": 40,
     "description": "This is a magic band-aid",
     "quantity": 1,
-    "weight": 0.063
+    "weight": 0.003
   },
   {
     "name": "alcohol",

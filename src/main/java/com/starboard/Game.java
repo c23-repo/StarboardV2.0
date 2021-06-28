@@ -1,6 +1,5 @@
 package com.starboard;
 
-import com.gui.ControllerMainScene;
 import com.starboard.items.Container;
 import com.starboard.items.GameItem;
 import com.starboard.items.HealingItem;
@@ -17,10 +16,10 @@ import java.util.Scanner;
 
 public class Game {
     public static boolean endGame;
+    public static boolean soundOn = true;
     private static Room currentRoom;
     private static Music gameMusic;
     private static int alienNumber;
-    public static boolean soundOn = true;
 
    /* public static void main(String[] args) {
         setGameMusic(Music.backgroundMusic);
@@ -31,7 +30,6 @@ public class Game {
         init();
         Main.main(args);
     }*/
-
 
     public static void init() {
 

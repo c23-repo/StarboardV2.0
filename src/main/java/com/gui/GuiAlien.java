@@ -1,7 +1,5 @@
 package com.gui;
 
-import com.starboard.Battle;
-import com.starboard.Player;
 import com.starboard.Room;
 import com.starboard.items.Weapon;
 import com.starboard.util.Prompt;

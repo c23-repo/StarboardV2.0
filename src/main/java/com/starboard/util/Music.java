@@ -31,10 +31,9 @@ public class Music {
 
     public void play() {
         if (Game.isSoundOn()) {
-            if (Game.getGameMusic() == keyboard){
+            if (Game.getGameMusic() == keyboard) {
                 clip.setFramePosition(6);
-            }
-            else
+            } else
                 clip.setFramePosition(0);
             clip.start();
         }

@@ -108,11 +108,11 @@ public class Player {
         return getHp() <= 0;
     }
 
-    private void decreaseHelper(GameItem firearm, GameItem ammo, int shotsFired){
+    private void decreaseHelper(GameItem firearm, GameItem ammo, int shotsFired) {
 
-        if (ammo != null){
+        if (ammo != null) {
             ammo.setTotalAmmo(ammo.getTotalAmmo() - shotsFired);
-            if (firearm.getMaxAmmo() > ammo.getTotalAmmo()){
+            if (firearm.getMaxAmmo() > ammo.getTotalAmmo()) {
                 firearm.setTotalAmmo(ammo.getTotalAmmo());
             } else {
                 firearm.setMaxAmmo(firearm.getMaxAmmo() - shotsFired);
@@ -171,13 +171,13 @@ public class Player {
     private void weaponLoadHelper(GameItem firearm, GameItem ammo) {
         if (firearm.getTotalAmmo() == 0) {
             firearm.setTotalAmmo(ammo.getMaxAmmo());
-            if (firearm.getName().equals("dp12")){
+            if (firearm.getName().equals("dp12")) {
                 firearm.setDamage(ammo.getDamage() * 2);
             } else {
                 firearm.setDamage(ammo.getDamage());
             }
         }
-        if (firearm.getMaxAmmo() > ammo.getTotalAmmo()){
+        if (firearm.getMaxAmmo() > ammo.getTotalAmmo()) {
             firearm.setTotalAmmo(ammo.getTotalAmmo());
         }
     }
@@ -236,12 +236,12 @@ public class Player {
             craftItem = item.getName().equals("torch") ? inventory.get("shotgun") : inventory.get("torch");
             GameItem dblPump;
 
-            if (item.getName().equals("torch")){
+            if (item.getName().equals("torch")) {
                 dblPump = new Weapon("dp12", dmg, "Dbl-Barrel Pump Shotgun",
                         1, 4.27, true, craftItem.getMaxAmmo(), 0);
                 inventory.remove("torch", item);
                 inventory.remove("shotgun", craftItem);
-            } else  {
+            } else {
                 dblPump = new Weapon("dp12", dmg, "Dbl-Barrel Pump Shotgun",
                         1, 4.27, true, item.getMaxAmmo(), 0);
                 inventory.remove("shotgun", item);
@@ -257,10 +257,10 @@ public class Player {
             GameItem molotovCocktail = new Weapon("molotov", -60, "Molotov Cocktail",
                     1, 0.057, false, -60);
             inventory.putIfAbsent("molotov", molotovCocktail);
-            if (item.getName().equals("rag")){
+            if (item.getName().equals("rag")) {
                 inventory.remove("rag", item);
                 inventory.remove("alcohol", craftItem);
-            } else  {
+            } else {
                 inventory.remove("alcohol", item);
                 inventory.remove("rag", craftItem);
             }
@@ -270,11 +270,11 @@ public class Player {
             System.out.println("I have a Knife and M4, time to poke around! #bayonet #jokes!");
             ConsoleColors.reset();
             craftItem = item.getName().equals("knife") ? inventory.get("m4") : inventory.get("knife");
-            if (craftItem.getName().equals("m4")){
+            if (craftItem.getName().equals("m4")) {
                 craftItem.setBaseDamage(craftItem.getBaseDamage() + item.getDamage());
                 craftItem.setWeight(craftItem.getWeight() + item.getWeight());
                 craftItem.setDescription("M4 with Bayonet");
-                if (!inventory.containsKey("magazine")){
+                if (!inventory.containsKey("magazine")) {
                     craftItem.setDamage(craftItem.getBaseDamage());
                 }
                 inventory.remove("knife", item);
@@ -282,7 +282,7 @@ public class Player {
                 item.setBaseDamage(craftItem.getBaseDamage() + item.getDamage());
                 item.setWeight(craftItem.getWeight() + item.getWeight());
                 item.setDescription("M4 with Bayonet");
-                if (!inventory.containsKey("magazine")){
+                if (!inventory.containsKey("magazine")) {
                     item.setDamage(item.getBaseDamage());
                 }
                 inventory.remove("knife", craftItem);
@@ -291,26 +291,26 @@ public class Player {
             ConsoleColors.changeTo(ConsoleColors.MAGENTA_BOLD_BRIGHT);
             System.out.println("This Charger will juice up my Magazine, now it's ..... Electric! #boogieWoogieWoogie");
             ConsoleColors.reset();
-            if (item.getName().equals("m4")){
-               craftItem = inventory.get("magazine");
-               craftItem2 = inventory.get("charger");
-               craftItem.setDamage(craftItem2.getDamage());
-               craftItem.setWeight(craftItem.getWeight() + craftItem2.getWeight());
-               inventory.remove("charger", craftItem2);
+            if (item.getName().equals("m4")) {
+                craftItem = inventory.get("magazine");
+                craftItem2 = inventory.get("charger");
+                craftItem.setDamage(craftItem2.getDamage());
+                craftItem.setWeight(craftItem.getWeight() + craftItem2.getWeight());
+                inventory.remove("charger", craftItem2);
             } else {
                 craftItem = item.getName().equals("charger") ? inventory.get("magazine") : inventory.get("charger");
-                if (craftItem.getName().equals("magazine")){
+                if (craftItem.getName().equals("magazine")) {
                     craftItem.setWeight(craftItem.getWeight() + item.getWeight());
                     craftItem.setDamage(item.getDamage());
                     inventory.remove("charger", item);
-                    if (inventory.containsKey("m4")){
+                    if (inventory.containsKey("m4")) {
                         inventory.get("m4").setDamage(craftItem.getDamage());
                     }
                 } else {
                     item.setWeight(craftItem.getWeight() + item.getWeight());
                     item.setDamage(craftItem.getDamage());
                     inventory.remove("charger", craftItem);
-                    if (inventory.containsKey("m4")){
+                    if (inventory.containsKey("m4")) {
                         inventory.get("m4").setDamage(item.getDamage());
                     }
                 }

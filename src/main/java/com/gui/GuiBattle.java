@@ -2,17 +2,16 @@ package com.gui;
 
 import com.starboard.Game;
 import com.starboard.Room;
-import com.starboard.util.ConsoleColors;
 import com.starboard.util.Music;
 
 public class GuiBattle {
+    public static StringBuilder battleStatus = new StringBuilder();
     private final Room room;
     private final GuiAlien guiAlien;
     private final GuiPlayer guiPlayer;
+    public boolean escaped;
     private double escapeChance;
     private boolean isWinning;
-    public boolean escaped;
-    public static StringBuilder battleStatus = new StringBuilder();
 
     public GuiBattle(GuiAlien guiAlien, GuiPlayer guiPlayer, Room room) {
         this.guiAlien = guiAlien;
@@ -27,7 +26,7 @@ public class GuiBattle {
             if (!guiPlayer.isKilled()) {
                 //System.out.println("\n" + ConsoleColors.RED_BACKGROUND_BRIGHT + "Alien Present" + ConsoleColors.RESET + ConsoleColors.RED_BOLD + " Fight for your life!" + ConsoleColors.RESET);
                 //battleStatus.append( "\nAlien Present...... Fight for your life!");
-                guiPlayer.attack(guiAlien,weapon);
+                guiPlayer.attack(guiAlien, weapon);
 
                 if (!guiAlien.isKilled())
                     guiAlien.attack(guiPlayer);
@@ -66,7 +65,7 @@ public class GuiBattle {
             battleStatus.append("\nYou are lucky, Escaped from the brutal alien!");
             Game.setGameMusic(Music.backgroundMusic);
             guiAlien.setExisted(false);
-            escaped=true;
+            escaped = true;
             return true;
         } else {
             battleStatus.append("\nGood try but you failed to escape this time, be prepared to fight!");

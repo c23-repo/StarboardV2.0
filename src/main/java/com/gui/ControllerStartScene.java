@@ -1,10 +1,6 @@
 package com.gui;//package sample;
 
-import com.starboard.Alien;
-import com.starboard.Battle;
 import com.starboard.Game;
-import com.starboard.Player;
-import com.starboard.util.Music;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -48,7 +44,7 @@ public class ControllerStartScene implements Initializable {
     }
 
     @FXML
-    private void loadNewGame(ActionEvent event) throws IOException {
+    private void loadChooseDifficulty(ActionEvent event) throws IOException {
         BorderPane pane = (BorderPane) Main.loadFXML("gameChoice");
         Scene scene = new Scene(pane, 1000, 500);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -59,16 +55,15 @@ public class ControllerStartScene implements Initializable {
     @FXML
     private void loadMainGame(ActionEvent event) throws IOException {
         Game.init();
-        if(training.isSelected()){
+        if (training.isSelected()) {
             Game.setAlienNumber(0);
-        }
-        else if(easy.isSelected()){
+        } else if (easy.isSelected()) {
             Game.setAlienNumber(2);
-        }else if(intermediate.isSelected()){
+        } else if (intermediate.isSelected()) {
             Game.setAlienNumber(4);
-        }else if(hard.isSelected()){
+        } else if (hard.isSelected()) {
             Game.setAlienNumber(6);
-        }else if(hell.isSelected()){
+        } else if (hell.isSelected()) {
             Game.setAlienNumber(8);
         }
 

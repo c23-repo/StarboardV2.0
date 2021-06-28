@@ -1,6 +1,5 @@
 package com.starboard.util;
 
-import com.starboard.Alien;
 import com.starboard.Game;
 import com.starboard.Player;
 

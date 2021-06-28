@@ -5,6 +5,7 @@ import com.starboard.Player;
 public class Weapon extends GameItem implements Usable {
     private int damage;
     private int baseDamage;
+
     public Weapon() {
         isPortable = true;
     }
