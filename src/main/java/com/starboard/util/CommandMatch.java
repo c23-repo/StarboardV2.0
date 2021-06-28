@@ -1,5 +1,8 @@
 package com.starboard.util;
 
+import com.gui.ControllerMainScene;
+import com.gui.GuiBattle;
+import com.starboard.Alien;
 import com.starboard.Game;
 import com.starboard.Player;
 
@@ -64,24 +67,25 @@ public class CommandMatch {
         String action = command[0];
         String subject = command[1];
 
-        switch (action) {
-            case "get":
-                take(subject, player);
-                break;
-            case "drop":
-                drop(subject, player);
-                break;
-            case "go":
-                goToRoom(subject);
-                break;
-            case "open":
-                openContainer(subject, player);
-                break;
-            case "use":
+        if(Game.getGameMusic()==Music.battleMusic){
+            if(action.equalsIgnoreCase("use"))
                 use(subject, player);
-                break;
-
-
+        }
+        else{
+            switch (action) {
+                case "get":
+                    take(subject, player);
+                    break;
+                case "drop":
+                    drop(subject, player);
+                    break;
+                case "go":
+                    goToRoom(subject);
+                    break;
+                case "open":
+                    openContainer(subject, player);
+                    break;
+        }
         }
 
     }

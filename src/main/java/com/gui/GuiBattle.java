@@ -36,7 +36,6 @@ public class GuiBattle {
                 }
             }
             if (guiAlien.isConfirmedKilled() && !guiPlayer.isKilled()) {
-                System.out.println("Was here");
                 battleStatus.append("\n\nCongrats, you killed one of the aliens.\n\nThere are " + guiAlien.getNumOfAliens() + " aliens left.");
                 //System.out.println("Congrats, you killed one of the aliens.");
                 //System.out.println("There are " + alien.getNumOfAliens() + " aliens left.");

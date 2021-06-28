@@ -68,7 +68,7 @@ public class ControllerStartScene implements Initializable {
         }
 
         BorderPane pane = (BorderPane) Main.loadFXML("gameScene");
-        Scene scene = new Scene(pane, 1000, 500);
+        Scene scene = new Scene(pane, 1200, 700);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
