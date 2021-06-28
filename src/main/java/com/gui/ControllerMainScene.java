@@ -6,7 +6,10 @@ import com.starboard.Player;
 import com.starboard.Room;
 import com.starboard.items.Container;
 import com.starboard.items.GameItem;
+import com.starboard.items.HealingItem;
+import com.starboard.items.Weapon;
 import com.starboard.util.CommandMatch;
+import com.starboard.util.ConsoleColors;
 import com.starboard.util.Music;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -113,11 +116,26 @@ public class ControllerMainScene implements Initializable {
     public void updateStatusArea() {
         List<String> items = new ArrayList<>();
         for (GameItem item : player.getInventory().values()) {
-            items.add(item.toString());
+            items.add(toItemString(item));
         }
+
+//        for (GameItem item : player.getInventory().values()) {
+//            // if the item is a healingItem, display its healValue
+//            String healValue = item instanceof HealingItem ? (ConsoleColors.GREEN + String.valueOf(((HealingItem) item).getHealValue()) + ConsoleColors.RESET) : "n/a";
+//            // if the item is a weapon, display its damageValue
+//            String damageValue = item instanceof Weapon ? (ConsoleColors.RED + String.valueOf(item.getDamage()) + ConsoleColors.RESET) : "n/a";
+//            // if the item is a weapon, display its ammoCount
+//            String ammoValue = (item instanceof Weapon && item.isNeedsAmmo()) ? (ConsoleColors.RED + String.valueOf(item.getTotalAmmo()) + ConsoleColors.RESET) : "n/a";
+//            // this displays the weight of the game item
+//            // TODO: Make the Item Key allUpper or set a String attribute only for name display
+//            String weightValue = item instanceof Weapon ? (ConsoleColors.BLUE_BRIGHT + String.valueOf((item).getWeight()) + ConsoleColors.RESET) : "n/a";
+//            System.out.printf("%10s X %d%10s%s%10s%s%10s%s%10s%s%40s%n", item.getName().toUpperCase(), item.getQuantity(), "", healValue,
+//                    "", damageValue, "", ammoValue, "", weightValue, item.getDescription());
+//        }
 
         carriedItems.getItems().setAll(String.valueOf(items));
         carriedItems.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
 
         // clear item in the list view
         Platform.runLater(
@@ -139,7 +157,7 @@ public class ControllerMainScene implements Initializable {
                     public void run() {
                         try {
                             for (GameItem item : player.getInventory().values()) {
-                                getCarriedItems().getItems().addAll(item.toString().toUpperCase());
+                                getCarriedItems().getItems().addAll(toItemString(item).toUpperCase());
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -285,5 +303,19 @@ public class ControllerMainScene implements Initializable {
     public void handleCloseButtonAction(ActionEvent event) {
         Stage stage = (Stage) btnUserInput.getScene().getWindow();
         stage.close();
+    }
+
+    public String toItemString(GameItem item) {
+        // if the item is a healingItem, display its healValue
+        String healValue = item instanceof HealingItem ? String.valueOf(((HealingItem) item).getHealValue()) : "n/a";
+        // if the item is a weapon, display its damageValue
+        String damageValue = item instanceof Weapon ? String.valueOf(item.getDamage()): "n/a";
+        // if the item is a weapon, display its ammoCount
+        String ammoValue = (item instanceof Weapon && item.isNeedsAmmo()) ? String.valueOf(item.getTotalAmmo()) : "n/a";
+        // this displays the weight of the game item
+        // TODO: Make the Item Key allUpper or set a String attribute only for name display
+        String weightValue = item instanceof Weapon ? String.valueOf((item).getWeight()) : "n/a";
+
+        return item.getName() + " | Heal: "  + healValue + " | Dmg: " + damageValue + " | Qty: " + item.getQuantity() + " | Wt.: " + weightValue + " | Total Ammo: " + ammoValue;
     }
 }
