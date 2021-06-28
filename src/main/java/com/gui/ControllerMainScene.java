@@ -8,6 +8,7 @@ import com.starboard.items.Container;
 import com.starboard.items.GameItem;
 import com.starboard.util.CommandMatch;
 import com.starboard.util.Music;
+import com.starboard.util.Prompt;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -20,23 +21,35 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.swing.text.html.ImageView;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.List;
 
 import static com.starboard.util.Parser.aOrAn;
 
 public class ControllerMainScene implements Initializable {
     private final InputSignal inputSignal = new InputSignal();
-
+    @FXML
+    public TextArea myImageView;
     @FXML
     private TextField playerRoom;
     @FXML
@@ -104,7 +117,6 @@ public class ControllerMainScene implements Initializable {
                         updateStatusArea();
                     }
                 };
-
         getPlayerInput().setOnKeyPressed(enterPressedHandler);
         getBtnUserInput().setOnAction(eventHandler);
         updateGameTextArea();
@@ -113,13 +125,11 @@ public class ControllerMainScene implements Initializable {
 
     public void updateStatusArea() {
         List<String> items = new ArrayList<>();
-        items.add("0ne");
-        items.add("Two");
-        items.add("Three");
-        System.out.println(items.toString());
         for (GameItem item : player.getInventory().values()) {
             items.add(item.toString());
         }
+        String map = Game.getCurrentRoom().getName().toLowerCase() + ".jpg";
+        System.out.println(map);
 
         carriedItems.getItems().setAll(String.valueOf(items));
         carriedItems.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -158,6 +168,13 @@ public class ControllerMainScene implements Initializable {
                         getPlayerHealth().setText(String.valueOf(player.getHp()));
                         getPlayerRoom().setText(String.valueOf(Game.getCurrentRoom().getName().toUpperCase()));
                     }
+                });
+
+        Platform.runLater(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                  }
                 });
     }
 
