@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Sound {
     public static void play(int index) {
-        String[] soundFilesPaths = {"resources/audios/background.wav", "resources/audios/get.wav", "resources/audios/drop.wav", "resources/audios/player-attack.wav", "resources/audios/m4.wav", "resources/audios/shotgun.wav", "resources/audios/healing.wav", "resources/audios/alien-scream.wav", "resources/audios/alien-attack.wav", "resources/audios/move.wav", "resources/audios/open.wav"};
+        String[] soundFilesPaths = {"src/main/resources/audios/background.wav", "src/main/resources/audios/get.wav", "src/main/resources/audios/drop.wav", "src/main/resources/audios/player-attack.wav", "src/main/resources/audios/m4.wav", "src/main/resources/audios/shotgun.wav", "src/main/resources/audios/healing.wav", "src/main/resources/audios/alien-scream.wav", "src/main/resources/audios/alien-attack.wav", "src/main/resources/audios/move.wav", "src/main/resources/audios/open.wav"};
         try {
             File file = new File(soundFilesPaths[index]);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);

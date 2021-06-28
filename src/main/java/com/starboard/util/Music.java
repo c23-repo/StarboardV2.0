@@ -7,11 +7,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class Music {
-    public static final Music backgroundMusic = new Music("resources/audios/background.wav");
-    public static Music battleMusic = new Music("resources/audios/battle.wav");
-    public static Music alienEntry = new Music("resources/audios/alien-Entry.wav");
-    public static Music electric = new Music("resources/audios/electric.wav");
-    public static Music keyboard = new Music("resources/audios/keyboard.wav");
+    public static final Music backgroundMusic = new Music("src/main/resources/audios/background.wav");
+    public static Music battleMusic = new Music("src/main/resources/audios/battle.wav");
+    public static Music alienEntry = new Music("src/main/resources/audios/alien-Entry.wav");
+    public static Music electric = new Music("src/main/resources/audios/electric.wav");
+    public static Music keyboard = new Music("src/main/resources/audios/keyboard.wav");
     private Clip clip;
 
     public Music(String path) {

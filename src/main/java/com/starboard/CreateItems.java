@@ -16,7 +16,7 @@ class CreateItems {
         ObjectMapper mapper = new ObjectMapper();
         try {
             weaponsList = mapper.readValue(
-                    new File("resources/json/weapons.json"),
+                    new File("src/main/resources/json/weapons.json"),
                     new TypeReference<>() {
                     }
             );
@@ -31,7 +31,7 @@ class CreateItems {
         ObjectMapper mapper = new ObjectMapper();
         try {
             healingItemsList = mapper.readValue(
-                    new File("resources/json/healingItems.json"),
+                    new File("src/main/resources/json/healingItems.json"),
                     new TypeReference<>() {
                     }
             );

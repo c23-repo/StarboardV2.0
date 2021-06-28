@@ -81,7 +81,7 @@ public class Prompt {
     }
 
     public static StringBuilder showMap() {
-        File file = new File("resources/spaceship.txt");
+        File file = new File("src/main/resources/spaceship.txt");
         StringBuilder map = null;
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -143,7 +143,7 @@ public class Prompt {
     }
 
     public static void showWelcome() {
-        String path = "resources/welcome/welcome.txt";
+        String path = "src/main/resources/welcome/welcome.txt";
         String banner = null;
         try {
             banner = Files.readString(Paths.get(path));
@@ -187,7 +187,7 @@ public class Prompt {
     }
 
     public static void showIntroduction() {
-        Music keyboard = new Music("resources/audios/keyboard.wav");
+        Music keyboard = new Music("src/main/resources/audios/keyboard.wav");
         String intro = "You are at the bridge and were notified there are a few aliens boarding the ship.\n" +
                 "You need to successfully escape to the POD and kill any alien on your way to win!\n" +
                 "Good Luck!";

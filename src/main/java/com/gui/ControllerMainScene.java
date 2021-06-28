@@ -213,9 +213,9 @@ public class ControllerMainScene implements Initializable {
         String banner = null;
         String path = null;
         if (Game.getAlienNumber() == 0)
-            path = "resources/welcome/introTrainingText.txt";
+            path = "src/main/resources/welcome/introTrainingText.txt";
         else
-            path = "resources/welcome/introtext.txt";
+            path = "src/main/resources/welcome/introtext.txt";
 
         try {
             banner = Files.readString(Paths.get(path));
@@ -285,6 +285,9 @@ public class ControllerMainScene implements Initializable {
     //displays current scene
     private void updateGameTextArea(String currentScene) {
         gameTextArea.setText(currentScene);
+        if(Game.getCurrentRoom().getName().equalsIgnoreCase("POD")){
+            gameTextArea.setText("Congratulations! You successfully escape from the ship and won. You may move around at your own risk!");
+        }
     }
 
     //returns String for current scene
