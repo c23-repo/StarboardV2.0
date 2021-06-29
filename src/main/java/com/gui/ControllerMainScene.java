@@ -200,6 +200,7 @@ public class ControllerMainScene implements Initializable {
                     @Override
                     public void run() {
                         DecimalFormat decimalFormat = new DecimalFormat("#.00");
+
                         getPlayerHealth().setText(String.valueOf(guiPlayer.getHp()));
                         getPlayerRoom().setText(String.valueOf(Game.getCurrentRoom().getName().toUpperCase()));
                         getPlayerWeight().setText(decimalFormat.format(guiPlayer.getInventoryWeight())

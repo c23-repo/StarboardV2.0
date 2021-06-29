@@ -58,7 +58,7 @@
                     </effect>
                 </TextField>
             <Label layoutX="229.0" layoutY="10.0" text="Weight: " />
-            <TextField fx:id="playerWeight" alignment="CENTER" editable="false" layoutX="274.0" layoutY="10.0" prefHeight="26.0" prefWidth="128.0">
+            <TextField fx:id="playerWeight" alignment="CENTER" editable="false" layoutX="274.0" layoutY="10.0" prefHeight="26.0" prefWidth="128.0" >
                <effect>
                   <InnerShadow />
                </effect>
