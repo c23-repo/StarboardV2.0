@@ -4,19 +4,33 @@
     "healValue": 30,
     "description": "This is a small potion.",
     "quantity": 1,
-    "weight": 0.000000001
+    "weight": 0.15
   },
   {
     "name": "apple",
     "healValue": 20,
     "description": "This is a magic apple.",
     "quantity": 1,
-    "weight": 0.223
+    "weight": 0.023
   },
   {
     "name": "bandaid",
     "healValue": 40,
-    "description": "This is a magic bandaid",
+    "description": "This is a magic band-aid",
+    "quantity": 1,
+    "weight": 0.003
+  },
+  {
+    "name": "alcohol",
+    "healValue": 35,
+    "description": "Highly flammable disinfectant.",
+    "quantity": 1,
+    "weight": 0.223
+  },
+  {
+    "name": "rag",
+    "healValue": 10,
+    "description": "Dirty rag for wounds",
     "quantity": 1,
     "weight": 0.063
   }

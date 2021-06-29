@@ -4,24 +4,16 @@ import com.starboard.Player;
 
 public class Weapon extends GameItem implements Usable {
     private int damage;
-
-    @Override
-    public void use(Player player) {
-        if (player.getEquippedWeapon() != this) {
-            player.setEquippedWeapon(this);
-            System.out.println("You equipped " + this.getName() + ".");
-        }
-    }
-
-    // Constructors
+    private int baseDamage;
 
     public Weapon() {
         isPortable = true;
     }
 
+    // Constructors
+
     public Weapon(String name, int damage) {
         this();
-        // super(name);
         this.name = name;
         this.damage = damage;
     }
@@ -46,6 +38,25 @@ public class Weapon extends GameItem implements Usable {
         setWeight(weight);
     }
 
+    public Weapon(String name, int damage, String description, int quantity, double weight, boolean needsAmmo, int baseDamage) {
+        this(name, damage, description, quantity, weight);
+        setNeedsAmmo(needsAmmo);
+        setBaseDamage(baseDamage);
+    }
+
+    public Weapon(String name, int damage, String description, int quantity, double weight, boolean needsAmmo, int baseDamage, int totalAmmo) {
+        this(name, damage, description, quantity, weight, needsAmmo, baseDamage);
+        setTotalAmmo(totalAmmo);
+    }
+
+    @Override
+    public void use(Player player) {
+        if (player.getEquippedWeapon() != this) {
+            player.setEquippedWeapon(this);
+            System.out.println("You equipped " + this.getName() + ".");
+        }
+    }
+
     // Accessors
 
     public int getDamage() {
@@ -54,5 +65,15 @@ public class Weapon extends GameItem implements Usable {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    @Override
+    public int getBaseDamage() {
+        return baseDamage;
+    }
+
+    @Override
+    public void setBaseDamage(int baseDamage) {
+        this.baseDamage = baseDamage;
     }
 }

@@ -2,6 +2,7 @@ package com.starboard.util;
 
 import com.starboard.Game;
 import com.starboard.Player;
+
 import static com.starboard.util.Parser.aOrAn;
 
 /* CommandMatch is an all static class that groups methods belonging
@@ -51,12 +52,40 @@ public class CommandMatch {
                 break;
             case "quit":
                 Game.endGame = true;
-                if(Game.getAlienNumber()==0)
+                if (Game.getAlienNumber() == 0)
                     System.out.println(ConsoleColors.YELLOW + "You've quit the training. Good Luck!!" + ConsoleColors.RESET);
                 else
                     System.out.println("You've quit the game.......Thank you for playing Starboard !!");
                 break;
         }
+    }
+
+    public static void guiMatchCommand(String[] command, Player player) {
+        String action = command[0];
+        String subject = command[1];
+
+        if (Game.getGameMusic() == Music.battleMusic) {
+            if (action.equalsIgnoreCase("use"))
+                use(subject, player);
+        } else {
+            switch (action) {
+                case "get":
+                    take(subject, player);
+                    break;
+                case "drop":
+                    drop(subject, player);
+                    break;
+                case "go":
+                    goToRoom(subject);
+                    break;
+                case "open":
+                    openContainer(subject, player);
+                    break;
+                case "use":
+                    use(subject, player);
+            }
+        }
+
     }
 
     /* Player takes a GameItem with a name that matches
@@ -65,7 +94,7 @@ public class CommandMatch {
      * it finds, even if multiple containers.json have copies of the same
      * object.
      */
-    public static void take(String name, Player player) throws NullPointerException{
+    public static void take(String name, Player player) throws NullPointerException {
         try {
             player.takeItem(Game.getCurrentRoom().giveItem(name, player));
         } catch (NullPointerException e) {

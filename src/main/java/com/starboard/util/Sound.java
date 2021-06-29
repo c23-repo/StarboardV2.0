@@ -2,19 +2,26 @@ package com.starboard.util;
 
 import com.starboard.Game;
 
+import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import javax.sound.sampled.*;
+import java.io.InputStream;
 
 public class Sound {
     public static void play(int index) {
-        String[] soundFilesPaths = {"resources/audios/background.wav", "resources/audios/get.wav", "resources/audios/drop.wav", "resources/audios/player-attack.wav", "resources/audios/m4.wav", "resources/audios/shotgun.wav", "resources/audios/healing.wav", "resources/audios/alien-scream.wav", "resources/audios/alien-attack.wav", "resources/audios/move.wav", "resources/audios/open.wav"};
+        String[] soundFilesPaths = {"/background.wav", "/get.wav", "/drop.wav", "/player-attack.wav", "/m4.wav", "/shotgun.wav", "/healing.wav", "/alien-scream.wav", "/alien-attack.wav", "/move.wav", "/open.wav"};
         try {
-            File file = new File(soundFilesPaths[index]);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+
+            InputStream audioSrc = Sound.class.getResourceAsStream(soundFilesPaths[index]);
+            //add buffer for mark/reset support
+            InputStream bufferedIn = new BufferedInputStream(audioSrc);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+            /*File file = new File(soundFilesPaths[index]);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);*/
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
-            if(Game.isSoundOn())
+            if (Game.isSoundOn())
                 clip.start();
             do {
                 try {
@@ -28,6 +35,7 @@ public class Sound {
             e.printStackTrace();
         }
     }
+
     private static String getPath(String fileName) {
         return "src/main/resources/audios/" + fileName + ".wav";
     }

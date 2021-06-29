@@ -1,20 +1,26 @@
 [
-   {
-      "name": "bridge",
-      "description": "This is bridge",
-      "linkedRooms": ["Galley", "medical"],
-      "containers": {
-        "floor": "m4",
-        "wall": "small potion"
-      }
-   },
-   {
-     "name": "galley",
-     "description": "This is galley",
-     "linkedRooms": ["Galley", "medical"],
-     "containers": {
-       "floor": "laser gun",
-       "wall": "large potion"
-     }
-   }
- ]
+  {
+    "name": "bridge",
+    "description": "This is bridge",
+    "linkedRooms": [
+      "Galley",
+      "medical"
+    ],
+    "containers": {
+      "floor": "m4",
+      "wall": "small potion"
+    }
+  },
+  {
+    "name": "galley",
+    "description": "This is galley",
+    "linkedRooms": [
+      "Galley",
+      "medical"
+    ],
+    "containers": {
+      "floor": "laser gun",
+      "wall": "large potion"
+    }
+  }
+]

@@ -1,7 +1,13 @@
 package com.starboard;
 
-import com.starboard.items.*;
-import com.starboard.util.*;
+import com.starboard.items.Container;
+import com.starboard.items.GameItem;
+import com.starboard.items.HealingItem;
+import com.starboard.items.Weapon;
+import com.starboard.util.CommandMatch;
+import com.starboard.util.ConsoleColors;
+import com.starboard.util.Music;
+import com.starboard.util.Prompt;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,24 +15,22 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Game {
+    public static boolean endGame;
+    public static boolean soundOn = true;
     private static Room currentRoom;
     private static Music gameMusic;
-    private static final Music backgroundMusic = new Music("resources/audios/background.wav");
-    private static Music battleMusic = new Music("resources/audios/battle.wav");
-    private static Music alienEntry = new Music("resources/audios/alien-Entry.wav");
-    private static Music electric = new Music("resources/audios/electric.wav");
-    public static boolean endGame;
     private static int alienNumber;
-    private static boolean soundOn = true;
+    public static boolean trainingFlag;
 
-    public static void main(String[] args) {
-        setGameMusic(backgroundMusic);
+   /* public static void main(String[] args) {
+        setGameMusic(Music.backgroundMusic);
         Prompt.showWelcome();
         soundControl();
         Prompt.showInstructions();
-//        init();
         start();
-    }
+        init();
+        Main.main(args);
+    }*/
 
     public static void init() {
 
@@ -61,7 +65,6 @@ public class Game {
 
     public static void start() {
         init();
-
         alienNumber = chooseLevel();
 
         //Training mode
@@ -70,6 +73,7 @@ public class Game {
             init();
             alienNumber = chooseLevel();
         }
+        Prompt.showIntroduction();
         Prompt.showIntroduction();
 
         //initialize player
@@ -86,13 +90,22 @@ public class Game {
             //battle mode
             if (aliens.isExisted()) {
                 Battle battle = new Battle(aliens, player, currentRoom);
-                setGameMusic(battleMusic);
-                battle.fight();
+                setGameMusic(Music.battleMusic);
+
+                String userInput = InputHandler.getUserInput("Enter \"fight\" to fight the alien or \"flee\" to evade the alien?");
+                while (!userInput.equalsIgnoreCase("fight") && !userInput.equalsIgnoreCase("flee")) {
+                    userInput = InputHandler.getUserInput("Enter \"fight\" to fight the alien or \"flee\" to evade the alien?");
+                }
+                if (userInput.equalsIgnoreCase("fight")) {
+                    battle.setEscapeChance(-1);
+                    System.out.println(ConsoleColors.RED + "You've chosen to fight the alien .... be ready for the battle" + ConsoleColors.RESET);
+                }
+                battle.fight("fist");//not considedered for GUI
                 if (battle.isWinning() & !endGame) { //endGame check to allow quit while fighting
                     System.out.println("Keep moving!");
                     Prompt.showStatus(currentRoom);
                     Prompt.showInventory(player);
-                    setGameMusic(backgroundMusic);
+                    setGameMusic(Music.backgroundMusic);
                 } else break;
             }
 
@@ -118,6 +131,7 @@ public class Game {
         Prompt.showCommands();
         Player player = new Player();
         boolean endTraining = false;
+        endGame = false;
 
         while (!endTraining) {
             Prompt.showStatus(currentRoom);
@@ -135,7 +149,7 @@ public class Game {
                 endTraining = true;
             }
 
-            if (endGame){
+            if (endGame) {
                 endTraining = true;
             }
 
@@ -168,17 +182,18 @@ public class Game {
         return updateValue * 2;
     }
 
-    static void aliensSetupInCurrentRoom(Alien aliens){
+
+    public static void aliensSetupInCurrentRoom(Alien aliens) {
         aliens.setRoom(currentRoom);
         aliens.setExisted(false);
         aliens.setShowUpChance();
-        if(aliens.showUp()){
+        if (aliens.showUp()) {
             System.out.print(ConsoleColors.RED_BOLD_BRIGHT + ".  " + ConsoleColors.RESET);
             Game.getGameMusic().stop();
-            electric.play();
-            Prompt.printOneAtATime(ConsoleColors.RED_BOLD_BRIGHT + ".  .  .  .  .  .  .  .  .  .  " +ConsoleColors.RESET,200);
-            alienEntry.play();
-            electric.stop();
+            Music.electric.play();
+            Prompt.printOneAtATime(ConsoleColors.RED_BOLD_BRIGHT + ".  .  .  .  .  .  .  .  .  .  " + ConsoleColors.RESET, 200);
+            Music.alienEntry.play();
+            Music.electric.stop();
             System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "ALIEN APPEARED" + ConsoleColors.RESET + ConsoleColors.RED + " in the " + Game.getCurrentRoom().getName() + ConsoleColors.RESET);
             aliens.setExisted(true);
             try {
@@ -187,27 +202,26 @@ public class Game {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            alienEntry.stop();
+            Music.alienEntry.stop();
         }
     }
 
-    public static void soundControl(){
+    public static void soundControl() {
         String soundChoice;
-        if(isSoundOn())
-            soundChoice= InputHandler.getUserInput("\nEnter " + ConsoleColors.RED + "\"OFF\"" + ConsoleColors.RESET +
-                    " to play without the sound or Press " + ConsoleColors.GREEN + "\"Enter\" " + ConsoleColors.RESET + "to continue:" );
+        if (isSoundOn())
+            soundChoice = InputHandler.getUserInput("\nEnter " + ConsoleColors.RED + "\"OFF\"" + ConsoleColors.RESET +
+                    " to play without the sound or Press " + ConsoleColors.GREEN + "\"Enter\" " + ConsoleColors.RESET + "to continue:");
         else
-            soundChoice= InputHandler.getUserInput("\nEnter " + ConsoleColors.GREEN + "\"ON\"" + ConsoleColors.RESET +
-                    " to play with the sound or Press " + ConsoleColors.GREEN + "\"Enter\" " + ConsoleColors.RESET + "to continue:" );
+            soundChoice = InputHandler.getUserInput("\nEnter " + ConsoleColors.GREEN + "\"ON\"" + ConsoleColors.RESET +
+                    " to play with the sound or Press " + ConsoleColors.GREEN + "\"Enter\" " + ConsoleColors.RESET + "to continue:");
 
-        if(soundChoice.equalsIgnoreCase("off")){
-            soundOn =false;
+        if (soundChoice.equalsIgnoreCase("off")) {
+            soundOn = false;
             Game.getGameMusic().stop();
             System.out.print("No sound mode activated");
-            Prompt.printOneAtATime("....",400);
+            Prompt.printOneAtATime("....", 400);
             System.out.println();
-        }
-        else if(soundChoice.equalsIgnoreCase("on")){
+        } else if (soundChoice.equalsIgnoreCase("on")) {
             soundOn = true;
             Game.getGameMusic().loop();
         }
@@ -224,7 +238,7 @@ public class Game {
 
     //stop old music if it's palying, set new music and loop
     public static void setGameMusic(Music gameMusic) {
-        if(getGameMusic() != null)
+        if (getGameMusic() != null)
             getGameMusic().stop();
         Game.gameMusic = gameMusic;
         gameMusic.loop();
@@ -238,7 +252,13 @@ public class Game {
         Game.currentRoom = currentRoom;
     }
 
+    //no usage for GUI
     public static int getAlienNumber() {
         return alienNumber;
+    }
+
+    //usage for loading game choice in gui
+    public static void setAlienNumber(int alienNumber) {
+        Game.alienNumber = alienNumber;
     }
 }

@@ -1,15 +1,16 @@
 package com.starboard.items;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
+
 import static com.starboard.util.Parser.aOrAn;
 
 public class Container extends GameItem {
     //fields
 
+    private final Map<String, GameItem> contents = new HashMap<>();
     // Contents of the container are hidden by default if not specified in constructor.
     private boolean contentsHidden;
-    private final Map<String, GameItem> contents = new HashMap<>();
 
     // Constructors
 

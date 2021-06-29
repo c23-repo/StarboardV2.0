@@ -1,19 +1,26 @@
 package com.starboard;
 
-import java.io.*;
-import java.util.*;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 class CreateRooms {
     public static List<Room> create() {
         List<Room> roomsList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         try {
-            roomsList = mapper.readValue(
-                new File("resources/rooms/rooms.json"),
-                new TypeReference<List<Room>>(){}
-            );
+            roomsList = mapper.readValue(CreateRooms.class.getResourceAsStream("/rooms.json"),new TypeReference<>() {
+            });
+            /*roomsList = mapper.readValue(
+                    new File("resources/rooms/rooms.json"),
+                    new TypeReference<>() {
+                    }
+            );*/
         } catch (IOException e) {
             e.printStackTrace();
         }
