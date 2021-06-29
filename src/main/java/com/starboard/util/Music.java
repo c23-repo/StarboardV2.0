@@ -17,15 +17,12 @@ public class Music {
     private Clip clip;
 
     public Music(String path) {
-
         try {
+            File file = new File(path);
             //read audio data from whatever source (file/classloader/etc.)
             InputStream audioSrc = getClass().getResourceAsStream(path);
-//add buffer for mark/reset support
+            //add buffer for mark/reset support
             InputStream bufferedIn = new BufferedInputStream(audioSrc);
-           //AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
-
-            //File file = new File(path);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
             clip = AudioSystem.getClip();
             clip.open(audioStream);

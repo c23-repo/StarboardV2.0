@@ -48,6 +48,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
+                    <appendAssemblyId>false</appendAssemblyId> <!-- nicer looking jar name -->
                     <archive>
                         <manifest>
                             <mainClass>com.gui.NewMain</mainClass>
@@ -70,37 +71,13 @@
         </plugins>
         <resources>
             <resource>
-                <directory>resources/audios</directory>
+                <directory>src/main/resources/audios</directory>
                 <includes>
                     <include>background.wav</include>
+                    <include>battle.wav</include>
+                    <include>alien-Entry.wav</include>
+                    <include>electric.wav</include>
                     <include>keyboard.wav</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>resources/json</directory>
-                <includes>
-                    <include>*.json</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>resources/rooms</directory>
-                <includes>
-                    <include>*.json</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>resources/welcome</directory>
-                <includes>
-                    <include>*.txt</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>resources/com.gui</directory>
-                <includes>
-                    <include>*.jpg</include>
-                    <include>*.fxml</include>
-                    <include>*.css</include>
-                    <include>*.jpeg</include>
                 </includes>
             </resource>
         </resources>

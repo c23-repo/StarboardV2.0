@@ -187,7 +187,7 @@ public class Prompt {
     }
 
     public static void showIntroduction() {
-        Music keyboard = new Music("resources/audios/keyboard.wav");
+        Music keyboard = new Music("/keyboard.wav");
         String intro = "You are at the bridge and were notified there are a few aliens boarding the ship.\n" +
                 "You need to successfully escape to the POD and kill any alien on your way to win!\n" +
                 "Good Luck!";
