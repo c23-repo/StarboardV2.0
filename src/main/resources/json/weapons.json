@@ -1,0 +1,97 @@
+[
+  {
+    "name": "hammer",
+    "damage": -30,
+    "description": "This is a hammer.",
+    "quantity": 1,
+    "weight": 0.62369,
+    "needsAmmo": false,
+    "baseDamage": -30
+  },
+  {
+    "name": "axe",
+    "damage": -40,
+    "description": "This is an axe.",
+    "quantity": 1,
+    "weight": 2.72,
+    "needsAmmo": false,
+    "baseDamage": -40
+  },
+  {
+    "name": "knife",
+    "damage": -15,
+    "description": "This is a knife.",
+    "quantity": 1,
+    "weight": 0.32,
+    "needsAmmo": false,
+    "baseDamage": -15
+  },
+  {
+    "name": "m4",
+    "damage": -20,
+    "description": "M4 Assault Rifle.",
+    "quantity": 1,
+    "weight": 3.04,
+    "needsAmmo": true,
+    "baseDamage": -20,
+    "maxAmmo": 30,
+    "totalAmmo": 0
+  },
+  {
+    "name": "shotgun",
+    "damage": -25,
+    "description": "12g pump shotgun.",
+    "quantity": 1,
+    "weight": 3.82,
+    "needsAmmo": true,
+    "baseDamage": -25,
+    "maxAmmo": 6,
+    "totalAmmo": 0
+  },
+  {
+    "name": "magazine",
+    "damage": -45,
+    "description": "M4 30rd Mag",
+    "quantity": 1,
+    "weight": 0.51,
+    "needsAmmo": true,
+    "maxAmmo": 30,
+    "totalAmmo": 30
+  },
+  {
+    "name": "slugs",
+    "damage": -60,
+    "description": "Bandoleer of 12g slugs.",
+    "quantity": 1,
+    "weight": 0.297,
+    "needsAmmo": true,
+    "maxAmmo": 6,
+    "totalAmmo": 6
+  },
+  {
+    "name": "charger",
+    "damage": -70,
+    "description": "Electrified ammo upgrade for m4",
+    "quantity": 1,
+    "weight": 0.55,
+    "needsAmmo": false,
+    "baseDamage": -70
+  },
+  {
+    "name": "torch",
+    "damage": -10,
+    "description": "Welding torch",
+    "quantity": 1,
+    "weight": 1.55,
+    "needsAmmo": false,
+    "baseDamage": -10
+  },
+  {
+    "name": "pulsifier",
+    "damage": -70,
+    "description": "Energy pulse ammo upgrade",
+    "quantity": 1,
+    "weight": 0.55,
+    "needsAmmo": false
+  }
+]

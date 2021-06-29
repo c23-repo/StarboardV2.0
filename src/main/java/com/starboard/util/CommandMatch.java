@@ -81,6 +81,8 @@ public class CommandMatch {
                 case "open":
                     openContainer(subject, player);
                     break;
+                case "use":
+                    use(subject, player);
             }
         }
 

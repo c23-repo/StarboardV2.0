@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import static com.starboard.util.Parser.aOrAn;
@@ -64,6 +65,8 @@ public class ControllerMainScene implements Initializable {
     private TextField playerRoom;
     @FXML
     private TextField playerHealth;
+    @FXML
+    public TextField playerWeight;
     @FXML
     private ListView carriedItems;
     private String currentInput;
@@ -98,7 +101,7 @@ public class ControllerMainScene implements Initializable {
                             if (ui[0].equalsIgnoreCase("use")) {
                                 System.out.println(guiBattle);
                                 guiBattle.fight(ui[1]);
-                                if (!guiBattle.escaped)
+                                if (!guiBattle.escaped && !guiPlayer.isKilled())
                                     gameTextArea.setText(GuiBattle.battleStatus.toString() + "\n\nAlien Present ...... Fight for your Life! \n\nPlease use the weapon in your inventory, otherwise you will use your fist.");
                                 else
                                     gameTextArea.setText(GuiBattle.battleStatus.toString());
@@ -135,7 +138,7 @@ public class ControllerMainScene implements Initializable {
                             if (ui[0].equalsIgnoreCase("use")) {
                                 System.out.println(guiBattle);
                                 guiBattle.fight(ui[1]);
-                                if (!guiBattle.escaped)
+                                if (!guiBattle.escaped && !guiPlayer.isKilled())
                                     gameTextArea.setText(GuiBattle.battleStatus.toString() + "\n\nAlien Present ...... Fight for your Life! \n\nPlease use the weapon in your inventory, otherwise you will use your fist.");
                                 else
                                     gameTextArea.setText(GuiBattle.battleStatus.toString());
@@ -196,8 +199,11 @@ public class ControllerMainScene implements Initializable {
                 new Runnable() {
                     @Override
                     public void run() {
+                        DecimalFormat decimalFormat = new DecimalFormat("#.00");
                         getPlayerHealth().setText(String.valueOf(guiPlayer.getHp()));
                         getPlayerRoom().setText(String.valueOf(Game.getCurrentRoom().getName().toUpperCase()));
+                        getPlayerWeight().setText(decimalFormat.format(guiPlayer.getInventoryWeight())
+                                + "/" + guiPlayer.getInventoryMax());
                     }
                 });
 
@@ -212,16 +218,23 @@ public class ControllerMainScene implements Initializable {
     private void setIntroGameTextArea() {
         String banner = null;
         String path = null;
-        if (Game.getAlienNumber() == 0)
-            path = "resources/welcome/introTrainingText.txt";
+        if (Game.getAlienNumber() == 0){
+            //path = "/introTrainingText.txt";
+            banner ="Entering training mode...\n" +
+                    "You need to go to POD to finish training. Try pick up and drop off items in different rooms.";
+            Game.trainingFlag = true;
+        }
         else
-            path = "resources/welcome/introtext.txt";
+            //path = "/introtext.txt";
+        banner ="You are at the bridge and were notified there are a few aliens boarding the ship.\n" +
+                "You need to successfully escape to the POD and kill any alien on your way to win!\n" +
+                "Good Luck!!";
 
-        try {
+        /*try {
             banner = Files.readString(Paths.get(path));
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         Game.setGameMusic(Music.keyboard);
         oneAtATime(banner, 0.1);
@@ -285,6 +298,12 @@ public class ControllerMainScene implements Initializable {
     //displays current scene
     private void updateGameTextArea(String currentScene) {
         gameTextArea.setText(currentScene);
+        if(Game.trainingFlag && Game.getCurrentRoom().getName().equalsIgnoreCase("POD")){
+            gameTextArea.setText("Congratulations! You have successfully completed the training! Please restart the game to start a new game");
+        }
+        else if(Game.getCurrentRoom().getName().equalsIgnoreCase("POD")){
+            gameTextArea.setText("Congratulations! You successfully escape from the ship and won. You may move around at your own risk!");
+        }
     }
 
     //returns String for current scene
@@ -354,6 +373,10 @@ public class ControllerMainScene implements Initializable {
 
     public TextField getPlayerRoom() {
         return playerRoom;
+    }
+
+    public TextField getPlayerWeight() {
+        return playerWeight;
     }
 
     public Button getBtnUserInput() {

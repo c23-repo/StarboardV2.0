@@ -244,7 +244,7 @@ public class Prompt {
     }
 
     public static void guiShowBattleStatus(GuiAlien guiAlien, GuiPlayer guiPlayer) {
-        GuiBattle.battleStatus.append("\n╔════════HP═════════╗");
+        GuiBattle.battleStatus.append("\n╔════════ HP ═════════╗");
         GuiBattle.battleStatus.append("\n              Alien                " + guiAlien.getHp());
         GuiBattle.battleStatus.append("\n                You                 " + guiPlayer.getHp());
         GuiBattle.battleStatus.append("\n╚═══════════════════╝");

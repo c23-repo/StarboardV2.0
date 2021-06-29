@@ -41,7 +41,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>com.starboard.NewMain</mainClass>
+                    <mainClass>com.gui.NewMain</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -73,11 +73,34 @@
             <resource>
                 <directory>src/main/resources/audios</directory>
                 <includes>
-                    <include>background.wav</include>
-                    <include>battle.wav</include>
-                    <include>alien-Entry.wav</include>
-                    <include>electric.wav</include>
-                    <include>keyboard.wav</include>
+                    <include>*.wav</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/json</directory>
+                <includes>
+                    <include>*.json</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/rooms</directory>
+                <includes>
+                    <include>*.json</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/welcome</directory>
+                <includes>
+                    <include>*.txt</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/com/gui</directory>
+                <includes>
+                    <include>*.jpg</include>
+                    <include>*.fxml</include>
+                    <include>*.css</include>
+                    <include>*.jpeg</include>
                 </includes>
             </resource>
         </resources>
