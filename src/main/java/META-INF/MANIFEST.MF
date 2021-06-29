@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Main-Class: com.gui.NewMain
+Class-Path: javafx-controls-11.0.2.jar jackson-annotations-2.12.3.jar ja
+ vafx-graphics-11.0.2-mac.jar javafx-controls-11.0.2-mac.jar jackson-cor
+ e-2.12.3.jar jackson-databind-2.12.3.jar javafx-base-11.0.2.jar javafx-
+ graphics-11.0.2.jar javafx-fxml-11.0.2.jar javafx-fxml-11.0.2-mac.jar j
+ avafx-base-11.0.2-mac.jar
+
