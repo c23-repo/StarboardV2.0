@@ -68,5 +68,41 @@
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>resources/audios</directory>
+                <includes>
+                    <include>background.wav</include>
+                    <include>keyboard.wav</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>resources/json</directory>
+                <includes>
+                    <include>*.json</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>resources/rooms</directory>
+                <includes>
+                    <include>*.json</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>resources/welcome</directory>
+                <includes>
+                    <include>*.txt</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>resources/com.gui</directory>
+                <includes>
+                    <include>*.jpg</include>
+                    <include>*.fxml</include>
+                    <include>*.css</include>
+                    <include>*.jpeg</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 </project>
