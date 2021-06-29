@@ -3,21 +3,26 @@ package com.starboard.util;
 import com.starboard.Game;
 
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class Music {
-    public static final Music backgroundMusic = new Music("resources/audios/background.wav");
-    public static Music battleMusic = new Music("resources/audios/battle.wav");
-    public static Music alienEntry = new Music("resources/audios/alien-Entry.wav");
-    public static Music electric = new Music("resources/audios/electric.wav");
-    public static Music keyboard = new Music("resources/audios/keyboard.wav");
+    public static final Music backgroundMusic = new Music("/background.wav");
+    public static Music battleMusic = new Music("/battle.wav");
+    public static Music alienEntry = new Music("/alien-Entry.wav");
+    public static Music electric = new Music("/electric.wav");
+    public static Music keyboard = new Music("/keyboard.wav");
     private Clip clip;
 
     public Music(String path) {
         try {
-            File file = new File(path);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+            //read audio data from whatever source (file/classloader/etc.)
+            InputStream audioSrc = getClass().getResourceAsStream(path);
+            //add buffer for mark/reset support
+            InputStream bufferedIn = new BufferedInputStream(audioSrc);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
             clip = AudioSystem.getClip();
             clip.open(audioStream);
         } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {

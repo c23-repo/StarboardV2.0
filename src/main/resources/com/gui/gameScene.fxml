@@ -38,39 +38,45 @@
     <right>
         <VBox prefHeight="500.0">
             <HBox>
-                <Label text="Health:"/>
-                <TextField fx:id="playerHealth" alignment="CENTER" editable="false">
+                <Label text="Health:" />
+                <TextField fx:id="playerHealth" alignment="CENTER" editable="false" prefHeight="26.0" prefWidth="77.0">
                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
                     </HBox.margin>
                     <effect>
-                        <InnerShadow/>
+                        <InnerShadow />
                     </effect>
                 </TextField>
 
-                <Label text="Room:"/>
-                <TextField fx:id="playerRoom" alignment="CENTER" editable="false">
+                <Label text="Room:" />
+                <TextField fx:id="playerRoom" alignment="CENTER" editable="false" prefHeight="26.0" prefWidth="143.0">
                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
                     </HBox.margin>
                     <effect>
-                        <InnerShadow/>
+                        <InnerShadow />
                     </effect>
                 </TextField>
+            <Label layoutX="229.0" layoutY="10.0" text="Weight: " />
+            <TextField fx:id="playerWeight" alignment="CENTER" editable="false" layoutX="274.0" layoutY="10.0" prefHeight="26.0" prefWidth="128.0" >
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </TextField>
             </HBox>
 
             <VBox fx:id="inventoryBox">
                 <Label alignment="TOP_LEFT" text="Inventory List">
                     <font>
-                        <Font size="12.0"/>
+                        <Font size="12.0" />
                     </font>
                 </Label>
                 <ListView fx:id="carriedItems" onMouseClicked="#updateStatusArea" prefHeight="150.0" prefWidth="500.0">
                     <effect>
-                        <InnerShadow/>
+                        <InnerShadow />
                     </effect>
                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </VBox.margin>
                 </ListView>
             </VBox>
@@ -78,7 +84,7 @@
             <VBox>
                 <Label alignment="TOP_LEFT" text="Map List">
                     <font>
-                        <Font size="12.0"/>
+                        <Font size="12.0" />
                     </font>
                 </Label>
                 <TextArea fx:id="myImageView" prefHeight="250.0" prefWidth="500.0" styleClass="mapbg"

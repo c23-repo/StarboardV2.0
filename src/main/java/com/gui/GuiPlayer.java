@@ -20,7 +20,7 @@ public class GuiPlayer extends com.starboard.Player {
     private int maxHp = 100;
     private int hp = maxHp;
     private double inventoryWeight = 0; // This is the weight in kilograms
-    private Weapon equippedWeapon = new Weapon("fist", 8);
+    private Weapon equippedWeapon = new Weapon("fist",10);
 
     // Business
     public void attack(GuiAlien guiAlien, String weapon) {
@@ -72,7 +72,7 @@ public class GuiPlayer extends com.starboard.Player {
                 }
                 System.out.println("You punched alien with your fist");
                 GuiBattle.battleStatus.append("\n\nYou punched alien with your fist");
-                guiAlien.setHp(guiAlien.getHp() - equippedWeapon.getDamage());
+                guiAlien.setHp(guiAlien.getHp() - 10);
                 Sound.play(3); // index 3 is file path for player attack sound file
                 Sound.play(7); // index 7 is file path for alien scream sound file
                 Prompt.guiShowBattleStatus(guiAlien, this);
