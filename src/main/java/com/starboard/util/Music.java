@@ -18,7 +18,6 @@ public class Music {
 
     public Music(String path) {
         try {
-            File file = new File(path);
             //read audio data from whatever source (file/classloader/etc.)
             InputStream audioSrc = getClass().getResourceAsStream(path);
             //add buffer for mark/reset support

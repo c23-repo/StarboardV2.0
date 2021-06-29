@@ -46,7 +46,8 @@ public class GuiBattle {
             }
             if (guiPlayer.isKilled() && !Game.endGame) {//endgame = player quit in the middle of the fight
                 //System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "You are killed by alien! Game Over!" + ConsoleColors.RESET);
-                battleStatus.append("\nYou are killed by alien! Game Over!");
+                battleStatus.append("\n\nYou are killed by alien! Game Over!");
+                Game.getGameMusic().stop();
                 setWinning(false);
             }
         } else {

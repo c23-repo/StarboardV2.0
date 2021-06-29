@@ -45,7 +45,7 @@ public class ControllerStartScene implements Initializable {
 
     @FXML
     private void loadChooseDifficulty(ActionEvent event) throws IOException {
-        BorderPane pane = (BorderPane) Main.loadFXML("gameChoice");
+        BorderPane pane = (BorderPane) Main.loadFXML("/gameChoice");
         Scene scene = new Scene(pane, 1000, 500);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
@@ -67,7 +67,7 @@ public class ControllerStartScene implements Initializable {
             Game.setAlienNumber(8);
         }
 
-        BorderPane pane = (BorderPane) Main.loadFXML("gameScene");
+        BorderPane pane = (BorderPane) Main.loadFXML("/gameScene");
         Scene scene = new Scene(pane, 1200, 700);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
